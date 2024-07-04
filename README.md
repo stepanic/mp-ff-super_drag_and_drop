@@ -1,2 +1,7 @@
-# mp-ff-super_drag_and_drop
-FlutterFlow Marketplace port of super_drag_and_drop library
+# mp-ff-super-drag-and-drop
+
+A new Flutter project.
+
+## Getting Started
+
+FlutterFlow projects are built to run on the Flutter _stable_ release.
