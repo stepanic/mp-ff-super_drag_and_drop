@@ -1,3 +1,5 @@
+import '/auth/firebase_auth/auth_util.dart';
+import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -68,6 +70,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             children: [
               FFButtonWidget(
                 onPressed: () async {
+                  // select files and upload to Firestore
                   final selectedFiles = await selectFiles(
                     allowedExtensions: ['mp3', 'wav'],
                     multiFile: true,
@@ -106,6 +109,29 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       setState(() {});
                       return;
                     }
+                  }
+
+                  // i=0
+                  _model.ii = 0;
+                  setState(() {});
+                  while (_model.ii < _model.uploadedFileUrls.length) {
+                    // create Firestore `file` Document
+
+                    await FilesRecord.collection.doc().set({
+                      ...createFilesRecordData(
+                        ownerRef: currentUserReference,
+                        fileUrl: _model.uploadedFileUrls[_model.ii],
+                      ),
+                      ...mapToFirestore(
+                        {
+                          'read_access': [currentUserReference],
+                          'write_access': [currentUserReference],
+                        },
+                      ),
+                    });
+                    // i+=1
+                    _model.ii = _model.ii + 1;
+                    setState(() {});
                   }
                 },
                 text: 'Select file',
