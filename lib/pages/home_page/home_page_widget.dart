@@ -119,9 +119,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
                     await FilesRecord.collection.doc().set({
                       ...createFilesRecordData(
-                        ownerRef: currentUserReference,
-                        fileUrl: _model.uploadedFileUrls[_model.ii],
-                      ),
+                          ownerRef: currentUserReference,
+                          fileUrl: _model.uploadedFileUrls[_model.ii],
+                          fileN),
                       ...mapToFirestore(
                         {
                           'read_access': [currentUserReference],
