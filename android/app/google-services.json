@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "253605455663",
+    "project_id": "mp-ff-super-drag-and-drop",
+    "storage_bucket": "mp-ff-super-drag-and-drop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:253605455663:android:99e34dbb3a2ff837cb23da",
+        "android_client_info": {
+          "package_name": "hr.ff.mpffsuperdraganddrop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "253605455663-b7nmss9uvo29kn0hukiiqqikd57tpeln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "hr.ff.mpffsuperdraganddrop",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "253605455663-c4o417ujob3c0bvh7d9sdjfg0membs4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVl2S2OW9GCpZNvsOYFMha7d5Cm-HEnQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "253605455663-c4o417ujob3c0bvh7d9sdjfg0membs4c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "253605455663-9tosl1hn6hht3mfbc0t5cjk242ve39sv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "hr.ff.mpffsuperdraganddrop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
