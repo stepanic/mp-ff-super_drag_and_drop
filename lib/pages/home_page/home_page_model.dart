@@ -6,6 +6,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  bool isDataUploading = false;
+  List<FFUploadedFile> uploadedLocalFiles = [];
 
   @override
   void initState(BuildContext context) {}
