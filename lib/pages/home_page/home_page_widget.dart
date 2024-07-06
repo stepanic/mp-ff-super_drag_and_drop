@@ -1,3 +1,4 @@
+import '/backend/firebase_storage/storage.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -75,6 +76,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     setState(() => _model.isDataUploading = true);
                     var selectedUploadedFiles = <FFUploadedFile>[];
 
+                    var downloadUrls = <String>[];
                     try {
                       selectedUploadedFiles = selectedFiles
                           .map((m) => FFUploadedFile(
@@ -82,12 +84,23 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 bytes: m.bytes,
                               ))
                           .toList();
+
+                      downloadUrls = (await Future.wait(
+                        selectedFiles.map(
+                          (f) async => await uploadData(f.storagePath, f.bytes),
+                        ),
+                      ))
+                          .where((u) => u != null)
+                          .map((u) => u!)
+                          .toList();
                     } finally {
                       _model.isDataUploading = false;
                     }
-                    if (selectedUploadedFiles.length == selectedFiles.length) {
+                    if (selectedUploadedFiles.length == selectedFiles.length &&
+                        downloadUrls.length == selectedFiles.length) {
                       setState(() {
                         _model.uploadedLocalFiles = selectedUploadedFiles;
+                        _model.uploadedFileUrls = downloadUrls;
                       });
                     } else {
                       setState(() {});
