@@ -121,6 +121,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       ...createFilesRecordData(
                         ownerRef: currentUserReference,
                         fileUrl: _model.uploadedFileUrls[_model.ii],
+                        isDeleted: false,
+                        fileName: '<FILE_NAME>',
                       ),
                       ...mapToFirestore(
                         {
