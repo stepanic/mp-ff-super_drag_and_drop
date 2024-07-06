@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>253605455663-9tosl1hn6hht3mfbc0t5cjk242ve39sv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.253605455663-9tosl1hn6hht3mfbc0t5cjk242ve39sv</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>253605455663-b7nmss9uvo29kn0hukiiqqikd57tpeln.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA0EW7Pu5DG4zcmEyaP4l3HTDx_Dpm2aEE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>253605455663</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>hr.ff.mpffsuperdraganddrop</string>
+	<key>PROJECT_ID</key>
+	<string>mp-ff-super-drag-and-drop</string>
+	<key>STORAGE_BUCKET</key>
+	<string>mp-ff-super-drag-and-drop.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:253605455663:ios:71a6f2304c0fdbcdcb23da</string>
+</dict>
+</plist>
