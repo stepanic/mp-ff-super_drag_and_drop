@@ -41,12 +41,18 @@ class FilesRecord extends FirestoreRecord {
   bool get isDeleted => _isDeleted ?? false;
   bool hasIsDeleted() => _isDeleted != null;
 
+  // "file_name" field.
+  String? _fileName;
+  String get fileName => _fileName ?? '';
+  bool hasFileName() => _fileName != null;
+
   void _initializeFields() {
     _ownerRef = snapshotData['owner_ref'] as DocumentReference?;
     _readAccess = getDataList(snapshotData['read_access']);
     _writeAccess = getDataList(snapshotData['write_access']);
     _fileUrl = snapshotData['file_url'] as String?;
     _isDeleted = snapshotData['is_deleted'] as bool?;
+    _fileName = snapshotData['file_name'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -86,12 +92,14 @@ Map<String, dynamic> createFilesRecordData({
   DocumentReference? ownerRef,
   String? fileUrl,
   bool? isDeleted,
+  String? fileName,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'owner_ref': ownerRef,
       'file_url': fileUrl,
       'is_deleted': isDeleted,
+      'file_name': fileName,
     }.withoutNulls,
   );
 
@@ -108,12 +116,19 @@ class FilesRecordDocumentEquality implements Equality<FilesRecord> {
         listEquality.equals(e1?.readAccess, e2?.readAccess) &&
         listEquality.equals(e1?.writeAccess, e2?.writeAccess) &&
         e1?.fileUrl == e2?.fileUrl &&
-        e1?.isDeleted == e2?.isDeleted;
+        e1?.isDeleted == e2?.isDeleted &&
+        e1?.fileName == e2?.fileName;
   }
 
   @override
-  int hash(FilesRecord? e) => const ListEquality().hash(
-      [e?.ownerRef, e?.readAccess, e?.writeAccess, e?.fileUrl, e?.isDeleted]);
+  int hash(FilesRecord? e) => const ListEquality().hash([
+        e?.ownerRef,
+        e?.readAccess,
+        e?.writeAccess,
+        e?.fileUrl,
+        e?.isDeleted,
+        e?.fileName
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is FilesRecord;
