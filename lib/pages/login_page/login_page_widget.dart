@@ -59,45 +59,49 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FFButtonWidget(
-                onPressed: () {
-                  print('Button pressed ...');
-                },
-                text: 'Login with Google',
-                options: FFButtonOptions(
-                  height: 40.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                  iconPadding:
-                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                  color: FlutterFlowTheme.of(context).primary,
-                  textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Readex Pro',
-                        color: Colors.white,
-                        letterSpacing: 0.0,
-                      ),
-                  elevation: 3.0,
-                  borderSide: const BorderSide(
-                    color: Colors.transparent,
-                    width: 1.0,
+          child: Align(
+            alignment: const AlignmentDirectional(0.0, -1.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FFButtonWidget(
+                  onPressed: () {
+                    print('Button pressed ...');
+                  },
+                  text: 'Login with Google',
+                  options: FFButtonOptions(
+                    height: 40.0,
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                    iconPadding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).primary,
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Readex Pro',
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                        ),
+                    elevation: 3.0,
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
                   ),
-                  borderRadius: BorderRadius.circular(8.0),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  'Login is required because only Authenticated Users can upload files to Firebase Storage.',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Readex Pro',
-                        letterSpacing: 0.0,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    'Login is required because only Authenticated Users can upload files to Firebase Storage.',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Readex Pro',
+                          letterSpacing: 0.0,
+                        ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
