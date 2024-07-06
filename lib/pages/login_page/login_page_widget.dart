@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -66,8 +67,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FFButtonWidget(
-                  onPressed: () {
-                    print('Button pressed ...');
+                  onPressed: () async {
+                    // login with Google
+                    GoRouter.of(context).prepareAuthEvent();
+                    final user = await authManager.signInWithGoogle(context);
+                    if (user == null) {
+                      return;
+                    }
+
+                    context.goNamedAuth('HomePage', context.mounted);
                   },
                   text: 'Login with Google',
                   options: FFButtonOptions(
