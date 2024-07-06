@@ -68,6 +68,45 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               children: [
                 FFButtonWidget(
                   onPressed: () async {
+                    // Anonymous login
+                    GoRouter.of(context).prepareAuthEvent();
+                    final user = await authManager.signInAnonymously(context);
+                    if (user == null) {
+                      return;
+                    }
+
+                    context.goNamedAuth('HomePage', context.mounted);
+                  },
+                  text: 'Login as Guest',
+                  options: FFButtonOptions(
+                    height: 40.0,
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                    iconPadding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    color: FlutterFlowTheme.of(context).primary,
+                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
+                          fontFamily: 'Readex Pro',
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                        ),
+                    elevation: 3.0,
+                    borderSide: const BorderSide(
+                      color: Colors.transparent,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                ),
+                Text(
+                  'or',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Readex Pro',
+                        letterSpacing: 0.0,
+                      ),
+                ),
+                FFButtonWidget(
+                  onPressed: () async {
                     // login with Google
                     GoRouter.of(context).prepareAuthEvent();
                     final user = await authManager.signInWithGoogle(context);
@@ -108,7 +147,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         ),
                   ),
                 ),
-              ],
+              ].divide(const SizedBox(height: 12.0)),
             ),
           ),
         ),
