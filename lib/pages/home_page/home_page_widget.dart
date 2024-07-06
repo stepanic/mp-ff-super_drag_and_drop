@@ -68,7 +68,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               FFButtonWidget(
                 onPressed: () async {
                   final selectedFiles = await selectFiles(
-                    allowedExtensions: ['mp3'],
+                    allowedExtensions: ['mp3', 'wav'],
                     multiFile: true,
                   );
                   if (selectedFiles != null) {
@@ -98,7 +98,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 text: 'Select file',
                 options: FFButtonOptions(
                   height: 40.0,
-                  padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      24.0, 0.0, 24.0, 0.0),
                   iconPadding:
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primary,
