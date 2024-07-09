@@ -8,6 +8,10 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   int ii = 0;
 
+  int howManyUploadedFiles = 0;
+
+  int howManySelectedFiles = 0;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
