@@ -1,13 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/backend/schema/enums/enums.dart';
 import '/components/select_files_widget.dart';
 import '/flutter_flow/flutter_flow_audio_player.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
@@ -96,33 +95,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         height: 256.0,
                         onFileDrop:
                             (selectedFilePath, selectedFileBytes) async {
-                          // upload local file to Firebase Storage
-                          _model.localFileFirebaseStorageDownloadUrl =
-                              await actions.uploadLocalFileToFirebaseStorage(
-                            selectedFilePath,
-                            selectedFileBytes.toList(),
+                          // upload local file to Storage and create Document in Firestore
+                          await action_blocks.createLocalFileOnFirebase(
+                            context,
+                            localFilePath: selectedFilePath,
+                            localFileBytes: selectedFileBytes,
                           );
-                          // create Firestore `file` Document
-
-                          await FilesRecord.collection.doc().set({
-                            ...createFilesRecordData(
-                              ownerRef: currentUserReference,
-                              fileUrl:
-                                  _model.localFileFirebaseStorageDownloadUrl,
-                              isDeleted: false,
-                              fileName: selectedFilePath,
-                              createdAt: getCurrentTimestamp,
-                              fileType: FileType.UNKNOWN,
-                            ),
-                            ...mapToFirestore(
-                              {
-                                'read_allowed': [currentUserReference?.id],
-                                'write_allowed': [currentUserReference?.id],
-                              },
-                            ),
-                          });
-
-                          setState(() {});
                         },
                       ),
                     ),
