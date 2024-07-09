@@ -77,6 +77,8 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
         onPerformDrop: (event) async {
           print('onPerformDrop');
 
+          widget.onFilesDrop.call(event.session.items.length);
+
           // Called when user dropped the item. You can now request the data.
           // Note that data must be requested before the performDrop callback
           // is over.
@@ -99,7 +101,7 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
                   final fileBytes = await file.readAll();
 
                   print('onPerformDrop.reader.getFile: ${filePath}');
-                  widget.onFileDrop?.call(filePath, fileBytes);
+                  widget.onFileRead?.call(filePath, fileBytes);
                 }, onError: (error) {
                   print(
                       'onPerformDrop.reader.getFile.Error reading value $error');
