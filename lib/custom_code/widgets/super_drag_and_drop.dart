@@ -1,9 +1,11 @@
 // Automatic FlutterFlow imports
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'index.dart'; // Imports other custom widgets
+import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 // Begin custom widget code
@@ -16,10 +18,13 @@ class SuperDragAndDrop extends StatefulWidget {
     super.key,
     this.width,
     this.height,
+    this.onPerformDrop,
   });
 
   final double? width;
   final double? height;
+  final Future Function(List<LocalFileStruct> selectedLocalFiles)?
+      onPerformDrop;
 
   @override
   State<SuperDragAndDrop> createState() => _SuperDragAndDropState();
@@ -68,130 +73,41 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
         },
         onPerformDrop: (event) async {
           print('onPerformDrop');
-          print(event);
-          print(event.session.items.first);
-          print(event.session.items.first.dataReader?.toString());
+
           // Called when user dropped the item. You can now request the data.
           // Note that data must be requested before the performDrop callback
           // is over.
-          final item = event.session.items.first;
-          print(item.localData);
-          print('****************');
 
-          // data reader is available now
-          final reader = item.dataReader!;
+          int counter = 0;
+          for (final item in event.session.items) {
+            print('onPerformDrop item $counter');
+            // data reader is available now
+            final reader = item.dataReader!;
 
-          print(await reader.getSuggestedName());
+            final itemFormats = reader.getFormats([
+              ...Formats.standardFormats,
+            ]);
 
-          if (reader.canProvide(Formats.plainText)) {
-            reader.getValue<String>(Formats.plainText, (value) {
-              if (value != null) {
-                // You can access values through the `value` property.
-                print('Dropped text: ${value}');
-              }
-            }, onError: (error) {
-              print('Error reading value $error');
-            });
+            if (reader.canProvide(Formats.fileUri)) {
+              reader.getValue(Formats.fileUri, (value) {
+                String filePath = value?.path ?? "N/A";
+
+                reader.getFile(null, (file) async {
+                  final fileBytes = await file.readAll();
+
+                  selectedLocalFiles.add(LocalFileStruct(
+                    path: filePath,
+                    bytes: fileBytes,
+                  ));
+
+                  widget.onPerformDrop?.call(selectedLocalFiles);
+                }, onError: (error) {
+                  print(
+                      'onPerformDrop.reader.getFile.Error reading value $error');
+                });
+              });
+            }
           }
-
-          if (reader.canProvide(Formats.png)) {
-            print('---- Reading PNG----');
-            reader.getFile(Formats.png, (file) {
-              // Binary files may be too large to be loaded in memory and thus
-              // are exposed as stream.
-              final stream = file.getStream();
-
-              // Alternatively, if you know that that the value is small enough,
-              // you can read the entire value into memory:
-              // (note that readAll is mutually exclusive with getStream(), you
-              // can only use one of them)
-              // final data = file.readAll();
-            }, onError: (error) {
-              print('Error reading value $error');
-            });
-          }
-
-          if (reader.canProvide(Formats.wav)) {
-            reader.getFile(Formats.wav, (file) {
-              print('---- Reading WAV----');
-              // Binary files may be too large to be loaded in memory and thus
-              // are exposed as stream.
-              final stream = file.getStream();
-
-              // Alternatively, if you know that that the value is small enough,
-              // you can read the entire value into memory:
-              // (note that readAll is mutually exclusive with getStream(), you
-              // can only use one of them)
-              // final data = file.readAll();
-
-              print('---- Done Reading WAV----');
-            }, onError: (error) {
-              print('Error reading value $error');
-            });
-          }
-
-          var formats = reader.getFormats([
-            Formats.mp3,
-            Formats.m4a,
-            Formats.oga,
-            Formats.aac,
-            Formats.wav,
-            Formats.opus,
-            Formats.flac,
-            Formats.fileUri,
-          ]);
-
-          final itemFormats = reader.getFormats([
-            ...Formats.standardFormats,
-          ]);
-
-          var selectedUploadedFiles = <FFUploadedFile>[];
-
-          var selectedUploadedFilePath = "N/A";
-          var selectedUploadedFileBytes = null;
-
-          if (reader.canProvide(Formats.fileUri)) {
-            print('ja sam FILE URI');
-
-            reader.getValue(Formats.fileUri, (value) {
-              print('value $value');
-
-              print(value?.path);
-              selectedUploadedFilePath = value?.path ?? "N/A";
-            });
-          }
-
-          print('formati su');
-          print(itemFormats);
-
-          reader.getFile(null, (file) async {
-            print('citam fajl');
-
-            // var path = file.
-
-            // final stream = file.getStream();
-            // print(stream.toString());
-
-            final data = await file.readAll();
-
-            Uint8List bytes = Uint8List.fromList([1, 2, 3]);
-            List<int> bitovi = bytes;
-
-            selectedUploadedFileBytes = data;
-
-            // print(data.toString());
-          }, onError: (error) {
-            print('GRESKA Error reading value $error');
-          });
-
-          selectedUploadedFiles.add(
-            FFUploadedFile(
-              name: selectedUploadedFilePath,
-              bytes: selectedUploadedFileBytes,
-            ),
-          );
-
-          print(selectedUploadedFiles);
         },
         child: const Padding(
           padding: EdgeInsets.all(15.0),

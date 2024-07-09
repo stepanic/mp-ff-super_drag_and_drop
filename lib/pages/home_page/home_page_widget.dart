@@ -86,12 +86,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         width: 1.0,
                       ),
                     ),
-                    child: const SizedBox(
+                    child: SizedBox(
                       width: 256.0,
                       height: 256.0,
                       child: custom_widgets.SuperDragAndDrop(
                         width: 256.0,
                         height: 256.0,
+                        onPerformDrop: (selectedLocalFiles) async {},
                       ),
                     ),
                   ),
