@@ -100,8 +100,9 @@ class _SelectFilesWidgetState extends State<SelectFilesWidget> {
               isDeleted: false,
               //LOCAL_START
               // fileName: '<FILE_NAME>',
+              fileName: selectedFiles?[_model.ii].filePath?.split('/').last,
               // fileName: selectedFiles?[_model.ii].storagePath.split('/').last,
-              fileName: _model.uploadedLocalFiles[_model.ii].name,
+              // fileName: _model.uploadedLocalFiles[_model.ii].name,
               //LOCAL_END
               createdAt: getCurrentTimestamp,
             ),
