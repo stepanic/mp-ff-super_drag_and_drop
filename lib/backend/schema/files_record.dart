@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
 import '/backend/schema/util/schema_util.dart';
+import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -51,6 +52,11 @@ class FilesRecord extends FirestoreRecord {
   List<String> get writeAllowed => _writeAllowed ?? const [];
   bool hasWriteAllowed() => _writeAllowed != null;
 
+  // "file_type" field.
+  FileType? _fileType;
+  FileType? get fileType => _fileType;
+  bool hasFileType() => _fileType != null;
+
   void _initializeFields() {
     _ownerRef = snapshotData['owner_ref'] as DocumentReference?;
     _fileUrl = snapshotData['file_url'] as String?;
@@ -59,6 +65,7 @@ class FilesRecord extends FirestoreRecord {
     _createdAt = snapshotData['created_at'] as DateTime?;
     _readAllowed = getDataList(snapshotData['read_allowed']);
     _writeAllowed = getDataList(snapshotData['write_allowed']);
+    _fileType = deserializeEnum<FileType>(snapshotData['file_type']);
   }
 
   static CollectionReference get collection =>
@@ -100,6 +107,7 @@ Map<String, dynamic> createFilesRecordData({
   bool? isDeleted,
   String? fileName,
   DateTime? createdAt,
+  FileType? fileType,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -108,6 +116,7 @@ Map<String, dynamic> createFilesRecordData({
       'is_deleted': isDeleted,
       'file_name': fileName,
       'created_at': createdAt,
+      'file_type': fileType,
     }.withoutNulls,
   );
 
@@ -126,7 +135,8 @@ class FilesRecordDocumentEquality implements Equality<FilesRecord> {
         e1?.fileName == e2?.fileName &&
         e1?.createdAt == e2?.createdAt &&
         listEquality.equals(e1?.readAllowed, e2?.readAllowed) &&
-        listEquality.equals(e1?.writeAllowed, e2?.writeAllowed);
+        listEquality.equals(e1?.writeAllowed, e2?.writeAllowed) &&
+        e1?.fileType == e2?.fileType;
   }
 
   @override
@@ -137,7 +147,8 @@ class FilesRecordDocumentEquality implements Equality<FilesRecord> {
         e?.fileName,
         e?.createdAt,
         e?.readAllowed,
-        e?.writeAllowed
+        e?.writeAllowed,
+        e?.fileType
       ]);
 
   @override
