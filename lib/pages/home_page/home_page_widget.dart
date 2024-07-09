@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
@@ -95,12 +96,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         height: 256.0,
                         onFileDrop:
                             (selectedFilePath, selectedFileBytes) async {
+                          // upload local file to Firebase Storage
+                          _model.localFileFirebaseStorageDownloadUrl =
+                              await actions.uploadLocalFileToFirebaseStorage(
+                            selectedFilePath,
+                            selectedFileBytes.toList(),
+                          );
                           // create Firestore `file` Document
 
                           await FilesRecord.collection.doc().set({
                             ...createFilesRecordData(
                               ownerRef: currentUserReference,
-                              fileUrl: 'N/A',
+                              fileUrl:
+                                  _model.localFileFirebaseStorageDownloadUrl,
                               isDeleted: false,
                               fileName: selectedFilePath,
                               createdAt: getCurrentTimestamp,
@@ -113,6 +121,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               },
                             ),
                           });
+
+                          setState(() {});
                         },
                       ),
                     ),

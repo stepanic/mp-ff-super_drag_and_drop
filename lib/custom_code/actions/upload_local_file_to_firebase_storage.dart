@@ -10,17 +10,9 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<List<String>> uploadLocalFileToFirebaseStorage(
-    List<LocalFileStruct>? localFiles) async {
+Future<String> uploadLocalFileToFirebaseStorage(
+  String localFilePath,
+  List<int> localFileBytes,
+) async {
   // Add your function code here!
-
-  if (localFiles == null) {
-    localFiles = [];
-  }
-
-  List<String> firebaseStorageDownloadURLs = [];
-
-  // TODO: implementation
-
-  return firebaseStorageDownloadURLs;
 }
