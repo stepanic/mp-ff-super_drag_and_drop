@@ -109,6 +109,8 @@ class _SelectFilesWidgetState extends State<SelectFilesWidget> {
               {
                 'read_access': [currentUserReference],
                 'write_access': [currentUserReference],
+                'read_allowed': [currentUserReference?.id],
+                'write_allowed': [currentUserReference?.id],
               },
             ),
           });
