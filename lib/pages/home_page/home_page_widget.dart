@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/enums/enums.dart';
 import '/components/select_files_widget.dart';
 import '/flutter_flow/flutter_flow_audio_player.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
@@ -92,7 +93,27 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       child: custom_widgets.SuperDragAndDrop(
                         width: 256.0,
                         height: 256.0,
-                        onPerformDrop: (selectedLocalFiles) async {},
+                        onFileDrop:
+                            (selectedFilePath, selectedFileBytes) async {
+                          // create Firestore `file` Document
+
+                          await FilesRecord.collection.doc().set({
+                            ...createFilesRecordData(
+                              ownerRef: currentUserReference,
+                              fileUrl: 'N/A',
+                              isDeleted: false,
+                              fileName: selectedFilePath,
+                              createdAt: getCurrentTimestamp,
+                              fileType: FileType.UNKNOWN,
+                            ),
+                            ...mapToFirestore(
+                              {
+                                'read_allowed': [currentUserReference?.id],
+                                'write_allowed': [currentUserReference?.id],
+                              },
+                            ),
+                          });
+                        },
                       ),
                     ),
                   ),
