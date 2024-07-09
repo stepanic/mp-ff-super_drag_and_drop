@@ -200,6 +200,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           id: 'sample3.mp3-564e14ff',
                                           title: listViewFilesRecord.fileName,
                                         ),
+                                        //LOCAL_START
+                                        cached: true,
+                                        //LOCAL_END
                                       ),
                                       titleTextStyle:
                                           FlutterFlowTheme.of(context)
