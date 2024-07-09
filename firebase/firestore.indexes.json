@@ -9,7 +9,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "read_access",
+          "fieldPath": "read_allowed",
           "arrayConfig": "CONTAINS"
         },
         {

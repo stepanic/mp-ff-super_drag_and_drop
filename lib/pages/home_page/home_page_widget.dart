@@ -98,14 +98,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   child: Container(
                     decoration: const BoxDecoration(),
                     child: Padding(
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          12.0, 0.0, 12.0, 0.0),
                       child: StreamBuilder<List<FilesRecord>>(
                         stream: queryFilesRecord(
                           queryBuilder: (filesRecord) => filesRecord
                               .where(
-                                'read_access',
-                                arrayContains: currentUserReference,
+                                'read_allowed',
+                                arrayContains: currentUserReference?.id,
                               )
                               .where(
                                 'is_deleted',
@@ -139,7 +139,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                             scrollDirection: Axis.vertical,
                             itemCount: listViewFilesRecordList.length,
-                            separatorBuilder: (_, __) => const SizedBox(height: 12.0),
+                            separatorBuilder: (_, __) =>
+                                const SizedBox(height: 12.0),
                             itemBuilder: (context, listViewIndex) {
                               final listViewFilesRecord =
                                   listViewFilesRecordList[listViewIndex];
@@ -204,10 +205,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   text: 'Logout',
                   options: FFButtonOptions(
                     height: 40.0,
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        24.0, 0.0, 24.0, 0.0),
+                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Readex Pro',

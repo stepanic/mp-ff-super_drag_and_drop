@@ -51,6 +51,16 @@ class FilesRecord extends FirestoreRecord {
   DateTime? get createdAt => _createdAt;
   bool hasCreatedAt() => _createdAt != null;
 
+  // "read_allowed" field.
+  List<String>? _readAllowed;
+  List<String> get readAllowed => _readAllowed ?? const [];
+  bool hasReadAllowed() => _readAllowed != null;
+
+  // "write_allowed" field.
+  List<String>? _writeAllowed;
+  List<String> get writeAllowed => _writeAllowed ?? const [];
+  bool hasWriteAllowed() => _writeAllowed != null;
+
   void _initializeFields() {
     _ownerRef = snapshotData['owner_ref'] as DocumentReference?;
     _readAccess = getDataList(snapshotData['read_access']);
@@ -59,6 +69,8 @@ class FilesRecord extends FirestoreRecord {
     _isDeleted = snapshotData['is_deleted'] as bool?;
     _fileName = snapshotData['file_name'] as String?;
     _createdAt = snapshotData['created_at'] as DateTime?;
+    _readAllowed = getDataList(snapshotData['read_allowed']);
+    _writeAllowed = getDataList(snapshotData['write_allowed']);
   }
 
   static CollectionReference get collection =>
@@ -126,7 +138,9 @@ class FilesRecordDocumentEquality implements Equality<FilesRecord> {
         e1?.fileUrl == e2?.fileUrl &&
         e1?.isDeleted == e2?.isDeleted &&
         e1?.fileName == e2?.fileName &&
-        e1?.createdAt == e2?.createdAt;
+        e1?.createdAt == e2?.createdAt &&
+        listEquality.equals(e1?.readAllowed, e2?.readAllowed) &&
+        listEquality.equals(e1?.writeAllowed, e2?.writeAllowed);
   }
 
   @override
@@ -137,7 +151,9 @@ class FilesRecordDocumentEquality implements Equality<FilesRecord> {
         e?.fileUrl,
         e?.isDeleted,
         e?.fileName,
-        e?.createdAt
+        e?.createdAt,
+        e?.readAllowed,
+        e?.writeAllowed
       ]);
 
   @override

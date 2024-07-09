@@ -103,6 +103,7 @@ class _SelectFilesWidgetState extends State<SelectFilesWidget> {
               // fileName: selectedFiles?[_model.ii].storagePath.split('/').last,
               fileName: _model.uploadedLocalFiles[_model.ii].name,
               //LOCAL_END
+              createdAt: getCurrentTimestamp,
             ),
             ...mapToFirestore(
               {
