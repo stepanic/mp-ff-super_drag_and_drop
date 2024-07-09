@@ -93,7 +93,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       child: custom_widgets.SuperDragAndDrop(
                         width: 256.0,
                         height: 256.0,
-                        onFileDrop:
+                        onFileRead:
                             (selectedFilePath, selectedFileBytes) async {
                           // upload local file to Storage and create Document in Firestore
                           await action_blocks.createLocalFileOnFirebase(
@@ -102,6 +102,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             localFileBytes: selectedFileBytes,
                           );
                         },
+                        onFilesDrop: (howManyFiles) async {},
                       ),
                     ),
                   ),
