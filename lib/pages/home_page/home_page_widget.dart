@@ -103,16 +103,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       child: StreamBuilder<List<FilesRecord>>(
                         stream: queryFilesRecord(
                           queryBuilder: (filesRecord) => filesRecord
-                              .where(Filter.or(
-                                Filter(
-                                  'read_access',
-                                  arrayContains: currentUserReference,
-                                ),
-                                Filter(
-                                  'is_deleted',
-                                  isEqualTo: false,
-                                ),
-                              ))
+                              .where(
+                                'read_access',
+                                arrayContains: currentUserReference,
+                              )
+                              .where(
+                                'is_deleted',
+                                isEqualTo: false,
+                              )
                               .orderBy('created_at', descending: true),
                         ),
                         builder: (context, snapshot) {
