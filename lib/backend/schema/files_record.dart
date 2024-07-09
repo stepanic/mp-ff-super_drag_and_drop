@@ -46,6 +46,11 @@ class FilesRecord extends FirestoreRecord {
   String get fileName => _fileName ?? '';
   bool hasFileName() => _fileName != null;
 
+  // "created_at" field.
+  DateTime? _createdAt;
+  DateTime? get createdAt => _createdAt;
+  bool hasCreatedAt() => _createdAt != null;
+
   void _initializeFields() {
     _ownerRef = snapshotData['owner_ref'] as DocumentReference?;
     _readAccess = getDataList(snapshotData['read_access']);
@@ -53,6 +58,7 @@ class FilesRecord extends FirestoreRecord {
     _fileUrl = snapshotData['file_url'] as String?;
     _isDeleted = snapshotData['is_deleted'] as bool?;
     _fileName = snapshotData['file_name'] as String?;
+    _createdAt = snapshotData['created_at'] as DateTime?;
   }
 
   static CollectionReference get collection =>
@@ -93,6 +99,7 @@ Map<String, dynamic> createFilesRecordData({
   String? fileUrl,
   bool? isDeleted,
   String? fileName,
+  DateTime? createdAt,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -100,6 +107,7 @@ Map<String, dynamic> createFilesRecordData({
       'file_url': fileUrl,
       'is_deleted': isDeleted,
       'file_name': fileName,
+      'created_at': createdAt,
     }.withoutNulls,
   );
 
@@ -117,7 +125,8 @@ class FilesRecordDocumentEquality implements Equality<FilesRecord> {
         listEquality.equals(e1?.writeAccess, e2?.writeAccess) &&
         e1?.fileUrl == e2?.fileUrl &&
         e1?.isDeleted == e2?.isDeleted &&
-        e1?.fileName == e2?.fileName;
+        e1?.fileName == e2?.fileName &&
+        e1?.createdAt == e2?.createdAt;
   }
 
   @override
@@ -127,7 +136,8 @@ class FilesRecordDocumentEquality implements Equality<FilesRecord> {
         e?.writeAccess,
         e?.fileUrl,
         e?.isDeleted,
-        e?.fileName
+        e?.fileName,
+        e?.createdAt
       ]);
 
   @override
