@@ -51,5 +51,9 @@ String? getFirebaseStoragePath(String? filePath) {
     return null;
   }
 
-  return 'N/A';
+  final pathPrefix = 'users/$currentUserUid/uploads';
+  final timestamp = DateTime.now().microsecondsSinceEpoch;
+  final ext = filePath.split('.').last;
+
+  return '$pathPrefix/$timestamp.$ext';
 }
