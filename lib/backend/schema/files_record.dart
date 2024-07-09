@@ -21,16 +21,6 @@ class FilesRecord extends FirestoreRecord {
   DocumentReference? get ownerRef => _ownerRef;
   bool hasOwnerRef() => _ownerRef != null;
 
-  // "read_access" field.
-  List<DocumentReference>? _readAccess;
-  List<DocumentReference> get readAccess => _readAccess ?? const [];
-  bool hasReadAccess() => _readAccess != null;
-
-  // "write_access" field.
-  List<DocumentReference>? _writeAccess;
-  List<DocumentReference> get writeAccess => _writeAccess ?? const [];
-  bool hasWriteAccess() => _writeAccess != null;
-
   // "file_url" field.
   String? _fileUrl;
   String get fileUrl => _fileUrl ?? '';
@@ -63,8 +53,6 @@ class FilesRecord extends FirestoreRecord {
 
   void _initializeFields() {
     _ownerRef = snapshotData['owner_ref'] as DocumentReference?;
-    _readAccess = getDataList(snapshotData['read_access']);
-    _writeAccess = getDataList(snapshotData['write_access']);
     _fileUrl = snapshotData['file_url'] as String?;
     _isDeleted = snapshotData['is_deleted'] as bool?;
     _fileName = snapshotData['file_name'] as String?;
@@ -133,8 +121,6 @@ class FilesRecordDocumentEquality implements Equality<FilesRecord> {
   bool equals(FilesRecord? e1, FilesRecord? e2) {
     const listEquality = ListEquality();
     return e1?.ownerRef == e2?.ownerRef &&
-        listEquality.equals(e1?.readAccess, e2?.readAccess) &&
-        listEquality.equals(e1?.writeAccess, e2?.writeAccess) &&
         e1?.fileUrl == e2?.fileUrl &&
         e1?.isDeleted == e2?.isDeleted &&
         e1?.fileName == e2?.fileName &&
@@ -146,8 +132,6 @@ class FilesRecordDocumentEquality implements Equality<FilesRecord> {
   @override
   int hash(FilesRecord? e) => const ListEquality().hash([
         e?.ownerRef,
-        e?.readAccess,
-        e?.writeAccess,
         e?.fileUrl,
         e?.isDeleted,
         e?.fileName,

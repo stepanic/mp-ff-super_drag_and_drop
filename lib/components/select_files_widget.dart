@@ -100,8 +100,6 @@ class _SelectFilesWidgetState extends State<SelectFilesWidget> {
             ),
             ...mapToFirestore(
               {
-                'read_access': [currentUserReference],
-                'write_access': [currentUserReference],
                 'read_allowed': [currentUserReference?.id],
                 'write_allowed': [currentUserReference?.id],
               },
