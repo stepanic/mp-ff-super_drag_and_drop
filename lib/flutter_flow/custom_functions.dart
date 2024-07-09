@@ -45,3 +45,11 @@ String imageKitAsFirebaseStorageProxy(
 
   return outputUrl;
 }
+
+String? getFirebaseStoragePath(String? filePath) {
+  if (filePath == null) {
+    return null;
+  }
+
+  return 'N/A';
+}
