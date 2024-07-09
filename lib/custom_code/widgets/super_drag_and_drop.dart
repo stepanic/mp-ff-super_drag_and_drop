@@ -27,7 +27,7 @@ class SuperDragAndDrop extends StatefulWidget {
   final double? height;
   final Future Function(String selectedFilePath, List<int> selectedFileBytes)?
       onFileRead;
-  final Future Function(int howManyFiles) onFilesDrop;
+  final Future Function(int howManySelectedFiles) onFilesDrop;
 
   @override
   State<SuperDragAndDrop> createState() => _SuperDragAndDropState();

@@ -106,9 +106,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               _model.howManyUploadedFiles + 1;
                           setState(() {});
                         },
-                        onFilesDrop: (howManyFiles) async {
+                        onFilesDrop: (howManySelectedFiles) async {
                           // set 0/N
-                          _model.howManySelectedFiles = howManyFiles;
+                          _model.howManySelectedFiles = howManySelectedFiles;
                           _model.howManyUploadedFiles = 0;
                           setState(() {});
                         },
