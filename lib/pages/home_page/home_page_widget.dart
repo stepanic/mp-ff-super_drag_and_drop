@@ -104,8 +104,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         stream: queryFilesRecord(
                           queryBuilder: (filesRecord) => filesRecord
                               .where(
-                                'read_access',
-                                arrayContains: currentUserReference,
+                                'read_allowed',
+                                arrayContains: currentUserReference?.id,
                               )
                               .where(
                                 'is_deleted',
