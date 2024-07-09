@@ -13,6 +13,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   final unfocusNode = FocusNode();
   // Model for SelectFiles component.
   late SelectFilesModel selectFilesModel;
+  // Stores action output result for [Custom Action - uploadLocalFileToFirebaseStorage] action in SuperDragAndDrop widget.
+  String? localFileFirebaseStorageDownloadUrl;
 
   @override
   void initState(BuildContext context) {
