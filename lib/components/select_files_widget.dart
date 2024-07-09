@@ -110,6 +110,9 @@ class _SelectFilesWidgetState extends State<SelectFilesWidget> {
           // i+=1
           _model.ii = _model.ii + 1;
         }
+        // update page
+
+        _model.updatePage(() {});
       },
       text: 'Select files',
       options: FFButtonOptions(
