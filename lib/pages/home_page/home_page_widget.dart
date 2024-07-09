@@ -194,8 +194,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ),
                                     FlutterFlowAudioPlayer(
                                       audio: Audio.network(
-                                        functions.fileUrlToAudioPath(
-                                            listViewFilesRecord.fileUrl)!,
+                                        functions.fileUrlToAudioPath(functions
+                                            .imageKitAsFirebaseStorageProxy(
+                                                listViewFilesRecord.fileUrl,
+                                                FFAppConstants
+                                                    .FirebaseStoragePrefix,
+                                                FFAppConstants
+                                                    .ImageKitPrefix))!,
                                         metas: Metas(
                                           id: 'sample3.mp3-564e14ff',
                                           title: listViewFilesRecord.fileName,
