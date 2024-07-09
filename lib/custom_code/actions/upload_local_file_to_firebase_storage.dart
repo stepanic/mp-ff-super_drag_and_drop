@@ -11,9 +11,16 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import '/backend/firebase_storage/storage.dart';
+
 Future<String> uploadLocalFileToFirebaseStorage(
   String localFilePath,
   List<int> localFileBytes,
 ) async {
   // Add your function code here!
+
+  String firebaseStorageDownloadUrl =
+      await uploadData(localFilePath, Uint8List.fromList(localFileBytes)) ??
+          'N/A';
+  return firebaseStorageDownloadUrl;
 }
