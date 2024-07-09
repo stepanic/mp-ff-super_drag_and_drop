@@ -59,6 +59,11 @@ class _SelectFilesWidgetState extends State<SelectFilesWidget> {
 
           var downloadUrls = <String>[];
           try {
+            //LOCAL_START
+            selectedFiles.map((m) {
+              print(m.filePath);
+            }).toList();
+            //LOCAL_END
             selectedUploadedFiles = selectedFiles
                 .map((m) => FFUploadedFile(
                       name: m.storagePath.split('/').last,

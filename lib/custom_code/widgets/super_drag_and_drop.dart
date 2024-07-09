@@ -145,18 +145,26 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
             ...Formats.standardFormats,
           ]);
 
+          var selectedUploadedFiles = <FFUploadedFile>[];
+
+          var selectedUploadedFilePath = "N/A";
+          var selectedUploadedFileBytes = null;
+
           if (reader.canProvide(Formats.fileUri)) {
             print('ja sam FILE URI');
 
             reader.getValue(Formats.fileUri, (value) {
               print('value $value');
+
+              print(value?.path);
+              selectedUploadedFilePath = value?.path ?? "N/A";
             });
           }
 
           print('formati su');
           print(itemFormats);
 
-          reader.getFile(null, (file) {
+          reader.getFile(null, (file) async {
             print('citam fajl');
 
             // var path = file.
@@ -164,12 +172,26 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
             // final stream = file.getStream();
             // print(stream.toString());
 
-            // final data = file.readAll();
+            final data = await file.readAll();
+
+            Uint8List bytes = Uint8List.fromList([1, 2, 3]);
+            List<int> bitovi = bytes;
+
+            selectedUploadedFileBytes = data;
 
             // print(data.toString());
           }, onError: (error) {
             print('GRESKA Error reading value $error');
           });
+
+          selectedUploadedFiles.add(
+            FFUploadedFile(
+              name: selectedUploadedFilePath,
+              bytes: selectedUploadedFileBytes,
+            ),
+          );
+
+          print(selectedUploadedFiles);
         },
         child: const Padding(
           padding: EdgeInsets.all(15.0),
