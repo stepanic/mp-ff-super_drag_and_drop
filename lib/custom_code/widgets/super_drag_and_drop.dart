@@ -95,12 +95,8 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
                 reader.getFile(null, (file) async {
                   final fileBytes = await file.readAll();
 
-                  selectedLocalFiles.add(LocalFileStruct(
-                    path: filePath,
-                    bytes: fileBytes,
-                  ));
-
-                  widget.onPerformDrop?.call(selectedLocalFiles);
+                  print('onPerformDrop.reader.getFile: ${filePath}');
+                  widget.onFileDrop?.call(filePath, fileBytes);
                 }, onError: (error) {
                   print(
                       'onPerformDrop.reader.getFile.Error reading value $error');
