@@ -96,6 +96,7 @@ class _SelectFilesWidgetState extends State<SelectFilesWidget> {
               fileUrl: _model.uploadedFileUrls[_model.ii],
               isDeleted: false,
               fileName: '<FILE_NAME>',
+              createdAt: getCurrentTimestamp,
             ),
             ...mapToFirestore(
               {
