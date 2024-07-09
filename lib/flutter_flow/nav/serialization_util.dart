@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import '/backend/backend.dart';
 
+import '/backend/schema/enums/enums.dart';
+
 import '../../flutter_flow/place.dart';
 import '../../flutter_flow/uploaded_file.dart';
 
@@ -87,6 +89,9 @@ String? serializeParam(
       case ParamType.Document:
         final reference = (param as FirestoreRecord).reference;
         data = _serializeDocumentReference(reference);
+
+      case ParamType.Enum:
+        data = (param is Enum) ? param.serialize() : null;
 
       default:
         data = null;
@@ -177,6 +182,7 @@ enum ParamType {
   JSON,
   Document,
   DocumentReference,
+  Enum,
 }
 
 dynamic deserializeParam<T>(
@@ -231,6 +237,9 @@ dynamic deserializeParam<T>(
         return json.decode(param);
       case ParamType.DocumentReference:
         return _deserializeDocumentReference(param, collectionNamePath ?? []);
+
+      case ParamType.Enum:
+        return deserializeEnum<T>(param);
 
       default:
         return null;
