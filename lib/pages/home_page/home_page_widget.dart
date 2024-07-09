@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/select_files_widget.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -96,52 +97,100 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 Flexible(
                   child: Container(
                     decoration: const BoxDecoration(),
-                    child: StreamBuilder<List<FilesRecord>>(
-                      stream: queryFilesRecord(),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: CircularProgressIndicator(
-                                valueColor: AlwaysStoppedAnimation<Color>(
-                                  FlutterFlowTheme.of(context).primary,
+                    child: Padding(
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                      child: StreamBuilder<List<FilesRecord>>(
+                        stream: queryFilesRecord(
+                          queryBuilder: (filesRecord) => filesRecord
+                              .where(Filter.or(
+                                Filter(
+                                  'read_access',
+                                  arrayContains: currentUserReference,
+                                ),
+                                Filter(
+                                  'is_deleted',
+                                  isEqualTo: false,
+                                ),
+                              ))
+                              .orderBy('created_at', descending: true),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }
-                        List<FilesRecord> listViewFilesRecordList =
-                            snapshot.data!;
-                        return ListView.builder(
-                          padding: EdgeInsets.zero,
-                          scrollDirection: Axis.vertical,
-                          itemCount: listViewFilesRecordList.length,
-                          itemBuilder: (context, listViewIndex) {
-                            final listViewFilesRecord =
-                                listViewFilesRecordList[listViewIndex];
-                            return Container(
-                              decoration: const BoxDecoration(),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Hello World',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
                             );
-                          },
-                        );
-                      },
+                          }
+                          List<FilesRecord> listViewFilesRecordList =
+                              snapshot.data!;
+                          return ListView.separated(
+                            padding: const EdgeInsets.fromLTRB(
+                              0,
+                              12.0,
+                              0,
+                              128.0,
+                            ),
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewFilesRecordList.length,
+                            separatorBuilder: (_, __) => const SizedBox(height: 12.0),
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewFilesRecord =
+                                  listViewFilesRecordList[listViewIndex];
+                              return Container(
+                                decoration: const BoxDecoration(),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      listViewFilesRecord.fileName,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                    FlutterFlowIconButton(
+                                      borderColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      borderRadius: 20.0,
+                                      borderWidth: 1.0,
+                                      buttonSize: 40.0,
+                                      fillColor:
+                                          FlutterFlowTheme.of(context).accent1,
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                        size: 24.0,
+                                      ),
+                                      onPressed: () async {
+                                        // is_deleted=true
+
+                                        await listViewFilesRecord.reference
+                                            .update(createFilesRecordData(
+                                          isDeleted: true,
+                                        ));
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ),
