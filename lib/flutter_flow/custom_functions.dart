@@ -20,3 +20,27 @@ String? fileUrlToAudioPath(String? fileUrl) {
 
   return fileUrl;
 }
+
+String imageKitAsFirebaseStorageProxy(
+  String firebaseStorageUrl,
+  String firebaseStoragePrefix,
+  String imageKitPrefix,
+) {
+  String inputUrl = firebaseStorageUrl;
+
+  // Define the part of the URL to be replaced
+  String partToReplace = firebaseStoragePrefix;
+  // Define the replacement part of the URL
+  String replacementPart = imageKitPrefix;
+
+  // Replace the specified part of the input URL with the replacement part
+  String outputUrl = inputUrl.replaceAll(partToReplace, replacementPart);
+
+  // Replace %2F with /
+  outputUrl = outputUrl.replaceAll("%2F", "/");
+
+  // Remove query parameters if they exist
+  outputUrl = outputUrl.split("?").first;
+
+  return outputUrl;
+}
