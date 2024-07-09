@@ -101,11 +101,27 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             localFilePath: selectedFilePath,
                             localFileBytes: selectedFileBytes,
                           );
+                          // +1 uploaded
+                          _model.howManyUploadedFiles =
+                              _model.howManyUploadedFiles + 1;
+                          setState(() {});
                         },
-                        onFilesDrop: (howManyFiles) async {},
+                        onFilesDrop: (howManyFiles) async {
+                          // set 0/N
+                          _model.howManySelectedFiles = howManyFiles;
+                          _model.howManyUploadedFiles = 0;
+                          setState(() {});
+                        },
                       ),
                     ),
                   ),
+                ),
+                Text(
+                  '${_model.howManyUploadedFiles.toString()}/${_model.howManySelectedFiles.toString()}',
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Readex Pro',
+                        letterSpacing: 0.0,
+                      ),
                 ),
                 Flexible(
                   child: Container(
