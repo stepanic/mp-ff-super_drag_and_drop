@@ -2,9 +2,11 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
 import '/backend/schema/enums/enums.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'select_file_control_model.dart';
 export 'select_file_control_model.dart';
 
@@ -16,8 +18,11 @@ class SelectFileControlWidget extends StatefulWidget {
       _SelectFileControlWidgetState();
 }
 
-class _SelectFileControlWidgetState extends State<SelectFileControlWidget> {
+class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
+    with TickerProviderStateMixin {
   late SelectFileControlModel _model;
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void setState(VoidCallback callback) {
@@ -29,6 +34,28 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SelectFileControlModel());
+
+    animationsMap.addAll({
+      'iconOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          RotateEffect(
+            curve: Curves.linear,
+            delay: 0.0.ms,
+            duration: 1000.0.ms,
+            begin: 0.0,
+            end: -1.0,
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -50,6 +77,15 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget> {
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
+          // isProgressVisible=true
+          _model.isProgressVisible = true;
+          setState(() {});
+          // start rotating progress icon
+          if (animationsMap['iconOnActionTriggerAnimation'] != null) {
+            animationsMap['iconOnActionTriggerAnimation']!.controller
+              ..reset()
+              ..repeat();
+          }
           // upload to Firebase Storage
           final selectedFiles = await selectFiles(
             multiFile: true,
@@ -114,6 +150,13 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget> {
             // i+=1
             _model.ii = _model.ii + 1;
           }
+          // stop rotating progress icon
+          if (animationsMap['iconOnActionTriggerAnimation'] != null) {
+            animationsMap['iconOnActionTriggerAnimation']!.controller.stop();
+          }
+          // isProgressVisible=false
+          _model.isProgressVisible = true;
+          setState(() {});
           // update page
 
           _model.updatePage(() {});
@@ -128,10 +171,25 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget> {
             ),
           ),
           alignment: const AlignmentDirectional(0.0, 0.0),
-          child: const Icon(
-            Icons.upload,
-            color: Color(0x4095A1AC),
-            size: 50.0,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (!_model.isProgressVisible)
+                const Icon(
+                  Icons.upload,
+                  color: Color(0x4095A1AC),
+                  size: 50.0,
+                ),
+              if (_model.isProgressVisible)
+                const Icon(
+                  Icons.replay,
+                  color: Color(0x4095A1AC),
+                  size: 50.0,
+                ).animateOnActionTrigger(
+                  animationsMap['iconOnActionTriggerAnimation']!,
+                ),
+            ],
           ),
         ),
       ),
