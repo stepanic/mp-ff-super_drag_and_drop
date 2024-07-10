@@ -117,7 +117,7 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
         },
         child: const Padding(
           padding: EdgeInsets.all(15.0),
-          child: Text('Drop items here'),
+          child: Text('Upload or drag & drop audio files.'),
         ),
       ),
     );
