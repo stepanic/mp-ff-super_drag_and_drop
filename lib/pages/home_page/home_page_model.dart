@@ -12,6 +12,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   int howManySelectedFiles = 0;
 
+  bool isOverSuperDragAndDrop = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

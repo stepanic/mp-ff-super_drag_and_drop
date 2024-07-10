@@ -80,40 +80,58 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
                 Align(
                   alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1.0,
+                  child: Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                      decoration: BoxDecoration(
+                        color: _model.isOverSuperDragAndDrop
+                            ? const Color(0xFFD4D4D4)
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).alternate,
+                          width: 3.0,
+                        ),
                       ),
-                    ),
-                    child: SizedBox(
-                      width: 256.0,
-                      height: 256.0,
-                      child: custom_widgets.SuperDragAndDrop(
+                      child: SizedBox(
                         width: 256.0,
                         height: 256.0,
-                        onFileRead:
-                            (selectedFilePath, selectedFileBytes) async {
-                          // upload local file to Storage and create Document in Firestore
-                          await action_blocks.createLocalFileOnFirebase(
-                            context,
-                            localFilePath: selectedFilePath,
-                            localFileBytes: selectedFileBytes,
-                          );
-                          // +1 uploaded
-                          _model.howManyUploadedFiles =
-                              _model.howManyUploadedFiles + 1;
-                          setState(() {});
-                        },
-                        onFilesDrop: (howManySelectedFiles) async {
-                          // set 0/N
-                          _model.howManySelectedFiles = howManySelectedFiles;
-                          _model.howManyUploadedFiles = 0;
-                          setState(() {});
-                        },
-                        onDropEnter: () async {},
-                        onDropLeave: () async {},
+                        child: custom_widgets.SuperDragAndDrop(
+                          width: 256.0,
+                          height: 256.0,
+                          onFileRead:
+                              (selectedFilePath, selectedFileBytes) async {
+                            // upload local file to Storage and create Document in Firestore
+                            await action_blocks.createLocalFileOnFirebase(
+                              context,
+                              localFilePath: selectedFilePath,
+                              localFileBytes: selectedFileBytes,
+                            );
+                            // +1 uploaded
+                            _model.howManyUploadedFiles =
+                                _model.howManyUploadedFiles + 1;
+                            setState(() {});
+                          },
+                          onFilesDrop: (howManySelectedFiles) async {
+                            // set 0/N
+                            _model.howManySelectedFiles = howManySelectedFiles;
+                            _model.howManyUploadedFiles = 0;
+                            setState(() {});
+                          },
+                          onDropEnter: () async {
+                            // isOverSuperDragAndDrop=true
+                            _model.isOverSuperDragAndDrop = true;
+                            setState(() {});
+                          },
+                          onDropLeave: () async {
+                            // isOverSuperDragAndDrop=false
+                            _model.isOverSuperDragAndDrop = false;
+                            setState(() {});
+                          },
+                        ),
                       ),
                     ),
                   ),
