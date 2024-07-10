@@ -65,7 +65,6 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
           // This is called when region first accepts a drag. You can use this
           // to display a visual indicator that the drop is allowed.
           print('onDropEnter');
-          print(event);
         },
         onDropLeave: (event) {
           // Called when drag leaves the region. Will also be called after
