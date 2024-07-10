@@ -104,7 +104,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               alignment: const AlignmentDirectional(0.0, 1.0),
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 20.0, 50.0),
+                                    20.0, 0.0, 20.0, 60.0),
                                 child: Text(
                                   'Upload or drag & drop audio files.',
                                   textAlign: TextAlign.center,
@@ -160,10 +160,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                             Align(
                               alignment: const AlignmentDirectional(0.0, -1.0),
-                              child: wrapWithModel(
-                                model: _model.selectFileControlModel,
-                                updateCallback: () => setState(() {}),
-                                child: const SelectFileControlWidget(),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 35.0, 0.0, 0.0),
+                                child: Container(
+                                  width: 75.0,
+                                  height: 75.0,
+                                  decoration: const BoxDecoration(),
+                                  child: wrapWithModel(
+                                    model: _model.selectFileControlModel,
+                                    updateCallback: () => setState(() {}),
+                                    child: const SelectFileControlWidget(),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
