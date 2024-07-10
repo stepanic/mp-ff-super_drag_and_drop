@@ -69,13 +69,14 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
           // This is called when region first accepts a drag. You can use this
           // to display a visual indicator that the drop is allowed.
           print('onDropEnter');
+          widget.onDropEnter?.call();
         },
         onDropLeave: (event) {
           // Called when drag leaves the region. Will also be called after
           // drag completion.
           // This is a good place to remove any visual indicators.
           print('onDropLeave');
-          print(event);
+          widget.onDropLeave?.call();
         },
         onPerformDrop: (event) async {
           print('onPerformDrop');
@@ -95,6 +96,7 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
             final itemFormats = reader.getFormats([
               ...Formats.standardFormats,
             ]);
+            print('DropItem.Formats: $itemFormats');
 
             if (reader.canProvide(Formats.fileUri)) {
               reader.getValue(Formats.fileUri, (value) {
