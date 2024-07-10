@@ -66,6 +66,16 @@ class _FileListItemWidgetState extends State<FileListItemWidget> {
                       letterSpacing: 0.0,
                     ),
               ),
+              Text(
+                valueOrDefault<String>(
+                  widget.fileDoc?.fileType?.name,
+                  'N/A',
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Readex Pro',
+                      letterSpacing: 0.0,
+                    ),
+              ),
               FlutterFlowIconButton(
                 borderColor: FlutterFlowTheme.of(context).primary,
                 borderRadius: 20.0,
