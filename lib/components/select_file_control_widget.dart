@@ -171,24 +171,30 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
             ),
           ),
           alignment: const AlignmentDirectional(0.0, 0.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
             children: [
-              if (!_model.isProgressVisible)
-                const Icon(
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.easeIn,
+                decoration: const BoxDecoration(),
+                child: const Icon(
                   Icons.upload,
                   color: Color(0x4095A1AC),
                   size: 50.0,
                 ),
-              if (_model.isProgressVisible)
-                const Icon(
+              ),
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.easeIn,
+                decoration: const BoxDecoration(),
+                child: const Icon(
                   Icons.replay,
                   color: Color(0x4095A1AC),
                   size: 50.0,
                 ).animateOnActionTrigger(
                   animationsMap['iconOnActionTriggerAnimation']!,
                 ),
+              ),
             ],
           ),
         ),
