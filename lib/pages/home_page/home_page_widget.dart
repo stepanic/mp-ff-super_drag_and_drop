@@ -112,6 +112,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           _model.howManyUploadedFiles = 0;
                           setState(() {});
                         },
+                        onDropEnter: () async {},
+                        onDropLeave: () async {},
                       ),
                     ),
                   ),
