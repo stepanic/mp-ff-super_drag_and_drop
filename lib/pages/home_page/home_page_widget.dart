@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/file_list_item_widget.dart';
+import '/components/select_file_control_widget.dart';
 import '/components/select_files_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -85,6 +86,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.easeInOut,
+                        width: 256.0,
+                        height: 256.0,
                         decoration: BoxDecoration(
                           color: _model.isOverSuperDragAndDrop
                               ? const Color(0xFFD4D4D4)
@@ -95,99 +98,75 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             width: 3.0,
                           ),
                         ),
-                        child: SizedBox(
-                          width: 256.0,
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: const AlignmentDirectional(0.0, 0.0),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      20.0, 0.0, 20.0, 0.0),
-                                  child: Text(
-                                    'Upload or drag & drop audio files.',
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          color: const Color(0x4095A1AC),
-                                          fontSize: 24.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.normal,
-                                        ),
-                                  ),
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, 1.0),
+                              child: Padding(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    20.0, 0.0, 20.0, 50.0),
+                                child: Text(
+                                  'Upload or drag & drop audio files.',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Readex Pro',
+                                        color: const Color(0x4095A1AC),
+                                        fontSize: 24.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
                                 ),
                               ),
-                              SizedBox(
+                            ),
+                            SizedBox(
+                              width: 256.0,
+                              height: 256.0,
+                              child: custom_widgets.SuperDragAndDrop(
                                 width: 256.0,
                                 height: 256.0,
-                                child: custom_widgets.SuperDragAndDrop(
-                                  width: 256.0,
-                                  height: 256.0,
-                                  onFileRead: (selectedFilePath,
-                                      selectedFileBytes) async {
-                                    // upload local file to Storage and create Document in Firestore
-                                    await action_blocks
-                                        .createLocalFileOnFirebase(
-                                      context,
-                                      localFilePath: selectedFilePath,
-                                      localFileBytes: selectedFileBytes,
-                                    );
-                                    // +1 uploaded
-                                    _model.howManyUploadedFiles =
-                                        _model.howManyUploadedFiles + 1;
-                                    setState(() {});
-                                  },
-                                  onFilesDrop: (howManySelectedFiles) async {
-                                    // set 0/N
-                                    _model.howManySelectedFiles =
-                                        howManySelectedFiles;
-                                    _model.howManyUploadedFiles = 0;
-                                    setState(() {});
-                                  },
-                                  onDropEnter: () async {
-                                    // isOverSuperDragAndDrop=true
-                                    _model.isOverSuperDragAndDrop = true;
-                                    setState(() {});
-                                  },
-                                  onDropLeave: () async {
-                                    // isOverSuperDragAndDrop=false
-                                    _model.isOverSuperDragAndDrop = false;
-                                    setState(() {});
-                                  },
-                                ),
+                                onFileRead: (selectedFilePath,
+                                    selectedFileBytes) async {
+                                  // upload local file to Storage and create Document in Firestore
+                                  await action_blocks.createLocalFileOnFirebase(
+                                    context,
+                                    localFilePath: selectedFilePath,
+                                    localFileBytes: selectedFileBytes,
+                                  );
+                                  // +1 uploaded
+                                  _model.howManyUploadedFiles =
+                                      _model.howManyUploadedFiles + 1;
+                                  setState(() {});
+                                },
+                                onFilesDrop: (howManySelectedFiles) async {
+                                  // set 0/N
+                                  _model.howManySelectedFiles =
+                                      howManySelectedFiles;
+                                  _model.howManyUploadedFiles = 0;
+                                  setState(() {});
+                                },
+                                onDropEnter: () async {
+                                  // isOverSuperDragAndDrop=true
+                                  _model.isOverSuperDragAndDrop = true;
+                                  setState(() {});
+                                },
+                                onDropLeave: () async {
+                                  // isOverSuperDragAndDrop=false
+                                  _model.isOverSuperDragAndDrop = false;
+                                  setState(() {});
+                                },
                               ),
-                              Align(
-                                alignment:
-                                    const AlignmentDirectional(0.0, -1.0),
-                                child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 20.0, 0.0, 0.0),
-                                  child: Container(
-                                    width: 75.0,
-                                    height: 75.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius:
-                                          BorderRadius.circular(100.0),
-                                      shape: BoxShape.rectangle,
-                                      border: Border.all(
-                                        color: const Color(0x4095A1AC),
-                                        width: 2.0,
-                                      ),
-                                    ),
-                                    alignment:
-                                        const AlignmentDirectional(0.0, 0.0),
-                                    child: const Icon(
-                                      Icons.upload,
-                                      color: Color(0x4095A1AC),
-                                      size: 50.0,
-                                    ),
-                                  ),
-                                ),
+                            ),
+                            Align(
+                              alignment: const AlignmentDirectional(0.0, -1.0),
+                              child: wrapWithModel(
+                                model: _model.selectFileControlModel,
+                                updateCallback: () => setState(() {}),
+                                child: const SelectFileControlWidget(),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
