@@ -173,9 +173,8 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Stack(
             children: [
-              Opacity(
-                opacity: _model.isProgressVisible ? 0.0 : 1.0,
-                child: AnimatedContainer(
+              if (!_model.isProgressVisible)
+                AnimatedContainer(
                   duration: const Duration(milliseconds: 100),
                   curve: Curves.easeIn,
                   decoration: const BoxDecoration(
@@ -187,21 +186,21 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
                     size: 50.0,
                   ),
                 ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 100),
-                curve: Curves.easeIn,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
+              if (_model.isProgressVisible)
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 100),
+                  curve: Curves.easeIn,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: const Icon(
+                    Icons.replay,
+                    color: Color(0x4095A1AC),
+                    size: 50.0,
+                  ).animateOnActionTrigger(
+                    animationsMap['iconOnActionTriggerAnimation']!,
+                  ),
                 ),
-                child: const Icon(
-                  Icons.replay,
-                  color: Color(0x4095A1AC),
-                  size: 50.0,
-                ).animateOnActionTrigger(
-                  animationsMap['iconOnActionTriggerAnimation']!,
-                ),
-              ),
             ],
           ),
         ),
