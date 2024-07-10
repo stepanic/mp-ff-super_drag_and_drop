@@ -1,14 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/components/file_list_item_widget.dart';
 import '/components/select_files_widget.dart';
-import '/flutter_flow/flutter_flow_audio_player.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/widgets/index.dart' as custom_widgets;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
@@ -193,93 +191,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             itemBuilder: (context, listViewIndex) {
                               final listViewFilesRecord =
                                   listViewFilesRecordList[listViewIndex];
-                              return Container(
-                                decoration: const BoxDecoration(),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          listViewFilesRecord.fileName,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                        FlutterFlowIconButton(
-                                          borderColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primary,
-                                          borderRadius: 20.0,
-                                          borderWidth: 1.0,
-                                          buttonSize: 40.0,
-                                          fillColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .accent1,
-                                          icon: Icon(
-                                            Icons.delete,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            size: 24.0,
-                                          ),
-                                          onPressed: () async {
-                                            // is_deleted=true
-
-                                            await listViewFilesRecord.reference
-                                                .update(createFilesRecordData(
-                                              isDeleted: true,
-                                            ));
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                    FlutterFlowAudioPlayer(
-                                      audio: Audio.network(
-                                        functions.fileUrlToAudioPath(functions
-                                            .imageKitAsFirebaseStorageProxy(
-                                                listViewFilesRecord.fileUrl,
-                                                FFAppConstants
-                                                    .FirebaseStoragePrefix,
-                                                FFAppConstants
-                                                    .ImageKitPrefix))!,
-                                        metas: Metas(
-                                          id: 'sample3.mp3-564e14ff',
-                                          title: listViewFilesRecord.fileName,
-                                        ),
-                                      ),
-                                      titleTextStyle:
-                                          FlutterFlowTheme.of(context)
-                                              .titleLarge
-                                              .override(
-                                                fontFamily: 'Outfit',
-                                                letterSpacing: 0.0,
-                                              ),
-                                      playbackDurationTextStyle:
-                                          FlutterFlowTheme.of(context)
-                                              .labelMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0.0,
-                                              ),
-                                      fillColor: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      playbackButtonColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      activeTrackColor:
-                                          FlutterFlowTheme.of(context)
-                                              .alternate,
-                                      elevation: 4.0,
-                                      playInBackground:
-                                          PlayInBackground.enabled,
-                                    ),
-                                  ],
-                                ),
+                              return FileListItemWidget(
+                                key: Key(
+                                    'Keyfgn_${listViewIndex}_of_${listViewFilesRecordList.length}'),
+                                fileDoc: listViewFilesRecord,
                               );
                             },
                           );
