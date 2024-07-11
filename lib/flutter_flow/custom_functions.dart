@@ -63,7 +63,42 @@ FileType getFileType(String? filePath) {
     return FileType.UNKNOWN;
   }
 
-  //TODO
+  String? extension = filePath.split('.').last;
 
-  return FileType.UNKNOWN;
+  switch (extension) {
+    case 'mp3':
+    case 'm4a':
+    case 'oga':
+    case 'aac':
+    case 'wav':
+    case 'opus':
+    case 'flac':
+      return FileType.AUDIO;
+    case 'mp4':
+    case 'mov':
+    case 'm4v':
+    case 'avi':
+    case 'mpeg':
+    case 'webm':
+    case 'ogg':
+    case 'wmv':
+    case 'flv':
+    case 'mkv':
+    case 'ts':
+      return FileType.VIDEO;
+    case 'jpg':
+    case 'jpeg':
+    case 'png':
+    case 'gif':
+    case 'tiff':
+    case 'webp':
+    case 'svg':
+    case 'bmp':
+    case 'ico':
+    case 'heic':
+    case 'heif':
+      return FileType.IMAGE;
+    default:
+      return FileType.UNKNOWN;
+  }
 }
