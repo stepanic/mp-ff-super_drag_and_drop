@@ -108,6 +108,8 @@ class _SelectAndUploadWithProgressWidgetState
                             setState(() {});
                           },
                         );
+                        // i += 1;
+                        _model.ii = _model.ii + 1;
                       }
                     } else {
                       // show error message
