@@ -11,19 +11,30 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import '/flutter_flow/upload_data.dart';
+
 Future<List<SelectedFileStruct>?> selectFilesWithAllowedExtensions(
   List<String>? allowedExtensions,
   bool? isMultiFile,
 ) async {
   final selectedFiles = await selectFiles(
     allowedExtensions: allowedExtensions,
-    //LOCAL_END
     multiFile: isMultiFile != null ? isMultiFile : false,
   );
 
-  var selectedFilesList = <SelectedFileStruct>[];
+  List<SelectedFileStruct> selectedFilesList = <SelectedFileStruct>[];
 
   if (selectedFiles != null) {
+    for (var i = 0; i < selectedFiles.length; i++) {
+      SelectedFile selectedFile = selectedFiles[i];
+
+      selectedFilesList.add(SelectedFileStruct(
+        storagePath: selectedFile.storagePath,
+        filePath: selectedFile.filePath,
+        bytes: selectedFile.bytes,
+      ));
+    }
+
     return selectedFilesList;
   }
   return null;
