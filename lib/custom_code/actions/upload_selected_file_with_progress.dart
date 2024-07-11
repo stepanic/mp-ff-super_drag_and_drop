@@ -45,13 +45,16 @@ Future uploadSelectedFileWithProgress(
     }
 
     if (event.state == TaskState.success) {
-      onUploadSuccessful(
-        UploadedFileStruct(
-          localPath: selectedFile.filePath,
-          storagePath: selectedFile.storagePath,
-        ),
-        selectedFileIndex,
-      );
+      event.ref.getDownloadURL().then((downloadUrl) {
+        onUploadSuccessful(
+          UploadedFileStruct(
+            localPath: selectedFile.filePath,
+            storagePath: selectedFile.storagePath,
+            storageDownloadUrl: downloadUrl,
+          ),
+          selectedFileIndex,
+        );
+      });
     }
   });
 
