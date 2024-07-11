@@ -192,7 +192,7 @@ class _SelectAndUploadWithProgressWidgetState
                                     animation: true,
                                     animateFromLastPercent: true,
                                     progressColor:
-                                        FlutterFlowTheme.of(context).primary,
+                                        FlutterFlowTheme.of(context).tertiary,
                                     backgroundColor:
                                         FlutterFlowTheme.of(context).accent4,
                                     center: Text(
@@ -203,6 +203,7 @@ class _SelectAndUploadWithProgressWidgetState
                                           .headlineSmall
                                           .override(
                                             fontFamily: 'Outfit',
+                                            fontSize: 14.0,
                                             letterSpacing: 0.0,
                                           ),
                                     ),
