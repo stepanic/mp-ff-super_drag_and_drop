@@ -50,6 +50,7 @@ Future uploadSelectedFileWithProgress(
           UploadedFileStruct(
             storagePath: selectedFile.storagePath,
             filePath: selectedFile.filePath,
+            uploadProgress: 1.0,
             storageDownloadUrl: downloadUrl,
           ),
           selectedFileIndex,
