@@ -4,7 +4,6 @@ import '/components/uploading_files_list_empty_placeholder_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -97,22 +96,20 @@ class _SelectAndUploadWithProgressWidgetState
                         ));
                         setState(() {});
                         // selectedFile[i] to Firebase Storage
-                        unawaited(
-                          () async {
-                            _model.uploadedFile =
-                                await actions.uploadSelectedFileWithProgress(
-                              _model.selectedFiles![_model.ii],
-                              (progress) async {
-                                // update page state
-                                _model.updateUploadingFilesAtIndex(
-                                  _model.ii,
-                                  (e) => e..progress = progress,
-                                );
-                                setState(() {});
-                              },
+                        _model.uploadedFile =
+                            await actions.uploadSelectedFileWithProgress(
+                          _model.selectedFiles![_model.ii],
+                          (progress) async {
+                            // update page state
+                            _model.updateUploadingFilesAtIndex(
+                              _model.ii,
+                              (e) => e..progress = progress,
                             );
-                          }(),
+                            setState(() {});
+                          },
                         );
+                        // i += 1;
+                        _model.ii = _model.ii + 1;
                       }
                     } else {
                       // show error message
