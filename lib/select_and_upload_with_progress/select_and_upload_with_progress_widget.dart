@@ -202,14 +202,27 @@ class _SelectAndUploadWithProgressWidgetState
                                             letterSpacing: 0.0,
                                           ),
                                     ),
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        // launch URL
-                                        await actions.launchUrl(
+                                    if (uploadedFilesListItem
+                                                .storageDownloadUrl !=
+                                            '')
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          // launch URL
+                                          await actions.launchUrl(
+                                            valueOrDefault<String>(
+                                              _model
+                                                  .uploadedFiles[
+                                                      uploadedFilesListIndex]
+                                                  .storageDownloadUrl,
+                                              'N/A',
+                                            ),
+                                          );
+                                        },
+                                        child: Text(
                                           valueOrDefault<String>(
                                             _model
                                                 .uploadedFiles[
@@ -217,29 +230,19 @@ class _SelectAndUploadWithProgressWidgetState
                                                 .storageDownloadUrl,
                                             'N/A',
                                           ),
-                                        );
-                                      },
-                                      child: Text(
-                                        valueOrDefault<String>(
-                                          _model
-                                              .uploadedFiles[
-                                                  uploadedFilesListIndex]
-                                              .storageDownloadUrl,
-                                          'N/A',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                letterSpacing: 0.0,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
                                         ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              letterSpacing: 0.0,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            ),
                                       ),
-                                    ),
                                     if (uploadedFilesListItem
                                                 .storageDownloadUrl ==
                                             '')
