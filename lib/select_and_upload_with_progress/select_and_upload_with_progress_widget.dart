@@ -214,6 +214,16 @@ class _SelectAndUploadWithProgressWidgetState
                                     onTap: () async {
                                       // launch URL
                                       await launchURL('<URL>');
+                                      // launch URL
+                                      await actions.launchUrl(
+                                        valueOrDefault<String>(
+                                          _model
+                                              .uploadedFiles[
+                                                  uploadingFilesListIndex]
+                                              .storageDownloadUrl,
+                                          'N/A',
+                                        ),
+                                      );
                                     },
                                     child: Text(
                                       valueOrDefault<String>(
