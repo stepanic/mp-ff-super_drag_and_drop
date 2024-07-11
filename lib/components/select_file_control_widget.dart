@@ -192,9 +192,14 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
                 ownerRef: currentUserReference,
                 fileUrl: _model.uploadedFileUrls[_model.ii],
                 isDeleted: false,
-                fileName: '<FILE_NAME>',
+                //LOCAL_START
+                // fileName: '<FILE_NAME>',
+                fileName: selectedFiles?[_model.ii].filePath?.split('/').last,
+                //LOCAL_END
                 createdAt: getCurrentTimestamp,
+                //LOCAL_START
                 fileType: FileType.UNKNOWN,
+                //LOCAL_END
               ),
               ...mapToFirestore(
                 {

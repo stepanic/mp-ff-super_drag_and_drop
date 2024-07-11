@@ -49,7 +49,16 @@ class _SelectFilesWidgetState extends State<SelectFilesWidget> {
         final selectedFiles = await selectFiles(
           //LOCAL_START
           // allowedExtensions: ['mp3'],
-          allowedExtensions: ['mp3', 'wav'],
+          allowedExtensions: [
+            // Audio extensions
+            'mp3',
+            'm4a',
+            'oga',
+            'aac',
+            'wav',
+            'opus',
+            'flac'
+          ],
           //LOCAL_END
           multiFile: true,
         );
