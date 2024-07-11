@@ -93,11 +93,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => const LoginPageWidget(),
         ),
         FFRoute(
-          name: 'FFDragNDrop',
-          path: '/fFDragNDrop',
-          builder: (context, params) => const FFDragNDropWidget(),
-        ),
-        FFRoute(
           name: 'SelectAndUploadWithProgress',
           path: '/selectAndUploadWithProgress',
           builder: (context, params) => const SelectAndUploadWithProgressWidget(),
