@@ -154,12 +154,9 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
           if (animationsMap['iconOnActionTriggerAnimation'] != null) {
             animationsMap['iconOnActionTriggerAnimation']!.controller.stop();
           }
-          // isProgressVisible=false
-          _model.isUploadInProgress = true;
+          // isUploadInProgress=false
+          _model.isUploadInProgress = false;
           setState(() {});
-          // update page
-
-          _model.updatePage(() {});
         },
         child: Container(
           decoration: BoxDecoration(
