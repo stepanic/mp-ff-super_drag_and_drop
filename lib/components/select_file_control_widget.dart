@@ -88,7 +88,18 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
           }
           // upload to Firebase Storage
           final selectedFiles = await selectFiles(
-            allowedExtensions: ['mp3'],
+            //LOCAL_START
+            // allowedExtensions: ['mp3'],
+            allowedExtensions: [
+              'mp3',
+              'm4a',
+              'oga',
+              'aac',
+              'wav',
+              'opus',
+              'flac'
+            ],
+            //LOCAL_END
             multiFile: true,
           );
           if (selectedFiles != null) {
@@ -99,7 +110,12 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
             try {
               showUploadMessage(
                 context,
-                'Uploading file...',
+                //LOCAL_START
+                // 'Uploading file...',
+                selectedFiles.length == 1
+                    ? 'Uploading file...'
+                    : 'Uploading files...',
+                //LOCAL_END
                 showLoading: true,
               );
               selectedUploadedFiles = selectedFiles
@@ -135,7 +151,12 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
               setState(() {});
               showUploadMessage(
                 context,
-                'Failed to upload file',
+                //LOCAL_START
+                // 'Failed to upload file',
+                selectedFiles.length == 1
+                    ? 'Failed to upload file'
+                    : 'Failed to upload files',
+                //LOCAL_END
               );
               return;
             }
