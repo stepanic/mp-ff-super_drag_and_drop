@@ -57,3 +57,13 @@ String? getFirebaseStoragePath(String? filePath) {
 
   return '$pathPrefix/$timestamp.$ext';
 }
+
+FileType getFileType(String? filePath) {
+  if (filePath == null) {
+    return FileType.UNKNOWN;
+  }
+
+  //TODO
+
+  return FileType.UNKNOWN;
+}
