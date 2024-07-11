@@ -11,7 +11,12 @@ import 'select_file_control_model.dart';
 export 'select_file_control_model.dart';
 
 class SelectFileControlWidget extends StatefulWidget {
-  const SelectFileControlWidget({super.key});
+  const SelectFileControlWidget({
+    super.key,
+    this.onUploadProgressChange,
+  });
+
+  final Future Function(bool isUploadInProgress)? onUploadProgressChange;
 
   @override
   State<SelectFileControlWidget> createState() =>
@@ -80,6 +85,10 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
           // isUploadInProgress=true
           _model.isUploadInProgress = true;
           setState(() {});
+          // onUploadProgressChange(true)
+          await widget.onUploadProgressChange?.call(
+            true,
+          );
           // start rotating progress icon
           if (animationsMap['iconOnActionTriggerAnimation'] != null) {
             animationsMap['iconOnActionTriggerAnimation']!.controller
@@ -172,6 +181,10 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
           // isUploadInProgress=false
           _model.isUploadInProgress = false;
           setState(() {});
+          // onUploadProgressChange(false)
+          await widget.onUploadProgressChange?.call(
+            false,
+          );
         },
         child: Container(
           decoration: BoxDecoration(

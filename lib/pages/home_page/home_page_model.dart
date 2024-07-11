@@ -15,6 +15,8 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   bool isOverSuperDragAndDrop = false;
 
+  bool isUploadInProgress = false;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
