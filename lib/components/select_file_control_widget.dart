@@ -88,6 +88,7 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
           }
           // upload to Firebase Storage
           final selectedFiles = await selectFiles(
+            allowedExtensions: ['mp3'],
             multiFile: true,
           );
           if (selectedFiles != null) {
@@ -96,6 +97,11 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
 
             var downloadUrls = <String>[];
             try {
+              showUploadMessage(
+                context,
+                'Uploading file...',
+                showLoading: true,
+              );
               selectedUploadedFiles = selectedFiles
                   .map((m) => FFUploadedFile(
                         name: m.storagePath.split('/').last,
@@ -112,6 +118,7 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
                   .map((u) => u!)
                   .toList();
             } finally {
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
               _model.isDataUploading = false;
             }
             if (selectedUploadedFiles.length == selectedFiles.length &&
@@ -120,8 +127,16 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
                 _model.uploadedLocalFiles = selectedUploadedFiles;
                 _model.uploadedFileUrls = downloadUrls;
               });
+              showUploadMessage(
+                context,
+                'Success!',
+              );
             } else {
               setState(() {});
+              showUploadMessage(
+                context,
+                'Failed to upload file',
+              );
               return;
             }
           }
