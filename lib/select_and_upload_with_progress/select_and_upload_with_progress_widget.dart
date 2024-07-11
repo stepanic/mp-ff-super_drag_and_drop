@@ -206,20 +206,34 @@ class _SelectAndUploadWithProgressWidgetState
                                           letterSpacing: 0.0,
                                         ),
                                   ),
-                                  Text(
-                                    valueOrDefault<String>(
-                                      _model
-                                          .uploadedFiles[
-                                              uploadingFilesListIndex]
-                                          .storageDownloadUrl,
-                                      'N/A',
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      // launch URL
+                                      await launchURL('<URL>');
+                                    },
+                                    child: Text(
+                                      valueOrDefault<String>(
+                                        _model
+                                            .uploadedFiles[
+                                                uploadingFilesListIndex]
+                                            .storageDownloadUrl,
+                                        'N/A',
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            letterSpacing: 0.0,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
                                     ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          letterSpacing: 0.0,
-                                        ),
                                   ),
                                   LinearPercentIndicator(
                                     percent: uploadingFilesListItem.progress,
