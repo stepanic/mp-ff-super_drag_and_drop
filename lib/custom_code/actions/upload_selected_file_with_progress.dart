@@ -32,19 +32,21 @@ Future<UploadedFileStruct?> uploadSelectedFileWithProgress(
   final uploadTask = storageRef.putData(data, metadata);
 
   uploadTask.snapshotEvents.listen((event) {
+    double progress = event.bytesTransferred / event.totalBytes;
     if (onProgress != null) {
-      onProgress(event.bytesTransferred / event.totalBytes);
+      onProgress(progress);
     }
+
+    print(event.state);
+    print(progress);
   });
-
-  final result = await uploadTask;
-
-  result.
 
   final uploadedFile = UploadedFileStruct(
     localName: selectedFile.filePath,
     storageName: selectedFile.storagePath,
   );
 
-  return result.state == TaskState.success ? result.ref.getDownloadURL() : null;
+  return uploadedFile;
+
+  // return result.state == TaskState.success ? result.ref.getDownloadURL() : null;
 }
