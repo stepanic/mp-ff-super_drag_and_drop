@@ -7,7 +7,7 @@ class SelectFileControlModel extends FlutterFlowModel<SelectFileControlWidget> {
 
   int ii = 0;
 
-  bool isProgressVisible = false;
+  bool isUploadInProgress = false;
 
   ///  State fields for stateful widgets in this component.
 
