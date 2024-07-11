@@ -116,8 +116,10 @@ class _SelectAndUploadWithProgressWidgetState
                           },
                           (uploadedFile, selectedFileIndex) async {
                             // uploadedFiles[selectedFileIndex]=uploadedFile
-                            _model.insertAtIndexInUploadedFiles(
-                                selectedFileIndex, uploadedFile);
+                            _model.updateUploadedFilesAtIndex(
+                              selectedFileIndex,
+                              (_) => uploadedFile,
+                            );
                             setState(() {});
                           },
                         );
