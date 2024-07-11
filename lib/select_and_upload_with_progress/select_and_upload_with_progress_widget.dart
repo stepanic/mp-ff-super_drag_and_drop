@@ -175,7 +175,7 @@ class _SelectAndUploadWithProgressWidgetState
                         return Column(
                           mainAxisSize: MainAxisSize.max,
                           children: List.generate(uploadedFilesList.length,
-                              (uploadedFilesListIndex) {
+                                  (uploadedFilesListIndex) {
                             final uploadedFilesListItem =
                                 uploadedFilesList[uploadedFilesListIndex];
                             return Container(
@@ -277,7 +277,10 @@ class _SelectAndUploadWithProgressWidgetState
                                 ),
                               ),
                             );
-                          }).divide(const SizedBox(height: 12.0)),
+                          })
+                              .divide(const SizedBox(height: 12.0))
+                              .addToStart(const SizedBox(height: 12.0))
+                              .addToEnd(const SizedBox(height: 128.0)),
                         );
                       },
                     ),
