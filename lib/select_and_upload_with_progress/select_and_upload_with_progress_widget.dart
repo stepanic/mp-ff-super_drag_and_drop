@@ -88,6 +88,12 @@ class _SelectAndUploadWithProgressWidgetState
                       _model.uploadingFiles = [];
                       _model.uploadedFiles = [];
                       while (_model.ii < _model.selectedFiles!.length) {
+                        // init uploadedFiles
+                        _model.addToUploadedFiles(UploadedFileStruct(
+                          localPath:
+                              (_model.selectedFiles?[_model.ii])?.filePath,
+                        ));
+                        setState(() {});
                         // init uploadingFiles
                         _model.addToUploadingFiles(UploadingFileStruct(
                           localName: valueOrDefault<String>(
@@ -95,12 +101,6 @@ class _SelectAndUploadWithProgressWidgetState
                             'N/A',
                           ),
                           progress: 0.0,
-                        ));
-                        setState(() {});
-                        // init uploadedFiles
-                        _model.addToUploadedFiles(UploadedFileStruct(
-                          localPath:
-                              (_model.selectedFiles?[_model.ii])?.filePath,
                         ));
                         setState(() {});
                         // selectedFile[i] to Firebase Storage
@@ -199,6 +199,21 @@ class _SelectAndUploadWithProgressWidgetState
                                 children: [
                                   Text(
                                     uploadingFilesListItem.localName,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                  Text(
+                                    valueOrDefault<String>(
+                                      _model
+                                          .uploadedFiles[
+                                              uploadingFilesListIndex]
+                                          .storageDownloadUrl,
+                                      'N/A',
+                                    ),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
