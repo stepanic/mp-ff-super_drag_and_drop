@@ -126,9 +126,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 alignment: const AlignmentDirectional(0.0, 1.0),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      20.0, 0.0, 20.0, 60.0),
+                                      20.0, 0.0, 20.0, 80.0),
                                   child: Text(
-                                    'Uploading....',
+                                    'Processing....',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
