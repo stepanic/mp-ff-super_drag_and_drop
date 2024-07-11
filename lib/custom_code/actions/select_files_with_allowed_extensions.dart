@@ -22,15 +22,11 @@ Future<List<SelectedFileStruct>?> selectFilesWithAllowedExtensions(
     multiFile: isMultiFile ?? false,
   );
 
-  print(selectedFiles);
-
   List<SelectedFileStruct> selectedFilesList = <SelectedFileStruct>[];
 
   if (selectedFiles != null) {
     for (var i = 0; i < selectedFiles.length; i++) {
       SelectedFile selectedFile = selectedFiles[i];
-
-      print(selectedFile.filePath);
 
       selectedFilesList.add(SelectedFileStruct(
         storagePath: selectedFile.storagePath,

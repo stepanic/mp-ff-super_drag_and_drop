@@ -13,4 +13,5 @@ import 'package:flutter/material.dart';
 
 Future launchUrl(String url) async {
   // Add your function code here!
+  await launchURL(url);
 }
