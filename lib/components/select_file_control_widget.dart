@@ -77,8 +77,8 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
         hoverColor: Colors.transparent,
         highlightColor: Colors.transparent,
         onTap: () async {
-          // isProgressVisible=true
-          _model.isProgressVisible = true;
+          // isUploadInProgress=true
+          _model.isUploadInProgress = true;
           setState(() {});
           // start rotating progress icon
           if (animationsMap['iconOnActionTriggerAnimation'] != null) {
@@ -155,7 +155,7 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
             animationsMap['iconOnActionTriggerAnimation']!.controller.stop();
           }
           // isProgressVisible=false
-          _model.isProgressVisible = true;
+          _model.isUploadInProgress = true;
           setState(() {});
           // update page
 
@@ -173,32 +173,33 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
           alignment: const AlignmentDirectional(0.0, 0.0),
           child: Stack(
             children: [
-              if (!_model.isProgressVisible)
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 100),
+                curve: Curves.easeIn,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(1000.0),
+                ),
+                child: const Icon(
+                  Icons.replay,
+                  color: Color(0x4095A1AC),
+                  size: 50.0,
+                ).animateOnActionTrigger(
+                  animationsMap['iconOnActionTriggerAnimation']!,
+                ),
+              ),
+              if (!_model.isUploadInProgress)
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 100),
                   curve: Curves.easeIn,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: Colors.white,
+                    borderRadius: BorderRadius.circular(1000.0),
                   ),
                   child: const Icon(
                     Icons.upload,
                     color: Color(0x4095A1AC),
                     size: 50.0,
-                  ),
-                ),
-              if (_model.isProgressVisible)
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 100),
-                  curve: Curves.easeIn,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: const Icon(
-                    Icons.replay,
-                    color: Color(0x4095A1AC),
-                    size: 50.0,
-                  ).animateOnActionTrigger(
-                    animationsMap['iconOnActionTriggerAnimation']!,
                   ),
                 ),
             ],
