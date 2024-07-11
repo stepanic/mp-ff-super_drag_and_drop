@@ -100,26 +100,48 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                         child: Stack(
                           children: [
-                            Align(
-                              alignment: const AlignmentDirectional(0.0, 1.0),
-                              child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 20.0, 60.0),
-                                child: Text(
-                                  'Upload or drag & drop audio files.',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: const Color(0x4095A1AC),
-                                        fontSize: 24.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
+                            if (!_model.isUploadInProgress)
+                              Align(
+                                alignment: const AlignmentDirectional(0.0, 1.0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      20.0, 0.0, 20.0, 60.0),
+                                  child: Text(
+                                    'Upload or drag & drop audio files.',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          color: const Color(0x4095A1AC),
+                                          fontSize: 24.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                  ),
                                 ),
                               ),
-                            ),
+                            if (_model.isUploadInProgress)
+                              Align(
+                                alignment: const AlignmentDirectional(0.0, 1.0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      20.0, 0.0, 20.0, 60.0),
+                                  child: Text(
+                                    'Uploading....',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Readex Pro',
+                                          color: const Color(0x4095A1AC),
+                                          fontSize: 24.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                  ),
+                                ),
+                              ),
                             SizedBox(
                               width: 256.0,
                               height: 256.0,
@@ -170,7 +192,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   child: wrapWithModel(
                                     model: _model.selectFileControlModel,
                                     updateCallback: () => setState(() {}),
-                                    child: const SelectFileControlWidget(),
+                                    child: SelectFileControlWidget(
+                                      onUploadProgressChange:
+                                          (isUploadInProgress) async {
+                                        // isUploadInProgress=Callback.isUploadInProgress
+                                        _model.isUploadInProgress =
+                                            isUploadInProgress;
+                                        setState(() {});
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
