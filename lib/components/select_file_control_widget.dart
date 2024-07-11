@@ -1,10 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:provider/provider.dart';
@@ -173,7 +173,7 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
                 isDeleted: false,
                 fileName: '<FILE_NAME>',
                 createdAt: getCurrentTimestamp,
-                fileType: FileType.UNKNOWN,
+                fileType: functions.getFileType('/path/a/b/file.mp3'),
               ),
               ...mapToFirestore(
                 {
