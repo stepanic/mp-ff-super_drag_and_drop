@@ -84,24 +84,14 @@ class _SelectAndUploadWithProgressWidgetState
                       );
                       if (_model.selectedFiles != null &&
                           (_model.selectedFiles)!.isNotEmpty) {
-                        // i=0; uploadingFiles=[]; uploadedFiles=[];
+                        // i=0; uploadedFiles=[];
                         _model.ii = 0;
-                        _model.uploadingFiles = [];
                         _model.uploadedFiles = [];
                         while (_model.ii < _model.selectedFiles!.length) {
                           // init uploadedFiles
                           _model.addToUploadedFiles(UploadedFileStruct(
-                            localPath:
+                            filePath:
                                 (_model.selectedFiles?[_model.ii])?.filePath,
-                          ));
-                          setState(() {});
-                          // init uploadingFiles
-                          _model.addToUploadingFiles(UploadingFileStruct(
-                            localName: valueOrDefault<String>(
-                              (_model.selectedFiles?[_model.ii])?.filePath,
-                              'N/A',
-                            ),
-                            progress: 0.0,
                           ));
                           setState(() {});
                           // selectedFile[i] to Firebase Storage
@@ -111,10 +101,10 @@ class _SelectAndUploadWithProgressWidgetState
                                 _model.selectedFiles![_model.ii],
                                 _model.ii,
                                 (uploadProgress, selectedFileIndex) async {
-                                  // uploadingFiles[selectedFileIndex]=uploadProgress
-                                  _model.updateUploadingFilesAtIndex(
+                                  // uploadedFiles[selectedFileIndex]=uploadProgress
+                                  _model.updateUploadedFilesAtIndex(
                                     selectedFileIndex,
-                                    (e) => e..progress = uploadProgress,
+                                    (e) => e..uploadProgress = uploadProgress,
                                   );
                                   setState(() {});
                                 },
@@ -177,18 +167,17 @@ class _SelectAndUploadWithProgressWidgetState
                         const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                     child: Builder(
                       builder: (context) {
-                        final uploadingFilesList =
-                            _model.uploadingFiles.toList();
-                        if (uploadingFilesList.isEmpty) {
+                        final uploadedFilesList = _model.uploadedFiles.toList();
+                        if (uploadedFilesList.isEmpty) {
                           return const UploadingFilesListEmptyPlaceholderWidget();
                         }
 
                         return Column(
                           mainAxisSize: MainAxisSize.max,
-                          children: List.generate(uploadingFilesList.length,
-                              (uploadingFilesListIndex) {
-                            final uploadingFilesListItem =
-                                uploadingFilesList[uploadingFilesListIndex];
+                          children: List.generate(uploadedFilesList.length,
+                              (uploadedFilesListIndex) {
+                            final uploadedFilesListItem =
+                                uploadedFilesList[uploadedFilesListIndex];
                             return Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.0),
@@ -202,7 +191,10 @@ class _SelectAndUploadWithProgressWidgetState
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      uploadingFilesListItem.localName,
+                                      valueOrDefault<String>(
+                                        uploadedFilesListItem.filePath,
+                                        'N/A',
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -221,7 +213,7 @@ class _SelectAndUploadWithProgressWidgetState
                                           valueOrDefault<String>(
                                             _model
                                                 .uploadedFiles[
-                                                    uploadingFilesListIndex]
+                                                    uploadedFilesListIndex]
                                                 .storageDownloadUrl,
                                             'N/A',
                                           ),
@@ -231,7 +223,7 @@ class _SelectAndUploadWithProgressWidgetState
                                         valueOrDefault<String>(
                                           _model
                                               .uploadedFiles[
-                                                  uploadingFilesListIndex]
+                                                  uploadedFilesListIndex]
                                               .storageDownloadUrl,
                                           'N/A',
                                         ),
@@ -249,7 +241,8 @@ class _SelectAndUploadWithProgressWidgetState
                                       ),
                                     ),
                                     LinearPercentIndicator(
-                                      percent: uploadingFilesListItem.progress,
+                                      percent:
+                                          uploadedFilesListItem.uploadProgress,
                                       lineHeight: 25.0,
                                       animation: true,
                                       animateFromLastPercent: true,
@@ -260,7 +253,7 @@ class _SelectAndUploadWithProgressWidgetState
                                       center: Text(
                                         (double progress) {
                                           return "${progress * 100}%";
-                                        }(uploadingFilesListItem.progress),
+                                        }(uploadedFilesListItem.uploadProgress),
                                         style: FlutterFlowTheme.of(context)
                                             .headlineSmall
                                             .override(

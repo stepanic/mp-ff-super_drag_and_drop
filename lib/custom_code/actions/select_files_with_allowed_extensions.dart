@@ -19,7 +19,7 @@ Future<List<SelectedFileStruct>?> selectFilesWithAllowedExtensions(
 ) async {
   final selectedFiles = await selectFiles(
     allowedExtensions: allowedExtensions,
-    multiFile: isMultiFile != null ? isMultiFile : false,
+    multiFile: isMultiFile ?? false,
   );
 
   List<SelectedFileStruct> selectedFilesList = <SelectedFileStruct>[];
