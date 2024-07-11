@@ -23,6 +23,10 @@ class SelectAndUploadWithProgressModel
           int index, Function(UploadedFileStruct) updateFn) =>
       uploadedFiles[index] = updateFn(uploadedFiles[index]);
 
+  int howManyUploadedFiles = 0;
+
+  int? howManySelectedFiles;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
