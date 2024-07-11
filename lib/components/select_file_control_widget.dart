@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:provider/provider.dart';
 import 'select_file_control_model.dart';
 export 'select_file_control_model.dart';
 
@@ -14,9 +15,12 @@ class SelectFileControlWidget extends StatefulWidget {
   const SelectFileControlWidget({
     super.key,
     this.onUploadProgressChange,
+    required this.onUploadDone,
   });
 
   final Future Function(bool isUploadInProgress)? onUploadProgressChange;
+  final Future Function(List<String> fileNames, List<String> fileUrls)?
+      onUploadDone;
 
   @override
   State<SelectFileControlWidget> createState() =>
@@ -74,6 +78,8 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Align(
       alignment: const AlignmentDirectional(0.0, -1.0),
       child: InkWell(
@@ -171,6 +177,11 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
             }
           }
 
+          // onUploadDone
+          await widget.onUploadDone?.call(
+            FFAppState().EmptyList,
+            _model.uploadedFileUrls,
+          );
           // i=0
           _model.ii = 0;
           while (_model.ii < _model.uploadedFileUrls.length) {
