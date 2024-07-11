@@ -69,215 +69,212 @@ class _SelectAndUploadWithProgressWidgetState
           top: true,
           child: Align(
             alignment: const AlignmentDirectional(0.0, 0.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FFButtonWidget(
-                  onPressed: () async {
-                    // custom select files
-                    _model.selectedFiles =
-                        await actions.selectFilesWithAllowedExtensions(
-                      FFAppConstants.UploadAllowedExtensions.toList(),
-                      true,
-                    );
-                    if (_model.selectedFiles != null &&
-                        (_model.selectedFiles)!.isNotEmpty) {
-                      // i=0; uploadingFiles=[]; uploadedFiles=[];
-                      _model.ii = 0;
-                      _model.uploadingFiles = [];
-                      _model.uploadedFiles = [];
-                      while (_model.ii < _model.selectedFiles!.length) {
-                        // init uploadedFiles
-                        _model.addToUploadedFiles(UploadedFileStruct(
-                          localPath:
-                              (_model.selectedFiles?[_model.ii])?.filePath,
-                        ));
-                        setState(() {});
-                        // init uploadingFiles
-                        _model.addToUploadingFiles(UploadingFileStruct(
-                          localName: valueOrDefault<String>(
-                            (_model.selectedFiles?[_model.ii])?.filePath,
-                            'N/A',
-                          ),
-                          progress: 0.0,
-                        ));
-                        setState(() {});
-                        // selectedFile[i] to Firebase Storage
-                        unawaited(
-                          () async {
-                            await actions.uploadSelectedFileWithProgress(
-                              _model.selectedFiles![_model.ii],
-                              _model.ii,
-                              (uploadProgress, selectedFileIndex) async {
-                                // uploadingFiles[selectedFileIndex]=uploadProgress
-                                _model.updateUploadingFilesAtIndex(
-                                  selectedFileIndex,
-                                  (e) => e..progress = uploadProgress,
-                                );
-                                setState(() {});
-                              },
-                              (uploadedFile, selectedFileIndex) async {
-                                // uploadedFiles[selectedFileIndex]=uploadedFile
-                                _model.updateUploadedFilesAtIndex(
-                                  selectedFileIndex,
-                                  (_) => uploadedFile,
-                                );
-                                setState(() {});
-                              },
-                            );
-                          }(),
-                        );
-                        // i += 1;
-                        _model.ii = _model.ii + 1;
-                      }
-                    } else {
-                      // show error message
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(
-                            'Files not selected',
-                            style: TextStyle(
-                              color: FlutterFlowTheme.of(context).primaryText,
-                            ),
-                          ),
-                          duration: const Duration(milliseconds: 4000),
-                          backgroundColor: FlutterFlowTheme.of(context).error,
-                        ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FFButtonWidget(
+                    onPressed: () async {
+                      // custom select files
+                      _model.selectedFiles =
+                          await actions.selectFilesWithAllowedExtensions(
+                        FFAppConstants.UploadAllowedExtensions.toList(),
+                        true,
                       );
-                    }
-
-                    setState(() {});
-                  },
-                  text: 'Select Files & Upload with Progress',
-                  options: FFButtonOptions(
-                    height: 40.0,
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                    iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Readex Pro',
-                          color: Colors.white,
-                          letterSpacing: 0.0,
-                        ),
-                    elevation: 3.0,
-                    borderSide: const BorderSide(
-                      color: Colors.transparent,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
-                  child: Builder(
-                    builder: (context) {
-                      final uploadingFilesList = _model.uploadingFiles.toList();
-                      if (uploadingFilesList.isEmpty) {
-                        return const UploadingFilesListEmptyPlaceholderWidget();
-                      }
-
-                      return Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: List.generate(uploadingFilesList.length,
-                            (uploadingFilesListIndex) {
-                          final uploadingFilesListItem =
-                              uploadingFilesList[uploadingFilesListIndex];
-                          return Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
+                      if (_model.selectedFiles != null &&
+                          (_model.selectedFiles)!.isNotEmpty) {
+                        // i=0; uploadedFiles=[];
+                        _model.ii = 0;
+                        _model.uploadedFiles = [];
+                        while (_model.ii < _model.selectedFiles!.length) {
+                          // init uploadedFiles
+                          _model.addToUploadedFiles(UploadedFileStruct(
+                            filePath:
+                                (_model.selectedFiles?[_model.ii])?.filePath,
+                          ));
+                          setState(() {});
+                          // selectedFile[i] to Firebase Storage
+                          unawaited(
+                            () async {
+                              await actions.uploadSelectedFileWithProgress(
+                                _model.selectedFiles![_model.ii],
+                                _model.ii,
+                                (uploadProgress, selectedFileIndex) async {
+                                  // uploadedFiles[selectedFileIndex]=uploadProgress
+                                  _model.updateUploadedFilesAtIndex(
+                                    selectedFileIndex,
+                                    (e) => e..uploadProgress = uploadProgress,
+                                  );
+                                  setState(() {});
+                                },
+                                (uploadedFile, selectedFileIndex) async {
+                                  // uploadedFiles[selectedFileIndex]=uploadedFile
+                                  _model.updateUploadedFilesAtIndex(
+                                    selectedFileIndex,
+                                    (_) => uploadedFile,
+                                  );
+                                  setState(() {});
+                                },
+                              );
+                            }(),
+                          );
+                          // i += 1;
+                          _model.ii = _model.ii + 1;
+                        }
+                      } else {
+                        // show error message
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Files not selected',
+                              style: TextStyle(
+                                color: FlutterFlowTheme.of(context).primaryText,
                               ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    uploadingFilesListItem.localName,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          letterSpacing: 0.0,
-                                        ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      // launch URL
-                                      await launchURL('<URL>');
-                                      // launch URL
-                                      await actions.launchUrl(
-                                        valueOrDefault<String>(
-                                          _model
-                                              .uploadedFiles[
-                                                  uploadingFilesListIndex]
-                                              .storageDownloadUrl,
-                                          'N/A',
-                                        ),
-                                      );
-                                    },
-                                    child: Text(
+                            duration: const Duration(milliseconds: 4000),
+                            backgroundColor: FlutterFlowTheme.of(context).error,
+                          ),
+                        );
+                      }
+
+                      setState(() {});
+                    },
+                    text: 'Select Files & Upload with Progress',
+                    options: FFButtonOptions(
+                      height: 40.0,
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primary,
+                      textStyle:
+                          FlutterFlowTheme.of(context).titleSmall.override(
+                                fontFamily: 'Readex Pro',
+                                color: Colors.white,
+                                letterSpacing: 0.0,
+                              ),
+                      elevation: 3.0,
+                      borderSide: const BorderSide(
+                        color: Colors.transparent,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                    child: Builder(
+                      builder: (context) {
+                        final uploadedFilesList = _model.uploadedFiles.toList();
+                        if (uploadedFilesList.isEmpty) {
+                          return const UploadingFilesListEmptyPlaceholderWidget();
+                        }
+
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: List.generate(uploadedFilesList.length,
+                              (uploadedFilesListIndex) {
+                            final uploadedFilesListItem =
+                                uploadedFilesList[uploadedFilesListIndex];
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
                                       valueOrDefault<String>(
-                                        _model
-                                            .uploadedFiles[
-                                                uploadingFilesListIndex]
-                                            .storageDownloadUrl,
+                                        uploadedFilesListItem.filePath,
                                         'N/A',
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            letterSpacing: 0.0,
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
-                                    ),
-                                  ),
-                                  LinearPercentIndicator(
-                                    percent: uploadingFilesListItem.progress,
-                                    lineHeight: 25.0,
-                                    animation: true,
-                                    animateFromLastPercent: true,
-                                    progressColor:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).accent4,
-                                    center: Text(
-                                      (double progress) {
-                                        return "${progress * 100}%";
-                                      }(uploadingFilesListItem.progress),
-                                      style: FlutterFlowTheme.of(context)
-                                          .headlineSmall
-                                          .override(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 14.0,
                                             letterSpacing: 0.0,
                                           ),
                                     ),
-                                    padding: EdgeInsets.zero,
-                                  ),
-                                ],
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        // launch URL
+                                        await actions.launchUrl(
+                                          valueOrDefault<String>(
+                                            _model
+                                                .uploadedFiles[
+                                                    uploadedFilesListIndex]
+                                                .storageDownloadUrl,
+                                            'N/A',
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        valueOrDefault<String>(
+                                          _model
+                                              .uploadedFiles[
+                                                  uploadedFilesListIndex]
+                                              .storageDownloadUrl,
+                                          'N/A',
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              letterSpacing: 0.0,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                      ),
+                                    ),
+                                    LinearPercentIndicator(
+                                      percent:
+                                          uploadedFilesListItem.uploadProgress,
+                                      lineHeight: 25.0,
+                                      animation: true,
+                                      animateFromLastPercent: true,
+                                      progressColor:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context).accent4,
+                                      center: Text(
+                                        (double progress) {
+                                          return "${progress * 100}%";
+                                        }(uploadedFilesListItem.uploadProgress),
+                                        style: FlutterFlowTheme.of(context)
+                                            .headlineSmall
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 14.0,
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                      padding: EdgeInsets.zero,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        }).divide(const SizedBox(height: 12.0)),
-                      );
-                    },
+                            );
+                          }).divide(const SizedBox(height: 12.0)),
+                        );
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

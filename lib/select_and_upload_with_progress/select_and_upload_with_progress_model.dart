@@ -11,19 +11,6 @@ class SelectAndUploadWithProgressModel
 
   int ii = 0;
 
-  List<UploadingFileStruct> uploadingFiles = [];
-  void addToUploadingFiles(UploadingFileStruct item) =>
-      uploadingFiles.add(item);
-  void removeFromUploadingFiles(UploadingFileStruct item) =>
-      uploadingFiles.remove(item);
-  void removeAtIndexFromUploadingFiles(int index) =>
-      uploadingFiles.removeAt(index);
-  void insertAtIndexInUploadingFiles(int index, UploadingFileStruct item) =>
-      uploadingFiles.insert(index, item);
-  void updateUploadingFilesAtIndex(
-          int index, Function(UploadingFileStruct) updateFn) =>
-      uploadingFiles[index] = updateFn(uploadingFiles[index]);
-
   List<UploadedFileStruct> uploadedFiles = [];
   void addToUploadedFiles(UploadedFileStruct item) => uploadedFiles.add(item);
   void removeFromUploadedFiles(UploadedFileStruct item) =>
