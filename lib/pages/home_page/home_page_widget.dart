@@ -200,6 +200,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             isUploadInProgress;
                                         setState(() {});
                                       },
+                                      onUploadDone:
+                                          (fileNames, fileUrls) async {},
                                     ),
                                   ),
                                 ),
