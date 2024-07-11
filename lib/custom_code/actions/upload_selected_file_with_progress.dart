@@ -14,17 +14,21 @@ import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mime_type/mime_type.dart';
 
-Future<UploadedFileStruct?> uploadSelectedFileWithProgress(
+Future uploadSelectedFileWithProgress(
   SelectedFileStruct selectedFile,
-  Future Function(double? progress)? onProgress,
+  int selectedFileIndex,
+  Future Function(double uploadProgress, int selectedFileIndex)?
+      onUploadProgress,
+  Future Function(UploadedFileStruct uploadedFile, int selectedFileIndex)
+      onUploadSuccessful,
 ) async {
   // Add your function code here!
 
   String path = selectedFile.storagePath;
   Uint8List data = Uint8List.fromList(selectedFile.bytes);
 
-  if (onProgress != null) {
-    onProgress(0);
+  if (onUploadProgress != null) {
+    onUploadProgress(0, selectedFileIndex);
   }
 
   final storageRef = FirebaseStorage.instance.ref().child(path);
@@ -32,18 +36,28 @@ Future<UploadedFileStruct?> uploadSelectedFileWithProgress(
   final uploadTask = storageRef.putData(data, metadata);
 
   uploadTask.snapshotEvents.listen((event) {
-    double progress = event.bytesTransferred / event.totalBytes;
-    if (onProgress != null) {
-      onProgress(progress);
+    print(event.state);
+
+    if (onUploadProgress != null && event.totalBytes > 0) {
+      double progress = event.bytesTransferred / event.totalBytes;
+      print(progress);
+      onUploadProgress(progress, selectedFileIndex);
     }
 
-    print(event.state);
-    print(progress);
+    if (event.state == TaskState.success) {
+      onUploadSuccessful(
+        UploadedFileStruct(
+          localPath: selectedFile.filePath,
+          storagePath: selectedFile.storagePath,
+        ),
+        selectedFileIndex,
+      );
+    }
   });
 
   final uploadedFile = UploadedFileStruct(
-    localName: selectedFile.filePath,
-    storageName: selectedFile.storagePath,
+    localPath: selectedFile.filePath,
+    storagePath: selectedFile.storagePath,
   );
 
   return uploadedFile;

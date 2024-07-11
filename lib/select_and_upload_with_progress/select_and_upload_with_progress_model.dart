@@ -24,13 +24,23 @@ class SelectAndUploadWithProgressModel
           int index, Function(UploadingFileStruct) updateFn) =>
       uploadingFiles[index] = updateFn(uploadingFiles[index]);
 
+  List<UploadedFileStruct> uploadedFiles = [];
+  void addToUploadedFiles(UploadedFileStruct item) => uploadedFiles.add(item);
+  void removeFromUploadedFiles(UploadedFileStruct item) =>
+      uploadedFiles.remove(item);
+  void removeAtIndexFromUploadedFiles(int index) =>
+      uploadedFiles.removeAt(index);
+  void insertAtIndexInUploadedFiles(int index, UploadedFileStruct item) =>
+      uploadedFiles.insert(index, item);
+  void updateUploadedFilesAtIndex(
+          int index, Function(UploadedFileStruct) updateFn) =>
+      uploadedFiles[index] = updateFn(uploadedFiles[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
   // Stores action output result for [Custom Action - selectFilesWithAllowedExtensions] action in SelectFilesNUploadWithProgress widget.
   List<SelectedFileStruct>? selectedFiles;
-  // Stores action output result for [Custom Action - uploadSelectedFileWithProgress] action in SelectFilesNUploadWithProgress widget.
-  UploadedFileStruct? uploadedFile;
 
   @override
   void initState(BuildContext context) {}

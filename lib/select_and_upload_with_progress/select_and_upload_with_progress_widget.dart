@@ -82,11 +82,12 @@ class _SelectAndUploadWithProgressWidgetState
                     );
                     if (_model.selectedFiles != null &&
                         (_model.selectedFiles)!.isNotEmpty) {
-                      // i=0; uploadingFiles=[];
+                      // i=0; uploadingFiles=[]; uploadedFiles=[];
                       _model.ii = 0;
                       _model.uploadingFiles = [];
+                      _model.uploadedFiles = [];
                       while (_model.ii < _model.selectedFiles!.length) {
-                        // init uploadingItems
+                        // init uploadingFiles
                         _model.addToUploadingFiles(UploadingFileStruct(
                           localName: valueOrDefault<String>(
                             (_model.selectedFiles?[_model.ii])?.filePath,
@@ -95,15 +96,29 @@ class _SelectAndUploadWithProgressWidgetState
                           progress: 0.0,
                         ));
                         setState(() {});
+                        // init uploadedFiles
+                        _model.addToUploadedFiles(UploadedFileStruct(
+                          localPath:
+                              (_model.selectedFiles?[_model.ii])?.filePath,
+                        ));
+                        setState(() {});
                         // selectedFile[i] to Firebase Storage
-                        _model.uploadedFile =
-                            await actions.uploadSelectedFileWithProgress(
+                        await actions.uploadSelectedFileWithProgress(
                           _model.selectedFiles![_model.ii],
-                          (progress) async {
-                            // update page state
+                          _model.ii,
+                          (uploadProgress, selectedFileIndex) async {
+                            // uploadingFiles[selectedFileIndex]=uploadProgress
                             _model.updateUploadingFilesAtIndex(
-                              _model.ii,
-                              (e) => e..progress = progress,
+                              selectedFileIndex,
+                              (e) => e..progress = uploadProgress,
+                            );
+                            setState(() {});
+                          },
+                          (uploadedFile, selectedFileIndex) async {
+                            // uploadedFiles[selectedFileIndex]=uploadedFile
+                            _model.updateUploadedFilesAtIndex(
+                              selectedFileIndex,
+                              (_) => uploadedFile,
                             );
                             setState(() {});
                           },

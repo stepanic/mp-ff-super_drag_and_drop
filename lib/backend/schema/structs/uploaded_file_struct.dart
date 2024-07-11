@@ -10,32 +10,41 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class UploadedFileStruct extends FFFirebaseStruct {
   UploadedFileStruct({
-    String? localName,
-    String? storageName,
+    String? localPath,
+    String? storagePath,
+    String? storageDownloadUrl,
     List<int>? bytes,
     String? extension,
     String? mimeType,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
-  })  : _localName = localName,
-        _storageName = storageName,
+  })  : _localPath = localPath,
+        _storagePath = storagePath,
+        _storageDownloadUrl = storageDownloadUrl,
         _bytes = bytes,
         _extension = extension,
         _mimeType = mimeType,
         super(firestoreUtilData);
 
-  // "localName" field.
-  String? _localName;
-  String get localName => _localName ?? '';
-  set localName(String? val) => _localName = val;
+  // "localPath" field.
+  String? _localPath;
+  String get localPath => _localPath ?? '';
+  set localPath(String? val) => _localPath = val;
 
-  bool hasLocalName() => _localName != null;
+  bool hasLocalPath() => _localPath != null;
 
-  // "storageName" field.
-  String? _storageName;
-  String get storageName => _storageName ?? '';
-  set storageName(String? val) => _storageName = val;
+  // "storagePath" field.
+  String? _storagePath;
+  String get storagePath => _storagePath ?? '';
+  set storagePath(String? val) => _storagePath = val;
 
-  bool hasStorageName() => _storageName != null;
+  bool hasStoragePath() => _storagePath != null;
+
+  // "storageDownloadUrl" field.
+  String? _storageDownloadUrl;
+  String get storageDownloadUrl => _storageDownloadUrl ?? '';
+  set storageDownloadUrl(String? val) => _storageDownloadUrl = val;
+
+  bool hasStorageDownloadUrl() => _storageDownloadUrl != null;
 
   // "bytes" field.
   List<int>? _bytes;
@@ -64,8 +73,9 @@ class UploadedFileStruct extends FFFirebaseStruct {
 
   static UploadedFileStruct fromMap(Map<String, dynamic> data) =>
       UploadedFileStruct(
-        localName: data['localName'] as String?,
-        storageName: data['storageName'] as String?,
+        localPath: data['localPath'] as String?,
+        storagePath: data['storagePath'] as String?,
+        storageDownloadUrl: data['storageDownloadUrl'] as String?,
         bytes: getDataList(data['bytes']),
         extension: data['extension'] as String?,
         mimeType: data['mimeType'] as String?,
@@ -76,8 +86,9 @@ class UploadedFileStruct extends FFFirebaseStruct {
       : null;
 
   Map<String, dynamic> toMap() => {
-        'localName': _localName,
-        'storageName': _storageName,
+        'localPath': _localPath,
+        'storagePath': _storagePath,
+        'storageDownloadUrl': _storageDownloadUrl,
         'bytes': _bytes,
         'extension': _extension,
         'mimeType': _mimeType,
@@ -85,12 +96,16 @@ class UploadedFileStruct extends FFFirebaseStruct {
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'localName': serializeParam(
-          _localName,
+        'localPath': serializeParam(
+          _localPath,
           ParamType.String,
         ),
-        'storageName': serializeParam(
-          _storageName,
+        'storagePath': serializeParam(
+          _storagePath,
+          ParamType.String,
+        ),
+        'storageDownloadUrl': serializeParam(
+          _storageDownloadUrl,
           ParamType.String,
         ),
         'bytes': serializeParam(
@@ -110,13 +125,18 @@ class UploadedFileStruct extends FFFirebaseStruct {
 
   static UploadedFileStruct fromSerializableMap(Map<String, dynamic> data) =>
       UploadedFileStruct(
-        localName: deserializeParam(
-          data['localName'],
+        localPath: deserializeParam(
+          data['localPath'],
           ParamType.String,
           false,
         ),
-        storageName: deserializeParam(
-          data['storageName'],
+        storagePath: deserializeParam(
+          data['storagePath'],
+          ParamType.String,
+          false,
+        ),
+        storageDownloadUrl: deserializeParam(
+          data['storageDownloadUrl'],
           ParamType.String,
           false,
         ),
@@ -144,21 +164,23 @@ class UploadedFileStruct extends FFFirebaseStruct {
   bool operator ==(Object other) {
     const listEquality = ListEquality();
     return other is UploadedFileStruct &&
-        localName == other.localName &&
-        storageName == other.storageName &&
+        localPath == other.localPath &&
+        storagePath == other.storagePath &&
+        storageDownloadUrl == other.storageDownloadUrl &&
         listEquality.equals(bytes, other.bytes) &&
         extension == other.extension &&
         mimeType == other.mimeType;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([localName, storageName, bytes, extension, mimeType]);
+  int get hashCode => const ListEquality().hash(
+      [localPath, storagePath, storageDownloadUrl, bytes, extension, mimeType]);
 }
 
 UploadedFileStruct createUploadedFileStruct({
-  String? localName,
-  String? storageName,
+  String? localPath,
+  String? storagePath,
+  String? storageDownloadUrl,
   String? extension,
   String? mimeType,
   Map<String, dynamic> fieldValues = const {},
@@ -167,8 +189,9 @@ UploadedFileStruct createUploadedFileStruct({
   bool delete = false,
 }) =>
     UploadedFileStruct(
-      localName: localName,
-      storageName: storageName,
+      localPath: localPath,
+      storagePath: storagePath,
+      storageDownloadUrl: storageDownloadUrl,
       extension: extension,
       mimeType: mimeType,
       firestoreUtilData: FirestoreUtilData(
