@@ -48,7 +48,7 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
           RotateEffect(
             curve: Curves.linear,
             delay: 0.0.ms,
-            duration: 1000.0.ms,
+            duration: 700.0.ms,
             begin: 0.0,
             end: -1.0,
           ),
