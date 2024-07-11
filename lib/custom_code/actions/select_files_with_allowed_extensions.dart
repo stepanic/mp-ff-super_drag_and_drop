@@ -19,7 +19,7 @@ Future<List<SelectedFileStruct>?> selectFilesWithAllowedExtensions(
 ) async {
   final selectedFiles = await selectFiles(
     allowedExtensions: allowedExtensions,
-    multiFile: isMultiFile != null ? isMultiFile : false,
+    multiFile: isMultiFile ?? false,
   );
 
   List<SelectedFileStruct> selectedFilesList = <SelectedFileStruct>[];
@@ -27,6 +27,8 @@ Future<List<SelectedFileStruct>?> selectFilesWithAllowedExtensions(
   if (selectedFiles != null) {
     for (var i = 0; i < selectedFiles.length; i++) {
       SelectedFile selectedFile = selectedFiles[i];
+
+      print(selectedFile.filePath);
 
       selectedFilesList.add(SelectedFileStruct(
         storagePath: selectedFile.storagePath,
