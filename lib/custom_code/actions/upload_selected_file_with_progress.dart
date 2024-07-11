@@ -48,8 +48,8 @@ Future uploadSelectedFileWithProgress(
       event.ref.getDownloadURL().then((downloadUrl) {
         onUploadSuccessful(
           UploadedFileStruct(
-            localPath: selectedFile.filePath,
             storagePath: selectedFile.storagePath,
+            filePath: selectedFile.filePath,
             storageDownloadUrl: downloadUrl,
           ),
           selectedFileIndex,
@@ -57,13 +57,4 @@ Future uploadSelectedFileWithProgress(
       });
     }
   });
-
-  final uploadedFile = UploadedFileStruct(
-    localPath: selectedFile.filePath,
-    storagePath: selectedFile.storagePath,
-  );
-
-  return uploadedFile;
-
-  // return result.state == TaskState.success ? result.ref.getDownloadURL() : null;
 }
