@@ -125,6 +125,12 @@ class _SelectAndUploadWithProgressWidgetState
                                         _model.howManyUploadedFiles =
                                             _model.howManyUploadedFiles + 1;
                                         setState(() {});
+                                        if (_model.howManyUploadedFiles ==
+                                            _model.howManySelectedFiles) {
+                                          // reset howManySelectedFiles
+                                          _model.howManySelectedFiles = null;
+                                          setState(() {});
+                                        }
                                       },
                                     );
                                   }(),
