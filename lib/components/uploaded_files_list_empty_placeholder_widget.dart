@@ -1,20 +1,20 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'uploading_files_list_empty_placeholder_model.dart';
-export 'uploading_files_list_empty_placeholder_model.dart';
+import 'uploaded_files_list_empty_placeholder_model.dart';
+export 'uploaded_files_list_empty_placeholder_model.dart';
 
-class UploadingFilesListEmptyPlaceholderWidget extends StatefulWidget {
-  const UploadingFilesListEmptyPlaceholderWidget({super.key});
+class UploadedFilesListEmptyPlaceholderWidget extends StatefulWidget {
+  const UploadedFilesListEmptyPlaceholderWidget({super.key});
 
   @override
-  State<UploadingFilesListEmptyPlaceholderWidget> createState() =>
-      _UploadingFilesListEmptyPlaceholderWidgetState();
+  State<UploadedFilesListEmptyPlaceholderWidget> createState() =>
+      _UploadedFilesListEmptyPlaceholderWidgetState();
 }
 
-class _UploadingFilesListEmptyPlaceholderWidgetState
-    extends State<UploadingFilesListEmptyPlaceholderWidget> {
-  late UploadingFilesListEmptyPlaceholderModel _model;
+class _UploadedFilesListEmptyPlaceholderWidgetState
+    extends State<UploadedFilesListEmptyPlaceholderWidget> {
+  late UploadedFilesListEmptyPlaceholderModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -26,7 +26,7 @@ class _UploadingFilesListEmptyPlaceholderWidgetState
   void initState() {
     super.initState();
     _model =
-        createModel(context, () => UploadingFilesListEmptyPlaceholderModel());
+        createModel(context, () => UploadedFilesListEmptyPlaceholderModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }

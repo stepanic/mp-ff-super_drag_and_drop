@@ -1,6 +1,6 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/uploading_files_list_empty_placeholder_widget.dart';
+import '/components/uploaded_files_list_empty_placeholder_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -169,7 +169,7 @@ class _SelectAndUploadWithProgressWidgetState
                       builder: (context) {
                         final uploadedFilesList = _model.uploadedFiles.toList();
                         if (uploadedFilesList.isEmpty) {
-                          return const UploadingFilesListEmptyPlaceholderWidget();
+                          return const UploadedFilesListEmptyPlaceholderWidget();
                         }
 
                         return Column(
@@ -240,30 +240,36 @@ class _SelectAndUploadWithProgressWidgetState
                                             ),
                                       ),
                                     ),
-                                    LinearPercentIndicator(
-                                      percent:
-                                          uploadedFilesListItem.uploadProgress,
-                                      lineHeight: 25.0,
-                                      animation: true,
-                                      animateFromLastPercent: true,
-                                      progressColor:
-                                          FlutterFlowTheme.of(context).tertiary,
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context).accent4,
-                                      center: Text(
-                                        (double progress) {
-                                          return "${progress * 100}%";
-                                        }(uploadedFilesListItem.uploadProgress),
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineSmall
-                                            .override(
-                                              fontFamily: 'Outfit',
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                            ),
+                                    if (uploadedFilesListItem
+                                                .storageDownloadUrl ==
+                                            '')
+                                      LinearPercentIndicator(
+                                        percent: uploadedFilesListItem
+                                            .uploadProgress,
+                                        lineHeight: 25.0,
+                                        animation: true,
+                                        animateFromLastPercent: true,
+                                        progressColor:
+                                            FlutterFlowTheme.of(context)
+                                                .tertiary,
+                                        backgroundColor:
+                                            FlutterFlowTheme.of(context)
+                                                .accent4,
+                                        center: Text(
+                                          (double progress) {
+                                            return "${(progress * 100).toStringAsFixed(0)}%";
+                                          }(uploadedFilesListItem
+                                              .uploadProgress),
+                                          style: FlutterFlowTheme.of(context)
+                                              .headlineSmall
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                fontSize: 14.0,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                        padding: EdgeInsets.zero,
                                       ),
-                                      padding: EdgeInsets.zero,
-                                    ),
                                   ],
                                 ),
                               ),
