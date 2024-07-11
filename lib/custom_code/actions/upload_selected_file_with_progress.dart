@@ -11,9 +11,13 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<UploadedFileStruct?> uploadSelectedFileWithProgress(
+Future uploadSelectedFileWithProgress(
   SelectedFileStruct selectedFile,
-  Future Function(double? progress)? onProgress,
+  int selectedFileIndex,
+  Future Function(double uploadProgress, int selectedFileIndex)?
+      onUploadProgress,
+  Future Function(UploadedFileStruct uploadedFile, int selectedFileIndex)
+      onUploadSuccessful,
 ) async {
   // Add your function code here!
 }
