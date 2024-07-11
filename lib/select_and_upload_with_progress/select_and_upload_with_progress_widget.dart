@@ -213,8 +213,6 @@ class _SelectAndUploadWithProgressWidgetState
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       // launch URL
-                                      await launchURL('<URL>');
-                                      // launch URL
                                       await actions.launchUrl(
                                         valueOrDefault<String>(
                                           _model
