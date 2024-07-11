@@ -22,6 +22,8 @@ Future<List<SelectedFileStruct>?> selectFilesWithAllowedExtensions(
     multiFile: isMultiFile ?? false,
   );
 
+  print(selectedFiles);
+
   List<SelectedFileStruct> selectedFilesList = <SelectedFileStruct>[];
 
   if (selectedFiles != null) {
