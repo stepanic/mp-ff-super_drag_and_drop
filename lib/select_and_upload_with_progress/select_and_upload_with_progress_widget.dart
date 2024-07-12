@@ -208,8 +208,8 @@ class _SelectAndUploadWithProgressWidgetState
                         }
 
                         return Wrap(
-                          spacing: 0.0,
-                          runSpacing: 0.0,
+                          spacing: 12.0,
+                          runSpacing: 12.0,
                           alignment: WrapAlignment.start,
                           crossAxisAlignment: WrapCrossAlignment.start,
                           direction: Axis.horizontal,
