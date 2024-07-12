@@ -46,12 +46,14 @@ Future uploadSelectedFileWithProgress(
 
     if (event.state == TaskState.success) {
       event.ref.getDownloadURL().then((downloadUrl) {
+        int sizeInBytes = event.totalBytes;
         onUploadSuccessful(
           UploadedFileStruct(
             storagePath: selectedFile.storagePath,
             filePath: selectedFile.filePath,
             uploadProgress: 1.0,
             storageDownloadUrl: downloadUrl,
+            sizeInBytes: sizeInBytes,
           ),
           selectedFileIndex,
         );
