@@ -12,11 +12,13 @@ class UploadedFileStruct extends FFFirebaseStruct {
     String? filePath,
     double? uploadProgress,
     String? storageDownloadUrl,
+    int? sizeInBytes,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _storagePath = storagePath,
         _filePath = filePath,
         _uploadProgress = uploadProgress,
         _storageDownloadUrl = storageDownloadUrl,
+        _sizeInBytes = sizeInBytes,
         super(firestoreUtilData);
 
   // "storagePath" field.
@@ -50,12 +52,22 @@ class UploadedFileStruct extends FFFirebaseStruct {
 
   bool hasStorageDownloadUrl() => _storageDownloadUrl != null;
 
+  // "sizeInBytes" field.
+  int? _sizeInBytes;
+  int get sizeInBytes => _sizeInBytes ?? 0;
+  set sizeInBytes(int? val) => _sizeInBytes = val;
+
+  void incrementSizeInBytes(int amount) => sizeInBytes = sizeInBytes + amount;
+
+  bool hasSizeInBytes() => _sizeInBytes != null;
+
   static UploadedFileStruct fromMap(Map<String, dynamic> data) =>
       UploadedFileStruct(
         storagePath: data['storagePath'] as String?,
         filePath: data['filePath'] as String?,
         uploadProgress: castToType<double>(data['uploadProgress']),
         storageDownloadUrl: data['storageDownloadUrl'] as String?,
+        sizeInBytes: castToType<int>(data['sizeInBytes']),
       );
 
   static UploadedFileStruct? maybeFromMap(dynamic data) => data is Map
@@ -67,6 +79,7 @@ class UploadedFileStruct extends FFFirebaseStruct {
         'filePath': _filePath,
         'uploadProgress': _uploadProgress,
         'storageDownloadUrl': _storageDownloadUrl,
+        'sizeInBytes': _sizeInBytes,
       }.withoutNulls;
 
   @override
@@ -86,6 +99,10 @@ class UploadedFileStruct extends FFFirebaseStruct {
         'storageDownloadUrl': serializeParam(
           _storageDownloadUrl,
           ParamType.String,
+        ),
+        'sizeInBytes': serializeParam(
+          _sizeInBytes,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -111,6 +128,11 @@ class UploadedFileStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        sizeInBytes: deserializeParam(
+          data['sizeInBytes'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -122,12 +144,13 @@ class UploadedFileStruct extends FFFirebaseStruct {
         storagePath == other.storagePath &&
         filePath == other.filePath &&
         uploadProgress == other.uploadProgress &&
-        storageDownloadUrl == other.storageDownloadUrl;
+        storageDownloadUrl == other.storageDownloadUrl &&
+        sizeInBytes == other.sizeInBytes;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([storagePath, filePath, uploadProgress, storageDownloadUrl]);
+  int get hashCode => const ListEquality().hash(
+      [storagePath, filePath, uploadProgress, storageDownloadUrl, sizeInBytes]);
 }
 
 UploadedFileStruct createUploadedFileStruct({
@@ -135,6 +158,7 @@ UploadedFileStruct createUploadedFileStruct({
   String? filePath,
   double? uploadProgress,
   String? storageDownloadUrl,
+  int? sizeInBytes,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -145,6 +169,7 @@ UploadedFileStruct createUploadedFileStruct({
       filePath: filePath,
       uploadProgress: uploadProgress,
       storageDownloadUrl: storageDownloadUrl,
+      sizeInBytes: sizeInBytes,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

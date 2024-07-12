@@ -207,13 +207,23 @@ class _SelectAndUploadWithProgressWidgetState
                           return const UploadedFilesListEmptyPlaceholderWidget();
                         }
 
-                        return Column(
-                          mainAxisSize: MainAxisSize.max,
+                        return Wrap(
+                          spacing: 0.0,
+                          runSpacing: 0.0,
+                          alignment: WrapAlignment.start,
+                          crossAxisAlignment: WrapCrossAlignment.start,
+                          direction: Axis.horizontal,
+                          runAlignment: WrapAlignment.start,
+                          verticalDirection: VerticalDirection.down,
+                          clipBehavior: Clip.none,
                           children: List.generate(uploadedFilesList.length,
-                                  (uploadedFilesListIndex) {
+                              (uploadedFilesListIndex) {
                             final uploadedFilesListItem =
                                 uploadedFilesList[uploadedFilesListIndex];
                             return Container(
+                              constraints: const BoxConstraints(
+                                maxWidth: 256.0,
+                              ),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12.0),
                                 border: Border.all(
@@ -312,10 +322,7 @@ class _SelectAndUploadWithProgressWidgetState
                                 ),
                               ),
                             );
-                          })
-                              .divide(const SizedBox(height: 12.0))
-                              .addToStart(const SizedBox(height: 12.0))
-                              .addToEnd(const SizedBox(height: 128.0)),
+                          }),
                         );
                       },
                     ),
