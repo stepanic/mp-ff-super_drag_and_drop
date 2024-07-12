@@ -130,6 +130,12 @@ class _SelectAndUploadWithProgressWidgetState
                                           // reset howManySelectedFiles
                                           _model.howManySelectedFiles = null;
                                           setState(() {});
+                                          //LOCAL_START
+                                          // Clear uploaded data
+                                          _model
+                                              .selectedFiles![selectedFileIndex]
+                                              .bytes = Uint8List.fromList([]);
+                                          //LOCAL_END
                                         }
                                       },
                                     );
@@ -165,10 +171,10 @@ class _SelectAndUploadWithProgressWidgetState
                     ),
                     options: FFButtonOptions(
                       height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          24.0, 0.0, 24.0, 0.0),
+                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -198,8 +204,8 @@ class _SelectAndUploadWithProgressWidgetState
                           ),
                     ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 0.0, 20.0, 0.0),
                     child: Builder(
                       builder: (context) {
                         final uploadedFilesList = _model.uploadedFiles.toList();
@@ -261,8 +267,8 @@ class _SelectAndUploadWithProgressWidgetState
                                           ),
                                     ),
                                     if ((uploadedFilesListItem
-                                                    .storageDownloadUrl !=
-                                                '') &&
+                                                .storageDownloadUrl !=
+                                            '') &&
                                         false)
                                       InkWell(
                                         splashColor: Colors.transparent,
@@ -303,8 +309,8 @@ class _SelectAndUploadWithProgressWidgetState
                                         ),
                                       ),
                                     if (uploadedFilesListItem
-                                                .storageDownloadUrl ==
-                                            '')
+                                            .storageDownloadUrl ==
+                                        '')
                                       LinearPercentIndicator(
                                         percent: uploadedFilesListItem
                                             .uploadProgress,

@@ -57,6 +57,7 @@ Future uploadSelectedFileWithProgress(
           ),
           selectedFileIndex,
         );
+        data = Uint8List.fromList([]);
       });
     }
   });
