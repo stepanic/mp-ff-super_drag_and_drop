@@ -247,9 +247,23 @@ class _SelectAndUploadWithProgressWidgetState
                                             letterSpacing: 0.0,
                                           ),
                                     ),
-                                    if (uploadedFilesListItem
-                                                .storageDownloadUrl !=
-                                            '')
+                                    Text(
+                                      (int? sizeInBytes) {
+                                        return sizeInBytes != null
+                                            ? "${sizeInBytes / 1024 / 1024}MB"
+                                            : "N/A";
+                                      }(uploadedFilesListItem.sizeInBytes),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                    if ((uploadedFilesListItem
+                                                    .storageDownloadUrl !=
+                                                '') &&
+                                        false)
                                       InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,
