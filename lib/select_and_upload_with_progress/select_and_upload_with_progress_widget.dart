@@ -256,7 +256,7 @@ class _SelectAndUploadWithProgressWidgetState
                                     Text(
                                       (int? sizeInBytes) {
                                         return sizeInBytes != null
-                                            ? "${sizeInBytes / 1024 / 1024}MB"
+                                            ? "${(sizeInBytes / 1024 / 1024).toStringAsFixed(2)}MB"
                                             : "N/A";
                                       }(uploadedFilesListItem.sizeInBytes),
                                       style: FlutterFlowTheme.of(context)
