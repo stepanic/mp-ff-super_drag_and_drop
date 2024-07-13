@@ -519,10 +519,10 @@ class _SelectAndUploadWithProgressWidgetState
                     ),
                   ),
                   Text(
-                    '${valueOrDefault<String>(
+                    'UPLOADED=${valueOrDefault<String>(
                       _model.howManyUploadedFiles.toString(),
                       '0',
-                    )}/${_model.howManySelectedFiles.toString()}',
+                    )} OF SELECTED=${_model.howManySelectedFiles.toString()}',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Readex Pro',
                           letterSpacing: 0.0,
