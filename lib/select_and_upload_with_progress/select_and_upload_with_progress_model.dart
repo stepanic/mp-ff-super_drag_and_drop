@@ -9,8 +9,6 @@ class SelectAndUploadWithProgressModel
     extends FlutterFlowModel<SelectAndUploadWithProgressWidget> {
   ///  Local state fields for this page.
 
-  int ii = 0;
-
   List<UploadedFileStruct> uploadedFiles = [];
   void addToUploadedFiles(UploadedFileStruct item) => uploadedFiles.add(item);
   void removeFromUploadedFiles(UploadedFileStruct item) =>
@@ -25,12 +23,20 @@ class SelectAndUploadWithProgressModel
 
   int howManyUploadedFiles = 0;
 
-  int? howManySelectedFiles;
+  int howManySelectedFiles = 0;
+
+  bool isOverSuperDragAndDrop = false;
+
+  bool isUploadInProgress = false;
+
+  int uploadedFileNextIndex = 0;
+
+  int ii = 0;
 
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Custom Action - selectFilesWithAllowedExtensions] action in SelectFilesNUploadWithProgress widget.
+  // Stores action output result for [Custom Action - selectFilesWithAllowedExtensions] action in SelectFilesControl widget.
   List<SelectedFileStruct>? selectedFiles;
 
   @override

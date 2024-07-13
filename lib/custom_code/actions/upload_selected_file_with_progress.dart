@@ -16,10 +16,10 @@ import 'package:mime_type/mime_type.dart';
 
 Future uploadSelectedFileWithProgress(
   SelectedFileStruct selectedFile,
-  int selectedFileIndex,
-  Future Function(double uploadProgress, int selectedFileIndex)?
+  int uploadedFileIndex,
+  Future Function(double uploadProgress, int uploadedFileIndex)?
       onUploadProgress,
-  Future Function(UploadedFileStruct uploadedFile, int selectedFileIndex)
+  Future Function(UploadedFileStruct uploadedFile, int uploadedFileIndex)
       onUploadSuccessful,
 ) async {
   // Add your function code here!
@@ -28,7 +28,7 @@ Future uploadSelectedFileWithProgress(
   Uint8List data = Uint8List.fromList(selectedFile.bytes);
 
   if (onUploadProgress != null) {
-    onUploadProgress(0, selectedFileIndex);
+    onUploadProgress(0, uploadedFileIndex);
   }
 
   final storageRef = FirebaseStorage.instance.ref().child(path);
@@ -41,7 +41,7 @@ Future uploadSelectedFileWithProgress(
     if (onUploadProgress != null && event.totalBytes > 0) {
       double progress = event.bytesTransferred / event.totalBytes;
       print(progress);
-      onUploadProgress(progress, selectedFileIndex);
+      onUploadProgress(progress, uploadedFileIndex);
     }
 
     if (event.state == TaskState.success) {
@@ -55,7 +55,7 @@ Future uploadSelectedFileWithProgress(
             storageDownloadUrl: downloadUrl,
             sizeInBytes: sizeInBytes,
           ),
-          selectedFileIndex,
+          uploadedFileIndex,
         );
         data = Uint8List.fromList([]);
       });

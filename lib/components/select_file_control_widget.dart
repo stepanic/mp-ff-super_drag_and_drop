@@ -220,6 +220,13 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
           // isUploadInProgress=false
           _model.isUploadInProgress = false;
           setState(() {});
+          // Clear UploadData_SFCF
+          setState(() {
+            _model.isDataUploading = false;
+            _model.uploadedLocalFiles = [];
+            _model.uploadedFileUrls = [];
+          });
+
           // onUploadProgressChange(false)
           await widget.onUploadProgressChange?.call(
             false,

@@ -10,15 +10,19 @@ class UploadedFileStruct extends FFFirebaseStruct {
   UploadedFileStruct({
     String? storagePath,
     String? filePath,
+    DateTime? uploadStartedAt,
     double? uploadProgress,
     String? storageDownloadUrl,
     int? sizeInBytes,
+    DateTime? uploadFinishedAt,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _storagePath = storagePath,
         _filePath = filePath,
+        _uploadStartedAt = uploadStartedAt,
         _uploadProgress = uploadProgress,
         _storageDownloadUrl = storageDownloadUrl,
         _sizeInBytes = sizeInBytes,
+        _uploadFinishedAt = uploadFinishedAt,
         super(firestoreUtilData);
 
   // "storagePath" field.
@@ -34,6 +38,13 @@ class UploadedFileStruct extends FFFirebaseStruct {
   set filePath(String? val) => _filePath = val;
 
   bool hasFilePath() => _filePath != null;
+
+  // "uploadStartedAt" field.
+  DateTime? _uploadStartedAt;
+  DateTime? get uploadStartedAt => _uploadStartedAt;
+  set uploadStartedAt(DateTime? val) => _uploadStartedAt = val;
+
+  bool hasUploadStartedAt() => _uploadStartedAt != null;
 
   // "uploadProgress" field.
   double? _uploadProgress;
@@ -61,13 +72,22 @@ class UploadedFileStruct extends FFFirebaseStruct {
 
   bool hasSizeInBytes() => _sizeInBytes != null;
 
+  // "uploadFinishedAt" field.
+  DateTime? _uploadFinishedAt;
+  DateTime? get uploadFinishedAt => _uploadFinishedAt;
+  set uploadFinishedAt(DateTime? val) => _uploadFinishedAt = val;
+
+  bool hasUploadFinishedAt() => _uploadFinishedAt != null;
+
   static UploadedFileStruct fromMap(Map<String, dynamic> data) =>
       UploadedFileStruct(
         storagePath: data['storagePath'] as String?,
         filePath: data['filePath'] as String?,
+        uploadStartedAt: data['uploadStartedAt'] as DateTime?,
         uploadProgress: castToType<double>(data['uploadProgress']),
         storageDownloadUrl: data['storageDownloadUrl'] as String?,
         sizeInBytes: castToType<int>(data['sizeInBytes']),
+        uploadFinishedAt: data['uploadFinishedAt'] as DateTime?,
       );
 
   static UploadedFileStruct? maybeFromMap(dynamic data) => data is Map
@@ -77,9 +97,11 @@ class UploadedFileStruct extends FFFirebaseStruct {
   Map<String, dynamic> toMap() => {
         'storagePath': _storagePath,
         'filePath': _filePath,
+        'uploadStartedAt': _uploadStartedAt,
         'uploadProgress': _uploadProgress,
         'storageDownloadUrl': _storageDownloadUrl,
         'sizeInBytes': _sizeInBytes,
+        'uploadFinishedAt': _uploadFinishedAt,
       }.withoutNulls;
 
   @override
@@ -91,6 +113,10 @@ class UploadedFileStruct extends FFFirebaseStruct {
         'filePath': serializeParam(
           _filePath,
           ParamType.String,
+        ),
+        'uploadStartedAt': serializeParam(
+          _uploadStartedAt,
+          ParamType.DateTime,
         ),
         'uploadProgress': serializeParam(
           _uploadProgress,
@@ -104,6 +130,10 @@ class UploadedFileStruct extends FFFirebaseStruct {
           _sizeInBytes,
           ParamType.int,
         ),
+        'uploadFinishedAt': serializeParam(
+          _uploadFinishedAt,
+          ParamType.DateTime,
+        ),
       }.withoutNulls;
 
   static UploadedFileStruct fromSerializableMap(Map<String, dynamic> data) =>
@@ -116,6 +146,11 @@ class UploadedFileStruct extends FFFirebaseStruct {
         filePath: deserializeParam(
           data['filePath'],
           ParamType.String,
+          false,
+        ),
+        uploadStartedAt: deserializeParam(
+          data['uploadStartedAt'],
+          ParamType.DateTime,
           false,
         ),
         uploadProgress: deserializeParam(
@@ -133,6 +168,11 @@ class UploadedFileStruct extends FFFirebaseStruct {
           ParamType.int,
           false,
         ),
+        uploadFinishedAt: deserializeParam(
+          data['uploadFinishedAt'],
+          ParamType.DateTime,
+          false,
+        ),
       );
 
   @override
@@ -143,22 +183,33 @@ class UploadedFileStruct extends FFFirebaseStruct {
     return other is UploadedFileStruct &&
         storagePath == other.storagePath &&
         filePath == other.filePath &&
+        uploadStartedAt == other.uploadStartedAt &&
         uploadProgress == other.uploadProgress &&
         storageDownloadUrl == other.storageDownloadUrl &&
-        sizeInBytes == other.sizeInBytes;
+        sizeInBytes == other.sizeInBytes &&
+        uploadFinishedAt == other.uploadFinishedAt;
   }
 
   @override
-  int get hashCode => const ListEquality().hash(
-      [storagePath, filePath, uploadProgress, storageDownloadUrl, sizeInBytes]);
+  int get hashCode => const ListEquality().hash([
+        storagePath,
+        filePath,
+        uploadStartedAt,
+        uploadProgress,
+        storageDownloadUrl,
+        sizeInBytes,
+        uploadFinishedAt
+      ]);
 }
 
 UploadedFileStruct createUploadedFileStruct({
   String? storagePath,
   String? filePath,
+  DateTime? uploadStartedAt,
   double? uploadProgress,
   String? storageDownloadUrl,
   int? sizeInBytes,
+  DateTime? uploadFinishedAt,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -167,9 +218,11 @@ UploadedFileStruct createUploadedFileStruct({
     UploadedFileStruct(
       storagePath: storagePath,
       filePath: filePath,
+      uploadStartedAt: uploadStartedAt,
       uploadProgress: uploadProgress,
       storageDownloadUrl: storageDownloadUrl,
       sizeInBytes: sizeInBytes,
+      uploadFinishedAt: uploadFinishedAt,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
