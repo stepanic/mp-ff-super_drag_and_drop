@@ -81,6 +81,20 @@ class _SelectAndUploadWithProgressWidgetState
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
+          leading: InkWell(
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
+              context.safePop();
+            },
+            child: const Icon(
+              Icons.arrow_back_sharp,
+              color: Colors.white,
+              size: 24.0,
+            ),
+          ),
           title: Text(
             'select.and.upload.with.progress',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
@@ -97,38 +111,12 @@ class _SelectAndUploadWithProgressWidgetState
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: const AlignmentDirectional(0.0, 0.0),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  FFButtonWidget(
-                    onPressed: () async {
-                      context.safePop();
-                    },
-                    text: 'Back',
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
-                                color: Colors.white,
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 3.0,
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
-                      ),
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                  ),
                   Flexible(
                     child: Align(
                       alignment: const AlignmentDirectional(0.0, 0.0),
@@ -625,20 +613,23 @@ class _SelectAndUploadWithProgressWidgetState
                                               letterSpacing: 0.0,
                                             ),
                                       ),
-                                      Text(
-                                        (int? sizeInBytes) {
-                                          return sizeInBytes != null
-                                              ? "${(sizeInBytes / 1024 / 1024).toStringAsFixed(2)}MB"
-                                              : "N/A";
-                                        }(uploadedFilesRecentListItem
-                                            .sizeInBytes),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
+                                      if (uploadedFilesRecentListItem
+                                              .sizeInBytes >
+                                          0)
+                                        Text(
+                                          (int? sizeInBytes) {
+                                            return sizeInBytes != null
+                                                ? "${(sizeInBytes / 1024 / 1024).toStringAsFixed(2)}MB"
+                                                : "N/A";
+                                          }(uploadedFilesRecentListItem
+                                              .sizeInBytes),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -726,10 +717,9 @@ class _SelectAndUploadWithProgressWidgetState
                                           ),
                                         ],
                                       ),
-                                      if ((uploadedFilesRecentListItem
-                                                      .storageDownloadUrl !=
-                                                  '') &&
-                                          false)
+                                      if (uploadedFilesRecentListItem
+                                                  .storageDownloadUrl !=
+                                              '')
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -808,7 +798,10 @@ class _SelectAndUploadWithProgressWidgetState
                       },
                     ),
                   ),
-                ].divide(const SizedBox(height: 12.0)),
+                ]
+                    .divide(const SizedBox(height: 12.0))
+                    .addToStart(const SizedBox(height: 12.0))
+                    .addToEnd(const SizedBox(height: 128.0)),
               ),
             ),
           ),
