@@ -283,6 +283,8 @@ class _SelectAndUploadWithProgressWidgetState
                                                     .howManySelectedFiles +
                                                 _model.selectedFiles!.length;
                                             _model.ii = 0;
+                                            _model.isUploadInProgress = true;
+                                            setState(() {});
                                             while (_model.ii <
                                                 _model.selectedFiles!.length) {
                                               // append to uploadedFiles
