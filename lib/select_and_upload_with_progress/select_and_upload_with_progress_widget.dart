@@ -648,6 +648,20 @@ class _SelectAndUploadWithProgressWidgetState
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
+                                          Text(
+                                            valueOrDefault<String>(
+                                              functions.getMimeType(
+                                                  uploadedFilesRecentListItem
+                                                      .filePath),
+                                              'N/A',
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
                                         ],
                                       ),
                                       Row(
