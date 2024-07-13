@@ -288,6 +288,17 @@ class _SelectAndUploadWithProgressWidgetState
                                                     .howManySelectedFiles +
                                                 _model.selectedFiles!.length;
                                             _model.ii = 0;
+                                            _model.isUploadInProgress = true;
+                                            setState(() {});
+                                            // rotate progress icon
+                                            if (animationsMap[
+                                                    'iconOnActionTriggerAnimation'] !=
+                                                null) {
+                                              await animationsMap[
+                                                      'iconOnActionTriggerAnimation']!
+                                                  .controller
+                                                  .repeat();
+                                            }
                                             while (_model.ii <
                                                 _model.selectedFiles!.length) {
                                               // append to uploadedFiles
@@ -345,6 +356,24 @@ class _SelectAndUploadWithProgressWidgetState
                                                           _model.howManyUploadedFiles +
                                                               1;
                                                       setState(() {});
+                                                      if (_model
+                                                              .howManyUploadedFiles ==
+                                                          _model
+                                                              .howManySelectedFiles) {
+                                                        // isUploadInProgress=false;
+                                                        _model.isUploadInProgress =
+                                                            false;
+                                                        setState(() {});
+                                                        // sto rotating progress icon
+                                                        if (animationsMap[
+                                                                'iconOnActionTriggerAnimation'] !=
+                                                            null) {
+                                                          animationsMap[
+                                                                  'iconOnActionTriggerAnimation']!
+                                                              .controller
+                                                              .stop();
+                                                        }
+                                                      }
                                                     },
                                                   );
                                                 }(),
