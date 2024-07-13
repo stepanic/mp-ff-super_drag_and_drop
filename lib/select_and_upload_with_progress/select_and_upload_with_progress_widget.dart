@@ -225,9 +225,48 @@ class _SelectAndUploadWithProgressWidgetState
                                       ),
                                       _model.uploadedFileNextIndex,
                                       (uploadProgress,
-                                          uploadedFileIndex) async {},
-                                      (uploadedFile,
-                                          uploadedFileIndex) async {},
+                                          uploadedFileIndex) async {
+                                        // uploadedFiles[uploadedFileIndex]=uploadProgress
+                                        _model.updateUploadedFilesAtIndex(
+                                          uploadedFileIndex,
+                                          (e) => e
+                                            ..uploadProgress = uploadProgress,
+                                        );
+                                        setState(() {});
+                                      },
+                                      (uploadedFile, uploadedFileIndex) async {
+                                        // uploadedFiles[uploadedFileIndex]=uploadedFile
+                                        _model.updateUploadedFilesAtIndex(
+                                          uploadedFileIndex,
+                                          (e) => e
+                                            ..storagePath =
+                                                uploadedFile.storagePath
+                                            ..storageDownloadUrl =
+                                                uploadedFile.storageDownloadUrl
+                                            ..sizeInBytes =
+                                                uploadedFile.sizeInBytes
+                                            ..uploadFinishedAt =
+                                                getCurrentTimestamp,
+                                        );
+                                        _model.howManyUploadedFiles =
+                                            _model.howManyUploadedFiles + 1;
+                                        setState(() {});
+                                        if (_model.howManyUploadedFiles ==
+                                            _model.howManySelectedFiles) {
+                                          // isUploadInProgress=false;
+                                          _model.isUploadInProgress = false;
+                                          setState(() {});
+                                          // sto rotating progress icon
+                                          if (animationsMap[
+                                                  'iconOnActionTriggerAnimation'] !=
+                                              null) {
+                                            animationsMap[
+                                                    'iconOnActionTriggerAnimation']!
+                                                .controller
+                                                .stop();
+                                          }
+                                        }
+                                      },
                                     );
                                     // uploadedFileNextIndex+=1;
                                     _model.uploadedFileNextIndex =
