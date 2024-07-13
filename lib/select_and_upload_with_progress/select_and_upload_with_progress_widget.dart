@@ -533,8 +533,12 @@ class _SelectAndUploadWithProgressWidgetState
                         const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                     child: Builder(
                       builder: (context) {
-                        final uploadedFilesRecentList =
-                            _model.uploadedFiles.toList();
+                        final uploadedFilesRecentList = _model.uploadedFiles
+                            .where((e) =>
+                                functions
+                                    .howManySecondsFromNow(e.uploadFinishedAt) >
+                                -10)
+                            .toList();
                         if (uploadedFilesRecentList.isEmpty) {
                           return const UploadedFilesListEmptyPlaceholderWidget();
                         }
