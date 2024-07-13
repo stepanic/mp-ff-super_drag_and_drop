@@ -113,3 +113,19 @@ List<UploadedFileStruct> sortUploadingFilesDescByUploadStartedAt(
     List<UploadedFileStruct> uploadedFiles) {
   return uploadedFiles;
 }
+
+String? getFileNameFromFilePath(String? filePath) {
+  if (filePath == null) {
+    return null;
+  }
+
+  return filePath?.split('/').last;
+}
+
+String? getFileExtensionFromFilePath(String? filePath) {
+  if (filePath == null) {
+    return null;
+  }
+
+  return filePath?.split('.').last;
+}

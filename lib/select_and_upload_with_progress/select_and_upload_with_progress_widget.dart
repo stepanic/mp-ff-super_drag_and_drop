@@ -583,7 +583,12 @@ class _SelectAndUploadWithProgressWidgetState
                                     children: [
                                       Text(
                                         valueOrDefault<String>(
-                                          uploadedFilesRecentListItem.filePath,
+                                          functions.getFileNameFromFilePath(
+                                              valueOrDefault<String>(
+                                            uploadedFilesRecentListItem
+                                                .filePath,
+                                            'N/A',
+                                          )),
                                           'N/A',
                                         ),
                                         style: FlutterFlowTheme.of(context)
