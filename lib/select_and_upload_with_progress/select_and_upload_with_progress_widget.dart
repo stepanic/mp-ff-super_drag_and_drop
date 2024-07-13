@@ -619,10 +619,12 @@ class _SelectAndUploadWithProgressWidgetState
                                       ),
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             functions
-                                                .getFileType(
+                                                .getFileTypeFromFilePath(
                                                     uploadedFilesRecentListItem
                                                         .filePath)
                                                 .name,
@@ -650,7 +652,7 @@ class _SelectAndUploadWithProgressWidgetState
                                           ),
                                           Text(
                                             valueOrDefault<String>(
-                                              functions.getMimeType(
+                                              functions.getMimeTypeFromFilePath(
                                                   uploadedFilesRecentListItem
                                                       .filePath),
                                               'N/A',

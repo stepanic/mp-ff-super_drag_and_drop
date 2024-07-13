@@ -5,7 +5,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:mime_type/mime_type.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
@@ -15,6 +14,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 import '/auth/firebase_auth/auth_util.dart';
+
+//LOCAL_START
+
+import 'package:mime_type/mime_type.dart';
+
+//LOCAL_END
 
 String? fileUrlToAudioPath(String? fileUrl) {
   if (fileUrl == null) {
@@ -60,7 +65,7 @@ String? getFirebaseStoragePath(String? filePath) {
   return '$pathPrefix/$timestamp.$ext';
 }
 
-FileType getFileType(String? filePath) {
+FileType getFileTypeFromFilePath(String? filePath) {
   if (filePath == null) {
     return FileType.UNKNOWN;
   }
@@ -136,7 +141,7 @@ String? getFileNameFromFilePath(String? filePath) {
     return null;
   }
 
-  return filePath?.split('/').last;
+  return filePath.split('/').last;
 }
 
 String? getFileExtensionFromFilePath(String? filePath) {
@@ -147,6 +152,6 @@ String? getFileExtensionFromFilePath(String? filePath) {
   return filePath.split('.').last;
 }
 
-String? getMimeType(String? filePath) {
+String? getMimeTypeFromFilePath(String? filePath) {
   return mime(filePath);
 }

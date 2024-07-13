@@ -198,9 +198,9 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
                 //LOCAL_END
                 createdAt: getCurrentTimestamp,
                 //LOCAL_START
-                // fileType: functions.getFileType('/path/a/b/file.mp3'),
-                fileType:
-                    functions.getFileType(selectedFiles?[_model.ii].filePath),
+                // fileType: functions.getFileTypeFromFilePath('/path/a/b/file.mp3'),
+                fileType: functions.getFileTypeFromFilePath(
+                    selectedFiles?[_model.ii].filePath),
                 //LOCAL_END
               ),
               ...mapToFirestore(
