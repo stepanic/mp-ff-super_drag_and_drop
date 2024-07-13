@@ -451,35 +451,44 @@ class _SelectAndUploadWithProgressWidgetState
                                                   const Duration(milliseconds: 100),
                                               curve: Curves.easeIn,
                                               decoration: BoxDecoration(
-                                                color: Colors.white,
                                                 borderRadius:
                                                     BorderRadius.circular(
                                                         1000.0),
                                               ),
-                                              child: const Icon(
-                                                Icons.replay,
-                                                color: Color(0x4095A1AC),
-                                                size: 50.0,
-                                              ).animateOnActionTrigger(
-                                                animationsMap[
-                                                    'iconOnActionTriggerAnimation']!,
+                                              child: Align(
+                                                alignment: const AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: const Icon(
+                                                  Icons.replay,
+                                                  color: Color(0x4095A1AC),
+                                                  size: 50.0,
+                                                ).animateOnActionTrigger(
+                                                  animationsMap[
+                                                      'iconOnActionTriggerAnimation']!,
+                                                ),
                                               ),
                                             ),
                                             if (!_model.isUploadInProgress)
-                                              AnimatedContainer(
-                                                duration:
-                                                    const Duration(milliseconds: 100),
-                                                curve: Curves.easeIn,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          1000.0),
-                                                ),
-                                                child: const Icon(
-                                                  Icons.upload,
-                                                  color: Color(0x4095A1AC),
-                                                  size: 50.0,
+                                              Align(
+                                                alignment: const AlignmentDirectional(
+                                                    0.0, 0.0),
+                                                child: AnimatedContainer(
+                                                  duration: const Duration(
+                                                      milliseconds: 100),
+                                                  curve: Curves.easeIn,
+                                                  width: double.infinity,
+                                                  height: double.infinity,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            1000.0),
+                                                  ),
+                                                  child: const Icon(
+                                                    Icons.upload,
+                                                    color: Color(0x4095A1AC),
+                                                    size: 50.0,
+                                                  ),
                                                 ),
                                               ),
                                           ],
