@@ -405,7 +405,7 @@ class _SelectAndUploadWithProgressWidgetState
                                                         _model.isUploadInProgress =
                                                             false;
                                                         setState(() {});
-                                                        // sto rotating progress icon
+                                                        // stop rotating progress icon
                                                         if (animationsMap[
                                                                 'iconOnActionTriggerAnimation'] !=
                                                             null) {
