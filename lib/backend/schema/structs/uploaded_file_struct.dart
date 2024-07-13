@@ -15,6 +15,7 @@ class UploadedFileStruct extends FFFirebaseStruct {
     String? storageDownloadUrl,
     int? sizeInBytes,
     DateTime? uploadFinishedAt,
+    bool? isUploadFinished,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _storagePath = storagePath,
         _filePath = filePath,
@@ -23,6 +24,7 @@ class UploadedFileStruct extends FFFirebaseStruct {
         _storageDownloadUrl = storageDownloadUrl,
         _sizeInBytes = sizeInBytes,
         _uploadFinishedAt = uploadFinishedAt,
+        _isUploadFinished = isUploadFinished,
         super(firestoreUtilData);
 
   // "storagePath" field.
@@ -79,6 +81,13 @@ class UploadedFileStruct extends FFFirebaseStruct {
 
   bool hasUploadFinishedAt() => _uploadFinishedAt != null;
 
+  // "isUploadFinished" field.
+  bool? _isUploadFinished;
+  bool get isUploadFinished => _isUploadFinished ?? false;
+  set isUploadFinished(bool? val) => _isUploadFinished = val;
+
+  bool hasIsUploadFinished() => _isUploadFinished != null;
+
   static UploadedFileStruct fromMap(Map<String, dynamic> data) =>
       UploadedFileStruct(
         storagePath: data['storagePath'] as String?,
@@ -88,6 +97,7 @@ class UploadedFileStruct extends FFFirebaseStruct {
         storageDownloadUrl: data['storageDownloadUrl'] as String?,
         sizeInBytes: castToType<int>(data['sizeInBytes']),
         uploadFinishedAt: data['uploadFinishedAt'] as DateTime?,
+        isUploadFinished: data['isUploadFinished'] as bool?,
       );
 
   static UploadedFileStruct? maybeFromMap(dynamic data) => data is Map
@@ -102,6 +112,7 @@ class UploadedFileStruct extends FFFirebaseStruct {
         'storageDownloadUrl': _storageDownloadUrl,
         'sizeInBytes': _sizeInBytes,
         'uploadFinishedAt': _uploadFinishedAt,
+        'isUploadFinished': _isUploadFinished,
       }.withoutNulls;
 
   @override
@@ -133,6 +144,10 @@ class UploadedFileStruct extends FFFirebaseStruct {
         'uploadFinishedAt': serializeParam(
           _uploadFinishedAt,
           ParamType.DateTime,
+        ),
+        'isUploadFinished': serializeParam(
+          _isUploadFinished,
+          ParamType.bool,
         ),
       }.withoutNulls;
 
@@ -173,6 +188,11 @@ class UploadedFileStruct extends FFFirebaseStruct {
           ParamType.DateTime,
           false,
         ),
+        isUploadFinished: deserializeParam(
+          data['isUploadFinished'],
+          ParamType.bool,
+          false,
+        ),
       );
 
   @override
@@ -187,7 +207,8 @@ class UploadedFileStruct extends FFFirebaseStruct {
         uploadProgress == other.uploadProgress &&
         storageDownloadUrl == other.storageDownloadUrl &&
         sizeInBytes == other.sizeInBytes &&
-        uploadFinishedAt == other.uploadFinishedAt;
+        uploadFinishedAt == other.uploadFinishedAt &&
+        isUploadFinished == other.isUploadFinished;
   }
 
   @override
@@ -198,7 +219,8 @@ class UploadedFileStruct extends FFFirebaseStruct {
         uploadProgress,
         storageDownloadUrl,
         sizeInBytes,
-        uploadFinishedAt
+        uploadFinishedAt,
+        isUploadFinished
       ]);
 }
 
@@ -210,6 +232,7 @@ UploadedFileStruct createUploadedFileStruct({
   String? storageDownloadUrl,
   int? sizeInBytes,
   DateTime? uploadFinishedAt,
+  bool? isUploadFinished,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -223,6 +246,7 @@ UploadedFileStruct createUploadedFileStruct({
       storageDownloadUrl: storageDownloadUrl,
       sizeInBytes: sizeInBytes,
       uploadFinishedAt: uploadFinishedAt,
+      isUploadFinished: isUploadFinished,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

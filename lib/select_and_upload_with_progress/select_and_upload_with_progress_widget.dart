@@ -242,7 +242,8 @@ class _SelectAndUploadWithProgressWidgetState
                                             ..sizeInBytes =
                                                 uploadedFile.sizeInBytes
                                             ..uploadFinishedAt =
-                                                getCurrentTimestamp,
+                                                getCurrentTimestamp
+                                            ..isUploadFinished = true,
                                         );
                                         _model.howManyUploadedFiles =
                                             _model.howManyUploadedFiles + 1;
@@ -393,7 +394,9 @@ class _SelectAndUploadWithProgressWidgetState
                                                               uploadedFile
                                                                   .sizeInBytes
                                                           ..uploadFinishedAt =
-                                                              getCurrentTimestamp,
+                                                              getCurrentTimestamp
+                                                          ..isUploadFinished =
+                                                              true,
                                                       );
                                                       _model.howManyUploadedFiles =
                                                           _model.howManyUploadedFiles +
