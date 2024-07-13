@@ -102,3 +102,9 @@ FileType getFileType(String? filePath) {
       return FileType.UNKNOWN;
   }
 }
+
+int howManySecondsFromNow(DateTime? moment) {
+  final now = DateTime.now();
+  final difference = moment?.difference(now);
+  return difference?.inSeconds ?? 0;
+}

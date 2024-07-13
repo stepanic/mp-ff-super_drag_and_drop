@@ -246,7 +246,8 @@ class _SelectAndUploadWithProgressWidgetState
                                             ..sizeInBytes =
                                                 uploadedFile.sizeInBytes
                                             ..uploadFinishedAt =
-                                                getCurrentTimestamp,
+                                                getCurrentTimestamp
+                                            ..isUploadFinished = true,
                                         );
                                         _model.howManyUploadedFiles =
                                             _model.howManyUploadedFiles + 1;
@@ -398,7 +399,9 @@ class _SelectAndUploadWithProgressWidgetState
                                                               uploadedFile
                                                                   .sizeInBytes
                                                           ..uploadFinishedAt =
-                                                              getCurrentTimestamp,
+                                                              getCurrentTimestamp
+                                                          ..isUploadFinished =
+                                                              true,
                                                       );
                                                       _model.howManyUploadedFiles =
                                                           _model.howManyUploadedFiles +
@@ -535,8 +538,12 @@ class _SelectAndUploadWithProgressWidgetState
                         20.0, 0.0, 20.0, 0.0),
                     child: Builder(
                       builder: (context) {
-                        final uploadedFilesRecentList =
-                            _model.uploadedFiles.toList();
+                        final uploadedFilesRecentList = _model.uploadedFiles
+                            .where((e) =>
+                                functions
+                                    .howManySecondsFromNow(e.uploadFinishedAt) >
+                                -10)
+                            .toList();
                         if (uploadedFilesRecentList.isEmpty) {
                           return const UploadedFilesListEmptyPlaceholderWidget();
                         }
