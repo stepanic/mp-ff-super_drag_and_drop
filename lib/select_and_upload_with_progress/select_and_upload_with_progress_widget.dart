@@ -144,7 +144,7 @@ class _SelectAndUploadWithProgressWidgetState
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 60.0),
                                   child: Text(
-                                    'Upload or drag & drop files.',
+                                    'Select or Drag & Drop files.',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
