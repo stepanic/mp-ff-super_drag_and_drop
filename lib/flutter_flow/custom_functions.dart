@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:mime_type/mime_type.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
 import 'place.dart';
@@ -143,9 +144,9 @@ String? getFileExtensionFromFilePath(String? filePath) {
     return null;
   }
 
-  return filePath?.split('.').last;
+  return filePath.split('.').last;
 }
 
 String? getMimeType(String? filePath) {
-  return null;
+  return mime(filePath);
 }
