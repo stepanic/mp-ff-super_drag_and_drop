@@ -108,3 +108,8 @@ int howManySecondsFromNow(DateTime? moment) {
   final difference = moment?.difference(now);
   return difference?.inSeconds ?? 0;
 }
+
+List<UploadedFileStruct> sortUploadingFilesDescByUploadStartedAt(
+    List<UploadedFileStruct> uploadedFiles) {
+  return uploadedFiles;
+}
