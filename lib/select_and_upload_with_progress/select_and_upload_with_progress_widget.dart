@@ -538,8 +538,9 @@ class _SelectAndUploadWithProgressWidgetState
                         20.0, 0.0, 20.0, 0.0),
                     child: Builder(
                       builder: (context) {
-                        final uploadedFilesRecentList = _model.uploadedFiles
-                            .sortedList((e) => e.uploadStartedAt!)
+                        final uploadedFilesRecentList = functions
+                            .sortUploadingFilesDescByUploadStartedAt(
+                                _model.uploadedFiles.toList())
                             .toList();
                         if (uploadedFilesRecentList.isEmpty) {
                           return const UploadedFilesListEmptyPlaceholderWidget();
