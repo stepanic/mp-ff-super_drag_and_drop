@@ -275,6 +275,15 @@ class _SelectAndUploadWithProgressWidgetState
                                         _model.howManySelectedFiles +
                                             howManySelectedFiles;
                                     setState(() {});
+                                    // start rotating progress icon
+                                    if (animationsMap[
+                                            'iconOnActionTriggerAnimation'] !=
+                                        null) {
+                                      animationsMap[
+                                              'iconOnActionTriggerAnimation']!
+                                          .controller
+                                          .repeat();
+                                    }
                                   },
                                   onDropEnter: () async {
                                     // isOverSuperDragAndDrop=true
