@@ -328,7 +328,7 @@ class _SelectAndUploadWithProgressWidgetState
                                             if (animationsMap[
                                                     'iconOnActionTriggerAnimation'] !=
                                                 null) {
-                                              await animationsMap[
+                                              animationsMap[
                                                       'iconOnActionTriggerAnimation']!
                                                   .controller
                                                   .repeat();
