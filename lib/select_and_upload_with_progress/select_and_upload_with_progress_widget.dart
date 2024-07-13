@@ -184,7 +184,7 @@ class _SelectAndUploadWithProgressWidgetState
                                         const EdgeInsetsDirectional.fromSTEB(
                                             20.0, 0.0, 20.0, 80.0),
                                     child: Text(
-                                      'Processing....',
+                                      'Uploading....',
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -279,6 +279,15 @@ class _SelectAndUploadWithProgressWidgetState
                                         _model.howManySelectedFiles +
                                             howManySelectedFiles;
                                     setState(() {});
+                                    // start rotating progress icon
+                                    if (animationsMap[
+                                            'iconOnActionTriggerAnimation'] !=
+                                        null) {
+                                      animationsMap[
+                                              'iconOnActionTriggerAnimation']!
+                                          .controller
+                                          .repeat();
+                                    }
                                   },
                                   onDropEnter: () async {
                                     // isOverSuperDragAndDrop=true
@@ -587,6 +596,44 @@ class _SelectAndUploadWithProgressWidgetState
                                             fontFamily: 'Readex Pro',
                                             letterSpacing: 0.0,
                                           ),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          dateTimeFormat(
+                                              'jms',
+                                              uploadedFilesRecentListItem
+                                                  .uploadStartedAt!),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_right_alt,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 24.0,
+                                        ),
+                                        Text(
+                                          valueOrDefault<String>(
+                                            dateTimeFormat(
+                                                'jms',
+                                                uploadedFilesRecentListItem
+                                                    .uploadFinishedAt),
+                                            'N/A',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                     if ((uploadedFilesRecentListItem
                                                 .storageDownloadUrl !=
