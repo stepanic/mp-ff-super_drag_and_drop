@@ -592,6 +592,44 @@ class _SelectAndUploadWithProgressWidgetState
                                             letterSpacing: 0.0,
                                           ),
                                     ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          dateTimeFormat(
+                                              'jms',
+                                              uploadedFilesRecentListItem
+                                                  .uploadStartedAt!),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                        Icon(
+                                          Icons.arrow_right_alt,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 24.0,
+                                        ),
+                                        Text(
+                                          valueOrDefault<String>(
+                                            dateTimeFormat(
+                                                'jms',
+                                                uploadedFilesRecentListItem
+                                                    .uploadFinishedAt),
+                                            'N/A',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Readex Pro',
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
                                     if ((uploadedFilesRecentListItem
                                                     .storageDownloadUrl !=
                                                 '') &&
