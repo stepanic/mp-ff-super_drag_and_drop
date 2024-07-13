@@ -145,3 +145,7 @@ String? getFileExtensionFromFilePath(String? filePath) {
 
   return filePath?.split('.').last;
 }
+
+String? getMimeType(String? filePath) {
+  return null;
+}
