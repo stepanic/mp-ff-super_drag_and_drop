@@ -144,7 +144,7 @@ class _SelectAndUploadWithProgressWidgetState
                                   padding: const EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 60.0),
                                   child: Text(
-                                    'Upload or drag & drop files.',
+                                    'Select or Drag & Drop files.',
                                     textAlign: TextAlign.center,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -594,7 +594,7 @@ class _SelectAndUploadWithProgressWidgetState
                                 duration: const Duration(milliseconds: 500),
                                 curve: Curves.easeIn,
                                 constraints: const BoxConstraints(
-                                  maxWidth: 256.0,
+                                  maxWidth: 400.0,
                                 ),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12.0),
@@ -606,7 +606,10 @@ class _SelectAndUploadWithProgressWidgetState
                                 child: Padding(
                                   padding: const EdgeInsets.all(6.0),
                                   child: Column(
-                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         valueOrDefault<String>(
@@ -622,25 +625,33 @@ class _SelectAndUploadWithProgressWidgetState
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Readex Pro',
+                                              fontSize: 14.0,
                                               letterSpacing: 0.0,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                       ),
                                       if (uploadedFilesRecentListItem
                                               .sizeInBytes >
                                           0)
-                                        Text(
-                                          (int? sizeInBytes) {
-                                            return sizeInBytes != null
-                                                ? "${(sizeInBytes / 1024 / 1024).toStringAsFixed(2)}MB"
-                                                : "N/A";
-                                          }(uploadedFilesRecentListItem
-                                              .sizeInBytes),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0.0,
-                                              ),
+                                        Align(
+                                          alignment: const AlignmentDirectional(
+                                              1.0, 0.0),
+                                          child: Text(
+                                            'Size ${(int? sizeInBytes) {
+                                              return sizeInBytes != null
+                                                  ? "${(sizeInBytes / 1024 / 1024).toStringAsFixed(2)}MB"
+                                                  : "N/A";
+                                            }(uploadedFilesRecentListItem.sizeInBytes)}',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryText,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
                                         ),
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -693,7 +704,19 @@ class _SelectAndUploadWithProgressWidgetState
                                       ),
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
                                         children: [
+                                          Text(
+                                            'Selected at ',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
                                           Text(
                                             dateTimeFormat(
                                                 'jms',
@@ -711,6 +734,16 @@ class _SelectAndUploadWithProgressWidgetState
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
                                             size: 24.0,
+                                          ),
+                                          Text(
+                                            'Uploaded at ',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                           ),
                                           Text(
                                             valueOrDefault<String>(
@@ -773,34 +806,39 @@ class _SelectAndUploadWithProgressWidgetState
                                       if (uploadedFilesRecentListItem
                                               .storageDownloadUrl ==
                                           '')
-                                        LinearPercentIndicator(
-                                          percent: uploadedFilesRecentListItem
-                                              .uploadProgress,
-                                          lineHeight: 25.0,
-                                          animation: true,
-                                          animateFromLastPercent: true,
-                                          progressColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .tertiary,
-                                          backgroundColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .accent4,
-                                          center: Text(
-                                            (double progress) {
-                                              return "${(progress * 100).toStringAsFixed(0)}%";
-                                            }(uploadedFilesRecentListItem
-                                                .uploadProgress),
-                                            style: FlutterFlowTheme.of(context)
-                                                .headlineSmall
-                                                .override(
-                                                  fontFamily: 'Outfit',
-                                                  fontSize: 14.0,
-                                                  letterSpacing: 0.0,
-                                                ),
+                                        Align(
+                                          alignment: const AlignmentDirectional(
+                                              0.0, 1.0),
+                                          child: LinearPercentIndicator(
+                                            percent: uploadedFilesRecentListItem
+                                                .uploadProgress,
+                                            lineHeight: 25.0,
+                                            animation: true,
+                                            animateFromLastPercent: true,
+                                            progressColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .tertiary,
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .accent4,
+                                            center: Text(
+                                              (double progress) {
+                                                return "${(progress * 100).toStringAsFixed(0)}%";
+                                              }(uploadedFilesRecentListItem
+                                                  .uploadProgress),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .headlineSmall
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                            padding: EdgeInsets.zero,
                                           ),
-                                          padding: EdgeInsets.zero,
                                         ),
-                                    ],
+                                    ].divide(const SizedBox(height: 6.0)),
                                   ),
                                 ),
                               ),
