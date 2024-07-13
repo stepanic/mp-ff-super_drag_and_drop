@@ -100,7 +100,7 @@ class _SelectAndUploadWithProgressWidgetState
             alignment: const AlignmentDirectional(0.0, 0.0),
             child: SingleChildScrollView(
               child: Column(
-                mainAxisSize: MainAxisSize.max,
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   FFButtonWidget(
