@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
-import 'dart:math';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -562,7 +561,8 @@ class _SelectAndUploadWithProgressWidgetState
                                     uploadedFilesRecentListIndex];
                             return Opacity(
                               opacity: functions.howManySecondsFromNow(
-                                          e.uploadFinishedAt) >
+                                          uploadedFilesRecentListItem
+                                              .uploadFinishedAt) >
                                       -10
                                   ? 1.0
                                   : 0.5,
