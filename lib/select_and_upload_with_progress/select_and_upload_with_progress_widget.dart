@@ -614,6 +614,8 @@ class _SelectAndUploadWithProgressWidgetState
                                       ),
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             functions
