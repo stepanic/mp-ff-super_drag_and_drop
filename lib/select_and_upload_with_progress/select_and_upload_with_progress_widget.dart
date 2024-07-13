@@ -554,99 +554,112 @@ class _SelectAndUploadWithProgressWidgetState
                             final uploadedFilesRecentListItem =
                                 uploadedFilesRecentList[
                                     uploadedFilesRecentListIndex];
-                            return AnimatedContainer(
-                              duration: const Duration(milliseconds: 500),
-                              curve: Curves.easeIn,
-                              constraints: const BoxConstraints(
-                                maxWidth: 256.0,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12.0),
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context).alternate,
+                            return Opacity(
+                              opacity: 0.3,
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.easeIn,
+                                constraints: const BoxConstraints(
+                                  maxWidth: 256.0,
                                 ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(6.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      valueOrDefault<String>(
-                                        uploadedFilesRecentListItem.filePath,
-                                        'N/A',
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  border: Border.all(
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        valueOrDefault<String>(
+                                          uploadedFilesRecentListItem.filePath,
+                                          'N/A',
+                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              letterSpacing: 0.0,
+                                            ),
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                    Text(
-                                      (int? sizeInBytes) {
-                                        return sizeInBytes != null
-                                            ? "${(sizeInBytes / 1024 / 1024).toStringAsFixed(2)}MB"
-                                            : "N/A";
-                                      }(uploadedFilesRecentListItem
-                                          .sizeInBytes),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          dateTimeFormat(
-                                              'jms',
-                                              uploadedFilesRecentListItem
-                                                  .uploadStartedAt!),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                        Icon(
-                                          Icons.arrow_right_alt,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                          size: 24.0,
-                                        ),
-                                        Text(
-                                          valueOrDefault<String>(
+                                      Text(
+                                        (int? sizeInBytes) {
+                                          return sizeInBytes != null
+                                              ? "${(sizeInBytes / 1024 / 1024).toStringAsFixed(2)}MB"
+                                              : "N/A";
+                                        }(uploadedFilesRecentListItem
+                                            .sizeInBytes),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Readex Pro',
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
                                             dateTimeFormat(
                                                 'jms',
                                                 uploadedFilesRecentListItem
-                                                    .uploadFinishedAt),
-                                            'N/A',
+                                                    .uploadStartedAt!),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
                                           ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                letterSpacing: 0.0,
+                                          Icon(
+                                            Icons.arrow_right_alt,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 24.0,
+                                          ),
+                                          Text(
+                                            valueOrDefault<String>(
+                                              dateTimeFormat(
+                                                  'jms',
+                                                  uploadedFilesRecentListItem
+                                                      .uploadFinishedAt),
+                                              'N/A',
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                      if ((uploadedFilesRecentListItem
+                                                      .storageDownloadUrl !=
+                                                  '') &&
+                                          false)
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            // launch URL
+                                            await actions.launchUrl(
+                                              valueOrDefault<String>(
+                                                _model
+                                                    .uploadedFiles[
+                                                        uploadedFilesRecentListIndex]
+                                                    .storageDownloadUrl,
+                                                'N/A',
                                               ),
-                                        ),
-                                      ],
-                                    ),
-                                    if ((uploadedFilesRecentListItem
-                                                    .storageDownloadUrl !=
-                                                '') &&
-                                        false)
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          // launch URL
-                                          await actions.launchUrl(
+                                            );
+                                          },
+                                          child: Text(
                                             valueOrDefault<String>(
                                               _model
                                                   .uploadedFiles[
@@ -654,60 +667,51 @@ class _SelectAndUploadWithProgressWidgetState
                                                   .storageDownloadUrl,
                                               'N/A',
                                             ),
-                                          );
-                                        },
-                                        child: Text(
-                                          valueOrDefault<String>(
-                                            _model
-                                                .uploadedFiles[
-                                                    uploadedFilesRecentListIndex]
-                                                .storageDownloadUrl,
-                                            'N/A',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  letterSpacing: 0.0,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
                                           ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Readex Pro',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                letterSpacing: 0.0,
-                                                decoration:
-                                                    TextDecoration.underline,
-                                              ),
                                         ),
-                                      ),
-                                    if (uploadedFilesRecentListItem
-                                                .storageDownloadUrl ==
-                                            '')
-                                      LinearPercentIndicator(
-                                        percent: uploadedFilesRecentListItem
-                                            .uploadProgress,
-                                        lineHeight: 25.0,
-                                        animation: true,
-                                        animateFromLastPercent: true,
-                                        progressColor:
-                                            FlutterFlowTheme.of(context)
-                                                .tertiary,
-                                        backgroundColor:
-                                            FlutterFlowTheme.of(context)
-                                                .accent4,
-                                        center: Text(
-                                          (double progress) {
-                                            return "${(progress * 100).toStringAsFixed(0)}%";
-                                          }(uploadedFilesRecentListItem
-                                              .uploadProgress),
-                                          style: FlutterFlowTheme.of(context)
-                                              .headlineSmall
-                                              .override(
-                                                fontFamily: 'Outfit',
-                                                fontSize: 14.0,
-                                                letterSpacing: 0.0,
-                                              ),
+                                      if (uploadedFilesRecentListItem
+                                                  .storageDownloadUrl ==
+                                              '')
+                                        LinearPercentIndicator(
+                                          percent: uploadedFilesRecentListItem
+                                              .uploadProgress,
+                                          lineHeight: 25.0,
+                                          animation: true,
+                                          animateFromLastPercent: true,
+                                          progressColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .tertiary,
+                                          backgroundColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .accent4,
+                                          center: Text(
+                                            (double progress) {
+                                              return "${(progress * 100).toStringAsFixed(0)}%";
+                                            }(uploadedFilesRecentListItem
+                                                .uploadProgress),
+                                            style: FlutterFlowTheme.of(context)
+                                                .headlineSmall
+                                                .override(
+                                                  fontFamily: 'Outfit',
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                          padding: EdgeInsets.zero,
                                         ),
-                                        padding: EdgeInsets.zero,
-                                      ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
