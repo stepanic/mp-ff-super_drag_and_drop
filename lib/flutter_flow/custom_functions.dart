@@ -131,5 +131,5 @@ String? getFileExtensionFromFilePath(String? filePath) {
 }
 
 String? getMimeTypeFromFilePath(String? filePath) {
-  return null;
+  return null; // implemeted localy because it depends on 'package:mime_type/mime_type.dart'
 }
