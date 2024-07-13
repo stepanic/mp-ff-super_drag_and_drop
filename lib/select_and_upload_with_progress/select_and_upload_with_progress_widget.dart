@@ -330,6 +330,7 @@ class _SelectAndUploadWithProgressWidgetState
                                             _model.isUploadInProgress = true;
                                             setState(() {});
                                             // rotate progress icon
+                                            print('1');
                                             if (animationsMap[
                                                     'iconOnActionTriggerAnimation'] !=
                                                 null) {
@@ -338,6 +339,7 @@ class _SelectAndUploadWithProgressWidgetState
                                                   .controller
                                                   .repeat();
                                             }
+                                            print('2');
                                             while (_model.ii <
                                                 _model.selectedFiles!.length) {
                                               // append to uploadedFiles
