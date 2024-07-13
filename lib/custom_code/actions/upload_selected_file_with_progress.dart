@@ -13,10 +13,10 @@ import 'package:flutter/material.dart';
 
 Future uploadSelectedFileWithProgress(
   SelectedFileStruct selectedFile,
-  int selectedFileIndex,
-  Future Function(double uploadProgress, int selectedFileIndex)?
+  int uploadedFileIndex,
+  Future Function(double uploadProgress, int uploadedFileIndex)?
       onUploadProgress,
-  Future Function(UploadedFileStruct uploadedFile, int selectedFileIndex)
+  Future Function(UploadedFileStruct uploadedFile, int uploadedFileIndex)
       onUploadSuccessful,
 ) async {
   // Add your function code here!

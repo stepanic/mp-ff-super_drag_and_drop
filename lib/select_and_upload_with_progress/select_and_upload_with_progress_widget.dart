@@ -1,12 +1,16 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/uploaded_files_list_empty_placeholder_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
+import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'select_and_upload_with_progress_model.dart';
 export 'select_and_upload_with_progress_model.dart';
@@ -20,15 +24,40 @@ class SelectAndUploadWithProgressWidget extends StatefulWidget {
 }
 
 class _SelectAndUploadWithProgressWidgetState
-    extends State<SelectAndUploadWithProgressWidget> {
+    extends State<SelectAndUploadWithProgressWidget>
+    with TickerProviderStateMixin {
   late SelectAndUploadWithProgressModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => SelectAndUploadWithProgressModel());
+
+    animationsMap.addAll({
+      'iconOnActionTriggerAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          RotateEffect(
+            curve: Curves.linear,
+            delay: 0.0.ms,
+            duration: 700.0.ms,
+            begin: 0.0,
+            end: -1.0,
+          ),
+        ],
+      ),
+    });
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -100,136 +129,326 @@ class _SelectAndUploadWithProgressWidgetState
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
-                  FFButtonWidget(
-                    onPressed: (_model.howManySelectedFiles != null)
-                        ? null
-                        : () async {
-                            // custom select files
-                            _model.selectedFiles =
-                                await actions.selectFilesWithAllowedExtensions(
-                              FFAppConstants.UploadAllowedExtensions.toList(),
-                              true,
-                            );
-                            if (_model.selectedFiles != null &&
-                                (_model.selectedFiles)!.isNotEmpty) {
-                              // i=0; uploadedFiles=[];
-                              _model.ii = 0;
-                              _model.uploadedFiles = [];
-                              _model.howManyUploadedFiles = 0;
-                              _model.howManySelectedFiles =
-                                  _model.selectedFiles?.length;
-                              while (_model.ii < _model.selectedFiles!.length) {
-                                // init uploadedFiles
-                                _model.addToUploadedFiles(UploadedFileStruct(
-                                  filePath: (_model.selectedFiles?[_model.ii])
-                                      ?.filePath,
-                                ));
-                                setState(() {});
-                                // selectedFile[i] to Firebase Storage
-                                unawaited(
-                                  () async {
-                                    await actions
-                                        .uploadSelectedFileWithProgress(
-                                      _model.selectedFiles![_model.ii],
-                                      _model.ii,
-                                      (uploadProgress,
-                                          selectedFileIndex) async {
-                                        // uploadedFiles[selectedFileIndex]=uploadProgress
-                                        _model.updateUploadedFilesAtIndex(
-                                          selectedFileIndex,
-                                          (e) => e
-                                            ..uploadProgress = uploadProgress,
-                                        );
-                                        setState(() {});
-                                      },
-                                      (uploadedFile, selectedFileIndex) async {
-                                        // uploadedFiles[selectedFileIndex]=uploadedFile
-                                        _model.updateUploadedFilesAtIndex(
-                                          selectedFileIndex,
-                                          (_) => uploadedFile,
-                                        );
-                                        _model.howManyUploadedFiles =
-                                            _model.howManyUploadedFiles + 1;
-                                        setState(() {});
-                                        if (_model.howManyUploadedFiles ==
-                                            _model.howManySelectedFiles) {
-                                          // reset howManySelectedFiles
-                                          _model.howManySelectedFiles = null;
-                                          setState(() {});
-                                        }
-                                      },
-                                    );
-                                  }(),
-                                );
-                                // i += 1;
-                                _model.ii = _model.ii + 1;
-                              }
-                            } else {
-                              // show error message
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Files not selected',
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
+                  Flexible(
+                    child: Align(
+                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 12.0, 0.0, 12.0),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeInOut,
+                          width: 256.0,
+                          height: 256.0,
+                          decoration: BoxDecoration(
+                            color: _model.isOverSuperDragAndDrop
+                                ? const Color(0xFFD4D4D4)
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(8.0),
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).alternate,
+                              width: 3.0,
+                            ),
+                          ),
+                          child: Stack(
+                            children: [
+                              if (!_model.isUploadInProgress)
+                                Align(
+                                  alignment: const AlignmentDirectional(0.0, 1.0),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        20.0, 0.0, 20.0, 60.0),
+                                    child: Text(
+                                      'Upload or drag & drop audio files.',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            color: const Color(0x4095A1AC),
+                                            fontSize: 24.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.normal,
+                                          ),
                                     ),
                                   ),
-                                  duration: const Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).error,
                                 ),
-                              );
-                            }
-
-                            setState(() {});
-                          },
-                    text: 'Select Files & Upload with Progress',
-                    icon: const Icon(
-                      Icons.upload,
-                      size: 15.0,
-                    ),
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
-                                color: Colors.white,
-                                letterSpacing: 0.0,
+                              if (_model.isUploadInProgress)
+                                Align(
+                                  alignment: const AlignmentDirectional(0.0, 1.0),
+                                  child: Padding(
+                                    padding: const EdgeInsetsDirectional.fromSTEB(
+                                        20.0, 0.0, 20.0, 80.0),
+                                    child: Text(
+                                      'Processing....',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Readex Pro',
+                                            color: const Color(0x4095A1AC),
+                                            fontSize: 24.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              SizedBox(
+                                width: 256.0,
+                                height: 256.0,
+                                child: custom_widgets.SuperDragAndDrop(
+                                  width: 256.0,
+                                  height: 256.0,
+                                  onFileRead: (selectedFilePath,
+                                      selectedFileBytes) async {
+                                    // upload async to Storage with Progress
+                                    await actions
+                                        .uploadSelectedFileWithProgress(
+                                      SelectedFileStruct(
+                                        storagePath:
+                                            functions.getFirebaseStoragePath(
+                                                selectedFilePath),
+                                        filePath: selectedFilePath,
+                                        bytes: selectedFileBytes,
+                                      ),
+                                      _model.uploadedFileNextIndex,
+                                      (uploadProgress,
+                                          uploadedFileIndex) async {},
+                                      (uploadedFile,
+                                          uploadedFileIndex) async {},
+                                    );
+                                    // uploadedFileNextIndex+=1;
+                                    _model.uploadedFileNextIndex =
+                                        _model.uploadedFileNextIndex + 1;
+                                  },
+                                  onFilesDrop: (howManySelectedFiles) async {
+                                    // isUploadInProgress=true
+                                    _model.isUploadInProgress = true;
+                                    _model.howManySelectedFiles =
+                                        _model.howManySelectedFiles +
+                                            howManySelectedFiles;
+                                    setState(() {});
+                                  },
+                                  onDropEnter: () async {
+                                    // isOverSuperDragAndDrop=true
+                                    _model.isOverSuperDragAndDrop = true;
+                                    setState(() {});
+                                  },
+                                  onDropLeave: () async {
+                                    // isOverSuperDragAndDrop=false
+                                    _model.isOverSuperDragAndDrop = false;
+                                    setState(() {});
+                                  },
+                                ),
                               ),
-                      elevation: 3.0,
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
+                              Align(
+                                alignment: const AlignmentDirectional(0.0, -1.0),
+                                child: Padding(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 35.0, 0.0, 0.0),
+                                  child: Container(
+                                    width: 75.0,
+                                    height: 75.0,
+                                    decoration: const BoxDecoration(),
+                                    child: Align(
+                                      alignment:
+                                          const AlignmentDirectional(0.0, -1.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          // custom select files
+                                          _model.selectedFiles = await actions
+                                              .selectFilesWithAllowedExtensions(
+                                            FFAppConstants
+                                                    .UploadAllowedExtensions
+                                                .toList(),
+                                            true,
+                                          );
+                                          if (_model.selectedFiles != null &&
+                                              (_model.selectedFiles)!
+                                                  .isNotEmpty) {
+                                            // ii=0; howManySelectedFiles += selectedFiles.length;
+                                            _model.howManySelectedFiles = _model
+                                                    .howManySelectedFiles +
+                                                _model.selectedFiles!.length;
+                                            _model.ii = 0;
+                                            while (_model.ii <
+                                                _model.selectedFiles!.length) {
+                                              // append to uploadedFiles
+                                              _model.addToUploadedFiles(
+                                                  UploadedFileStruct(
+                                                filePath:
+                                                    (_model.selectedFiles?[
+                                                            _model.ii])
+                                                        ?.filePath,
+                                                uploadStartedAt:
+                                                    getCurrentTimestamp,
+                                              ));
+                                              setState(() {});
+                                              // selectedFile[i] to Firebase Storage
+                                              unawaited(
+                                                () async {
+                                                  await actions
+                                                      .uploadSelectedFileWithProgress(
+                                                    _model.selectedFiles![
+                                                        _model.ii],
+                                                    _model
+                                                        .uploadedFileNextIndex,
+                                                    (uploadProgress,
+                                                        uploadedFileIndex) async {
+                                                      // uploadedFiles[uploadedFileIndex]=uploadProgress
+                                                      _model
+                                                          .updateUploadedFilesAtIndex(
+                                                        uploadedFileIndex,
+                                                        (e) => e
+                                                          ..uploadProgress =
+                                                              uploadProgress,
+                                                      );
+                                                      setState(() {});
+                                                    },
+                                                    (uploadedFile,
+                                                        uploadedFileIndex) async {
+                                                      // uploadedFiles[uploadedFileIndex]=uploadedFile
+                                                      _model
+                                                          .updateUploadedFilesAtIndex(
+                                                        uploadedFileIndex,
+                                                        (e) => e
+                                                          ..storagePath =
+                                                              uploadedFile
+                                                                  .storagePath
+                                                          ..storageDownloadUrl =
+                                                              uploadedFile
+                                                                  .storageDownloadUrl
+                                                          ..sizeInBytes =
+                                                              uploadedFile
+                                                                  .sizeInBytes
+                                                          ..uploadFinishedAt =
+                                                              getCurrentTimestamp,
+                                                      );
+                                                      _model.howManyUploadedFiles =
+                                                          _model.howManyUploadedFiles +
+                                                              1;
+                                                      setState(() {});
+                                                    },
+                                                  );
+                                                }(),
+                                              );
+                                              // ii+=1; uploadedFileNextIndex+=1;
+                                              _model.ii = _model.ii + 1;
+                                              _model.uploadedFileNextIndex =
+                                                  _model.uploadedFileNextIndex +
+                                                      1;
+                                            }
+                                          } else {
+                                            // show error message
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                  'Files not selected',
+                                                  style: TextStyle(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                  ),
+                                                ),
+                                                duration: const Duration(
+                                                    milliseconds: 4000),
+                                                backgroundColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                              ),
+                                            );
+                                          }
+
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(1000.0),
+                                            shape: BoxShape.rectangle,
+                                            border: Border.all(
+                                              color: const Color(0x4095A1AC),
+                                              width: 2.0,
+                                            ),
+                                          ),
+                                          alignment:
+                                              const AlignmentDirectional(0.0, 0.0),
+                                          child: Stack(
+                                            children: [
+                                              AnimatedContainer(
+                                                duration:
+                                                    const Duration(milliseconds: 100),
+                                                curve: Curves.easeIn,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          1000.0),
+                                                ),
+                                                child: const Icon(
+                                                  Icons.replay,
+                                                  color: Color(0x4095A1AC),
+                                                  size: 50.0,
+                                                ).animateOnActionTrigger(
+                                                  animationsMap[
+                                                      'iconOnActionTriggerAnimation']!,
+                                                ),
+                                              ),
+                                              if (_model.isUploadInProgress)
+                                                AnimatedContainer(
+                                                  duration: const Duration(
+                                                      milliseconds: 100),
+                                                  curve: Curves.easeIn,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            1000.0),
+                                                  ),
+                                                  child: const Icon(
+                                                    Icons.upload,
+                                                    color: Color(0x4095A1AC),
+                                                    size: 50.0,
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                      disabledColor: const Color(0x804B39EF),
-                      hoverColor: FlutterFlowTheme.of(context).tertiary,
                     ),
                   ),
-                  if (_model.howManySelectedFiles != null)
-                    Text(
-                      '${valueOrDefault<String>(
-                        _model.howManyUploadedFiles.toString(),
-                        '0',
-                      )}/${_model.howManySelectedFiles?.toString()}',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Readex Pro',
-                            letterSpacing: 0.0,
-                          ),
-                    ),
+                  Text(
+                    '${valueOrDefault<String>(
+                      _model.howManyUploadedFiles.toString(),
+                      '0',
+                    )}/${_model.howManySelectedFiles.toString()}',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Readex Pro',
+                          letterSpacing: 0.0,
+                        ),
+                  ),
                   Padding(
                     padding:
                         const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
                     child: Builder(
                       builder: (context) {
-                        final uploadedFilesList = _model.uploadedFiles.toList();
-                        if (uploadedFilesList.isEmpty) {
+                        final uploadedFilesRecentList =
+                            _model.uploadedFiles.toList();
+                        if (uploadedFilesRecentList.isEmpty) {
                           return const UploadedFilesListEmptyPlaceholderWidget();
                         }
 
@@ -242,10 +461,12 @@ class _SelectAndUploadWithProgressWidgetState
                           runAlignment: WrapAlignment.start,
                           verticalDirection: VerticalDirection.down,
                           clipBehavior: Clip.none,
-                          children: List.generate(uploadedFilesList.length,
-                              (uploadedFilesListIndex) {
-                            final uploadedFilesListItem =
-                                uploadedFilesList[uploadedFilesListIndex];
+                          children:
+                              List.generate(uploadedFilesRecentList.length,
+                                  (uploadedFilesRecentListIndex) {
+                            final uploadedFilesRecentListItem =
+                                uploadedFilesRecentList[
+                                    uploadedFilesRecentListIndex];
                             return Container(
                               constraints: const BoxConstraints(
                                 maxWidth: 256.0,
@@ -263,7 +484,7 @@ class _SelectAndUploadWithProgressWidgetState
                                   children: [
                                     Text(
                                       valueOrDefault<String>(
-                                        uploadedFilesListItem.filePath,
+                                        uploadedFilesRecentListItem.filePath,
                                         'N/A',
                                       ),
                                       style: FlutterFlowTheme.of(context)
@@ -278,7 +499,8 @@ class _SelectAndUploadWithProgressWidgetState
                                         return sizeInBytes != null
                                             ? "${(sizeInBytes / 1024 / 1024).toStringAsFixed(2)}MB"
                                             : "N/A";
-                                      }(uploadedFilesListItem.sizeInBytes),
+                                      }(uploadedFilesRecentListItem
+                                          .sizeInBytes),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -286,7 +508,7 @@ class _SelectAndUploadWithProgressWidgetState
                                             letterSpacing: 0.0,
                                           ),
                                     ),
-                                    if ((uploadedFilesListItem
+                                    if ((uploadedFilesRecentListItem
                                                     .storageDownloadUrl !=
                                                 '') &&
                                         false)
@@ -301,7 +523,7 @@ class _SelectAndUploadWithProgressWidgetState
                                             valueOrDefault<String>(
                                               _model
                                                   .uploadedFiles[
-                                                      uploadedFilesListIndex]
+                                                      uploadedFilesRecentListIndex]
                                                   .storageDownloadUrl,
                                               'N/A',
                                             ),
@@ -311,7 +533,7 @@ class _SelectAndUploadWithProgressWidgetState
                                           valueOrDefault<String>(
                                             _model
                                                 .uploadedFiles[
-                                                    uploadedFilesListIndex]
+                                                    uploadedFilesRecentListIndex]
                                                 .storageDownloadUrl,
                                             'N/A',
                                           ),
@@ -328,11 +550,11 @@ class _SelectAndUploadWithProgressWidgetState
                                               ),
                                         ),
                                       ),
-                                    if (uploadedFilesListItem
+                                    if (uploadedFilesRecentListItem
                                                 .storageDownloadUrl ==
                                             '')
                                       LinearPercentIndicator(
-                                        percent: uploadedFilesListItem
+                                        percent: uploadedFilesRecentListItem
                                             .uploadProgress,
                                         lineHeight: 25.0,
                                         animation: true,
@@ -346,7 +568,7 @@ class _SelectAndUploadWithProgressWidgetState
                                         center: Text(
                                           (double progress) {
                                             return "${(progress * 100).toStringAsFixed(0)}%";
-                                          }(uploadedFilesListItem
+                                          }(uploadedFilesRecentListItem
                                               .uploadProgress),
                                           style: FlutterFlowTheme.of(context)
                                               .headlineSmall
