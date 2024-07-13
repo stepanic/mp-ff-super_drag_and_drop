@@ -616,6 +616,39 @@ class _SelectAndUploadWithProgressWidgetState
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
+                                            functions
+                                                .getFileType(
+                                                    uploadedFilesRecentListItem
+                                                        .filePath)
+                                                .name,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                          Text(
+                                            valueOrDefault<String>(
+                                              functions
+                                                  .getFileExtensionFromFilePath(
+                                                      uploadedFilesRecentListItem
+                                                          .filePath),
+                                              'N/A',
+                                            ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
                                             dateTimeFormat(
                                                 'jms',
                                                 uploadedFilesRecentListItem
