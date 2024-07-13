@@ -202,6 +202,13 @@ class _SelectAndUploadWithProgressWidgetState
                                   height: 256.0,
                                   onFileRead: (selectedFilePath,
                                       selectedFileBytes) async {
+                                    // append to uploadedFiles
+                                    _model
+                                        .addToUploadedFiles(UploadedFileStruct(
+                                      filePath: selectedFilePath,
+                                      uploadStartedAt: getCurrentTimestamp,
+                                    ));
+                                    setState(() {});
                                     // upload async to Storage with Progress
                                     await actions
                                         .uploadSelectedFileWithProgress(
@@ -400,7 +407,7 @@ class _SelectAndUploadWithProgressWidgetState
                                                       'iconOnActionTriggerAnimation']!,
                                                 ),
                                               ),
-                                              if (_model.isUploadInProgress)
+                                              if (!_model.isUploadInProgress)
                                                 AnimatedContainer(
                                                   duration: const Duration(
                                                       milliseconds: 100),
