@@ -517,44 +517,45 @@ class _SelectAndUploadWithProgressWidgetState
                           letterSpacing: 0.0,
                         ),
                   ),
-                  FFButtonWidget(
-                    onPressed: _model.isUploadInProgress
-                        ? null
-                        : () async {
-                            // reset uploadedFiles
-                            _model.uploadedFiles = [];
-                            _model.howManyUploadedFiles = 0;
-                            _model.howManySelectedFiles = 0;
-                            _model.uploadedFileNextIndex = 0;
-                            setState(() {});
-                          },
-                    text: 'Clear Upload History',
-                    icon: const Icon(
-                      Icons.delete_sweep,
-                      size: 24.0,
-                    ),
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          24.0, 0.0, 24.0, 0.0),
-                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                          0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Readex Pro',
-                                color: Colors.white,
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 3.0,
-                      borderSide: const BorderSide(
-                        color: Colors.transparent,
-                        width: 1.0,
+                  if (_model.uploadedFiles.isNotEmpty)
+                    FFButtonWidget(
+                      onPressed: _model.isUploadInProgress
+                          ? null
+                          : () async {
+                              // reset uploadedFiles
+                              _model.uploadedFiles = [];
+                              _model.howManyUploadedFiles = 0;
+                              _model.howManySelectedFiles = 0;
+                              _model.uploadedFileNextIndex = 0;
+                              setState(() {});
+                            },
+                      text: 'Clear Upload History',
+                      icon: const Icon(
+                        Icons.delete_sweep,
+                        size: 24.0,
                       ),
-                      borderRadius: BorderRadius.circular(8.0),
-                      disabledColor: FlutterFlowTheme.of(context).alternate,
+                      options: FFButtonOptions(
+                        height: 40.0,
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            24.0, 0.0, 24.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Readex Pro',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 3.0,
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          width: 1.0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                        disabledColor: FlutterFlowTheme.of(context).alternate,
+                      ),
                     ),
-                  ),
                   Padding(
                     padding: const EdgeInsetsDirectional.fromSTEB(
                         20.0, 0.0, 20.0, 0.0),
