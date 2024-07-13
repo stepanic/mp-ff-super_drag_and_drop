@@ -87,7 +87,10 @@ class _SelectAndUploadWithProgressWidgetState
             hoverColor: Colors.transparent,
             highlightColor: Colors.transparent,
             onTap: () async {
-              context.safePop();
+              if (!_model.isUploadInProgress) {
+                // go back
+                context.safePop();
+              }
             },
             child: const Icon(
               Icons.arrow_back_sharp,
