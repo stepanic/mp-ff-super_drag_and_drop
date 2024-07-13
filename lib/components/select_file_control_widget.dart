@@ -173,7 +173,8 @@ class _SelectFileControlWidgetState extends State<SelectFileControlWidget>
                 isDeleted: false,
                 fileName: '<FILE_NAME>',
                 createdAt: getCurrentTimestamp,
-                fileType: functions.getFileType('/path/a/b/file.mp3'),
+                fileType:
+                    functions.getFileTypeFromFilePath('/path/a/b/file.mp3'),
               ),
               ...mapToFirestore(
                 {

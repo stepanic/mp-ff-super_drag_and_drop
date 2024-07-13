@@ -58,7 +58,7 @@ String? getFirebaseStoragePath(String? filePath) {
   return '$pathPrefix/$timestamp.$ext';
 }
 
-FileType getFileType(String? filePath) {
+FileType getFileTypeFromFilePath(String? filePath) {
   if (filePath == null) {
     return FileType.UNKNOWN;
   }
@@ -119,7 +119,7 @@ String? getFileNameFromFilePath(String? filePath) {
     return null;
   }
 
-  return filePath?.split('/').last;
+  return filePath.split('/').last;
 }
 
 String? getFileExtensionFromFilePath(String? filePath) {
@@ -127,9 +127,9 @@ String? getFileExtensionFromFilePath(String? filePath) {
     return null;
   }
 
-  return filePath?.split('.').last;
+  return filePath.split('.').last;
 }
 
-String? getMimeType(String? filePath) {
+String? getMimeTypeFromFilePath(String? filePath) {
   return null;
 }
