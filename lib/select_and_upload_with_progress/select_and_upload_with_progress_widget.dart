@@ -81,10 +81,10 @@ class _SelectAndUploadWithProgressWidgetState
                     text: 'Back',
                     options: FFButtonOptions(
                       height: 40.0,
-                      padding:
-                          const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                      iconPadding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      padding: const EdgeInsetsDirectional.fromSTEB(
+                          24.0, 0.0, 24.0, 0.0),
+                      iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                          0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).primary,
                       textStyle:
                           FlutterFlowTheme.of(context).titleSmall.override(
@@ -156,12 +156,6 @@ class _SelectAndUploadWithProgressWidgetState
                                           // reset howManySelectedFiles
                                           _model.howManySelectedFiles = null;
                                           setState(() {});
-                                          //LOCAL_START
-                                          // Clear uploaded data
-                                          _model
-                                              .selectedFiles![selectedFileIndex]
-                                              .bytes = Uint8List.fromList([]);
-                                          //LOCAL_END
                                         }
                                       },
                                     );
