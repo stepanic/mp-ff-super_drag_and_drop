@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 Future initFirebase() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
-        options: const FirebaseOptions(
+        options: FirebaseOptions(
             apiKey: "AIzaSyDPCjeiAtYUSg5v0q9WnP1_W0WTKsLlUFk",
             authDomain: "mp-ff-super-drag-and-drop.firebaseapp.com",
             projectId: "mp-ff-super-drag-and-drop",
