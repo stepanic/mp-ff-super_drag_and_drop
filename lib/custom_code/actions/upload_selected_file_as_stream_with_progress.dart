@@ -20,4 +20,18 @@ Future uploadSelectedFileAsStreamWithProgress(
       onUploadSuccessful,
 ) async {
   // Add your function code here!
+
+  print('upload radi as stream');
+
+  onUploadProgress?.call(0, uploadedFileIndex);
+
+  onUploadSuccessful(
+      UploadedFileStruct(
+        storagePath: 'storage.path',
+        filePath: 'file.path.jpeg',
+        uploadProgress: 1.0,
+        storageDownloadUrl: 'storage.download.yrl',
+        sizeInBytes: 1337,
+      ),
+      uploadedFileIndex);
 }

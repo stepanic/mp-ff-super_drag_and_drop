@@ -294,7 +294,8 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                                   height: 75.0,
                                   decoration: const BoxDecoration(),
                                   child: Align(
-                                    alignment: const AlignmentDirectional(0.0, -1.0),
+                                    alignment:
+                                        const AlignmentDirectional(0.0, -1.0),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -425,8 +426,8 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                                                       .primaryText,
                                                 ),
                                               ),
-                                              duration:
-                                                  const Duration(milliseconds: 4000),
+                                              duration: const Duration(
+                                                  milliseconds: 4000),
                                               backgroundColor:
                                                   FlutterFlowTheme.of(context)
                                                       .error,
@@ -446,13 +447,13 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                                             width: 2.0,
                                           ),
                                         ),
-                                        alignment:
-                                            const AlignmentDirectional(0.0, 0.0),
+                                        alignment: const AlignmentDirectional(
+                                            0.0, 0.0),
                                         child: Stack(
                                           children: [
                                             AnimatedContainer(
-                                              duration:
-                                                  const Duration(milliseconds: 100),
+                                              duration: const Duration(
+                                                  milliseconds: 100),
                                               curve: Curves.easeIn,
                                               decoration: BoxDecoration(
                                                 borderRadius:
@@ -460,8 +461,9 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                                                         1000.0),
                                               ),
                                               child: Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: const Icon(
                                                   Icons.replay,
                                                   color: Color(0x4095A1AC),
@@ -474,8 +476,9 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                                             ),
                                             if (!_model.isUploadInProgress)
                                               Align(
-                                                alignment: const AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: AnimatedContainer(
                                                   duration: const Duration(
                                                       milliseconds: 100),
@@ -539,8 +542,8 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                         height: 40.0,
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 0.0, 24.0, 0.0),
-                        iconPadding:
-                            const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -558,8 +561,8 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                       ),
                     ),
                   Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        20.0, 0.0, 20.0, 0.0),
                     child: Builder(
                       builder: (context) {
                         final uploadedFilesRecentList = functions
@@ -636,8 +639,8 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                                               .sizeInBytes >
                                           0)
                                         Align(
-                                          alignment:
-                                              const AlignmentDirectional(1.0, 0.0),
+                                          alignment: const AlignmentDirectional(
+                                              1.0, 0.0),
                                           child: Text(
                                             'Size ${(int? sizeInBytes) {
                                               return sizeInBytes != null
@@ -765,8 +768,8 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                                         ],
                                       ),
                                       if (uploadedFilesRecentListItem
-                                                  .storageDownloadUrl !=
-                                              '')
+                                              .storageDownloadUrl !=
+                                          '')
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -806,11 +809,11 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                                           ),
                                         ),
                                       if (uploadedFilesRecentListItem
-                                                  .storageDownloadUrl ==
-                                              '')
+                                              .storageDownloadUrl ==
+                                          '')
                                         Align(
-                                          alignment:
-                                              const AlignmentDirectional(0.0, 1.0),
+                                          alignment: const AlignmentDirectional(
+                                              0.0, 1.0),
                                           child: LinearPercentIndicator(
                                             percent: uploadedFilesRecentListItem
                                                 .uploadProgress,
