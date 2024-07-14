@@ -101,6 +101,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Playground',
           path: '/playground',
           builder: (context, params) => const PlaygroundWidget(),
+        ),
+        FFRoute(
+          name: 'SelectAndUploadWithProgressAsStream',
+          path: '/selectAndUploadWithProgressAsStream',
+          builder: (context, params) =>
+              const SelectAndUploadWithProgressAsStreamWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],

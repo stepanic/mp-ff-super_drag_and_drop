@@ -12,21 +12,21 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'select_and_upload_with_progress_model.dart';
-export 'select_and_upload_with_progress_model.dart';
+import 'select_and_upload_with_progress_as_stream_model.dart';
+export 'select_and_upload_with_progress_as_stream_model.dart';
 
-class SelectAndUploadWithProgressWidget extends StatefulWidget {
-  const SelectAndUploadWithProgressWidget({super.key});
+class SelectAndUploadWithProgressAsStreamWidget extends StatefulWidget {
+  const SelectAndUploadWithProgressAsStreamWidget({super.key});
 
   @override
-  State<SelectAndUploadWithProgressWidget> createState() =>
-      _SelectAndUploadWithProgressWidgetState();
+  State<SelectAndUploadWithProgressAsStreamWidget> createState() =>
+      _SelectAndUploadWithProgressAsStreamWidgetState();
 }
 
-class _SelectAndUploadWithProgressWidgetState
-    extends State<SelectAndUploadWithProgressWidget>
+class _SelectAndUploadWithProgressAsStreamWidgetState
+    extends State<SelectAndUploadWithProgressAsStreamWidget>
     with TickerProviderStateMixin {
-  late SelectAndUploadWithProgressModel _model;
+  late SelectAndUploadWithProgressAsStreamModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -35,7 +35,8 @@ class _SelectAndUploadWithProgressWidgetState
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SelectAndUploadWithProgressModel());
+    _model =
+        createModel(context, () => SelectAndUploadWithProgressAsStreamModel());
 
     animationsMap.addAll({
       'iconOnActionTriggerAnimation': AnimationInfo(
@@ -99,7 +100,7 @@ class _SelectAndUploadWithProgressWidgetState
             ),
           ),
           title: Text(
-            'select.and.upload.with.progress',
+            'select.and.upload.with.progress.as.stream',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
@@ -197,13 +198,13 @@ class _SelectAndUploadWithProgressWidgetState
                                   ));
                                   setState(() {});
                                   // upload async to Storage with Progress
-                                  await actions.uploadSelectedFileWithProgress(
+                                  await actions
+                                      .uploadSelectedFileAsStreamWithProgress(
                                     SelectedFileStruct(
                                       storagePath:
                                           functions.getFirebaseStoragePath(
                                               selectedFilePath),
                                       filePath: selectedFilePath,
-                                      bytes: selectedFileBytes,
                                     ),
                                     _model.uploadedFileNextIndex,
                                     (uploadProgress, uploadedFileIndex) async {
