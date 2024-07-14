@@ -26,6 +26,8 @@ Future uploadSelectedFileWithProgress(
 
   String path = selectedFile.storagePath;
   Uint8List data = Uint8List.fromList(selectedFile.bytes);
+  //Cleanup Memory
+  selectedFile.bytes = Uint8List.fromList([]);
 
   if (onUploadProgress != null) {
     onUploadProgress(0, uploadedFileIndex);
@@ -36,11 +38,11 @@ Future uploadSelectedFileWithProgress(
   final uploadTask = storageRef.putData(data, metadata);
 
   uploadTask.snapshotEvents.listen((event) {
-    print(event.state);
+    // print(event.state);
 
     if (onUploadProgress != null && event.totalBytes > 0) {
       double progress = event.bytesTransferred / event.totalBytes;
-      print(progress);
+      // print(progress);
       onUploadProgress(progress, uploadedFileIndex);
     }
 

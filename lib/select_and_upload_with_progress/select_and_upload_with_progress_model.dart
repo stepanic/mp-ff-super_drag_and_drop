@@ -44,6 +44,14 @@ class SelectAndUploadWithProgressModel
 
   @override
   void dispose() {
+    //LOCAL_START
+    // Clean memory leaks
+    if (selectedFiles != null) {
+      for (int i = 0; i < selectedFiles!.length; i++) {
+        selectedFiles![i].bytes = Uint8List.fromList([]);
+      }
+    }
+    //LOCAL_END
     unfocusNode.dispose();
   }
 }
