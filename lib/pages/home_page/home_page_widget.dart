@@ -9,6 +9,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -60,14 +62,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   letterSpacing: 0.0,
                 ),
           ),
-          actions: const [],
+          actions: [],
           centerTitle: false,
           elevation: 2.0,
         ),
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: const AlignmentDirectional(0.0, 0.0),
+            alignment: AlignmentDirectional(0.0, 0.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -75,22 +77,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 wrapWithModel(
                   model: _model.selectFilesModel,
                   updateCallback: () => setState(() {}),
-                  child: const SelectFilesWidget(),
+                  child: SelectFilesWidget(),
                 ),
                 Flexible(
                   child: Align(
-                    alignment: const AlignmentDirectional(0.0, 0.0),
+                    alignment: AlignmentDirectional(0.0, 0.0),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
                       child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 500),
+                        duration: Duration(milliseconds: 500),
                         curve: Curves.easeInOut,
                         width: 256.0,
                         height: 256.0,
                         decoration: BoxDecoration(
                           color: _model.isOverSuperDragAndDrop
-                              ? const Color(0xFFD4D4D4)
+                              ? Color(0xFFD4D4D4)
                               : Colors.white,
                           borderRadius: BorderRadius.circular(8.0),
                           border: Border.all(
@@ -102,9 +104,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           children: [
                             if (!_model.isUploadInProgress)
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 1.0),
+                                alignment: AlignmentDirectional(0.0, 1.0),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 60.0),
                                   child: Text(
                                     'Upload or drag & drop audio files.',
@@ -113,7 +115,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Readex Pro',
-                                          color: const Color(0x4095A1AC),
+                                          color: Color(0x4095A1AC),
                                           fontSize: 24.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.normal,
@@ -123,9 +125,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                             if (_model.isUploadInProgress)
                               Align(
-                                alignment: const AlignmentDirectional(0.0, 1.0),
+                                alignment: AlignmentDirectional(0.0, 1.0),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       20.0, 0.0, 20.0, 80.0),
                                   child: Text(
                                     'Processing....',
@@ -134,7 +136,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Readex Pro',
-                                          color: const Color(0x4095A1AC),
+                                          color: Color(0x4095A1AC),
                                           fontSize: 24.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.normal,
@@ -142,7 +144,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   ),
                                 ),
                               ),
-                            SizedBox(
+                            Container(
                               width: 256.0,
                               height: 256.0,
                               child: custom_widgets.SuperDragAndDrop(
@@ -181,14 +183,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               ),
                             ),
                             Align(
-                              alignment: const AlignmentDirectional(0.0, -1.0),
+                              alignment: AlignmentDirectional(0.0, -1.0),
                               child: Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 35.0, 0.0, 0.0),
                                 child: Container(
                                   width: 75.0,
                                   height: 75.0,
-                                  decoration: const BoxDecoration(),
+                                  decoration: BoxDecoration(),
                                   child: wrapWithModel(
                                     model: _model.selectFileControlModel,
                                     updateCallback: () => setState(() {}),
@@ -222,10 +224,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
                 Flexible(
                   child: Container(
-                    decoration: const BoxDecoration(),
+                    decoration: BoxDecoration(),
                     child: Padding(
                       padding:
-                          const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                       child: StreamBuilder<List<FilesRecord>>(
                         stream: queryFilesRecord(
                           queryBuilder: (filesRecord) => filesRecord
@@ -258,7 +260,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               snapshot.data!;
 
                           return ListView.separated(
-                            padding: const EdgeInsets.fromLTRB(
+                            padding: EdgeInsets.fromLTRB(
                               0,
                               12.0,
                               0,
@@ -266,7 +268,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                             scrollDirection: Axis.vertical,
                             itemCount: listViewFilesRecordList.length,
-                            separatorBuilder: (_, __) => const SizedBox(height: 12.0),
+                            separatorBuilder: (_, __) => SizedBox(height: 12.0),
                             itemBuilder: (context, listViewIndex) {
                               final listViewFilesRecord =
                                   listViewFilesRecordList[listViewIndex];
@@ -295,9 +297,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   options: FFButtonOptions(
                     height: 40.0,
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Readex Pro',
@@ -305,7 +307,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           letterSpacing: 0.0,
                         ),
                     elevation: 3.0,
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1.0,
                     ),
@@ -320,9 +322,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   options: FFButtonOptions(
                     height: 40.0,
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Readex Pro',
@@ -330,7 +332,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           letterSpacing: 0.0,
                         ),
                     elevation: 3.0,
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1.0,
                     ),
@@ -345,9 +347,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   options: FFButtonOptions(
                     height: 40.0,
                     padding:
-                        const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                     iconPadding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Readex Pro',
@@ -355,7 +357,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           letterSpacing: 0.0,
                         ),
                     elevation: 3.0,
-                    borderSide: const BorderSide(
+                    borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1.0,
                     ),

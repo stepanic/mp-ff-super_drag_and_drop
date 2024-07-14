@@ -1,3 +1,4 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/enums/enums.dart';
 import '/flutter_flow/flutter_flow_audio_player.dart';
@@ -5,7 +6,10 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'file_list_item_model.dart';
 export 'file_list_item_model.dart';
 
@@ -48,7 +52,7 @@ class _FileListItemWidgetState extends State<FileListItemWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(),
+      decoration: BoxDecoration(),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -58,7 +62,7 @@ class _FileListItemWidgetState extends State<FileListItemWidget> {
             children: [
               Text(
                 valueOrDefault<String>(
-                  widget.fileDoc?.fileName,
+                  widget!.fileDoc?.fileName,
                   'N/A',
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -68,7 +72,7 @@ class _FileListItemWidgetState extends State<FileListItemWidget> {
               ),
               Text(
                 valueOrDefault<String>(
-                  widget.fileDoc?.fileType?.name,
+                  widget!.fileDoc?.fileType?.name,
                   'N/A',
                 ),
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -90,26 +94,26 @@ class _FileListItemWidgetState extends State<FileListItemWidget> {
                 onPressed: () async {
                   // is_deleted=true
 
-                  await widget.fileDoc!.reference.update(createFilesRecordData(
+                  await widget!.fileDoc!.reference.update(createFilesRecordData(
                     isDeleted: true,
                   ));
                 },
               ),
             ],
           ),
-          if (widget.fileDoc?.fileType == FileType.AUDIO)
+          if (widget!.fileDoc?.fileType == FileType.AUDIO)
             Container(
-              decoration: const BoxDecoration(),
+              decoration: BoxDecoration(),
               child: FlutterFlowAudioPlayer(
                 audio: Audio.network(
                   functions.fileUrlToAudioPath(
                       functions.imageKitAsFirebaseStorageProxy(
-                          widget.fileDoc!.fileUrl,
+                          widget!.fileDoc!.fileUrl,
                           FFAppConstants.FirebaseStoragePrefix,
                           FFAppConstants.ImageKitPrefix))!,
                   metas: Metas(
                     id: 'sample3.mp3-1314cbec',
-                    title: widget.fileDoc?.fileName,
+                    title: widget!.fileDoc?.fileName,
                   ),
                 ),
                 titleTextStyle:
