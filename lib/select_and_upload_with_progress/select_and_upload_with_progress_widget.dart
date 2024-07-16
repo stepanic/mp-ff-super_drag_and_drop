@@ -194,7 +194,8 @@ class _SelectAndUploadWithProgressWidgetState
                                 height: 256.0,
                                 shouldReturnFileBytes: false,
                                 onFileRead: (selectedFilePath,
-                                    selectedFileBytes) async {
+                                    selectedFileBytes,
+                                    /*L*/ selectedFileStream /*L*/) async {
                                   // append to uploadedFiles
                                   _model.addToUploadedFiles(UploadedFileStruct(
                                     filePath: selectedFilePath,
