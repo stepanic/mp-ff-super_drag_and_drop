@@ -192,6 +192,7 @@ class _SelectAndUploadWithProgressWidgetState
                               child: custom_widgets.SuperDragAndDrop(
                                 width: 256.0,
                                 height: 256.0,
+                                shouldReturnFileBytes: false,
                                 onFileRead: (selectedFilePath,
                                     selectedFileBytes) async {
                                   // append to uploadedFiles
