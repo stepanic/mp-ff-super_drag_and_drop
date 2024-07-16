@@ -23,22 +23,17 @@ class SuperDragAndDrop extends StatefulWidget {
     required this.onFilesDrop,
     this.onDropEnter,
     this.onDropLeave,
-    //LOCAL_START
-    this.onFileReadAsStream,
-    //LOCAL_END
+    this.shouldReturnFileBytes,
   });
 
   final double? width;
   final double? height;
-  final Future Function(String selectedFilePath, List<int> selectedFileBytes)?
-      onFileRead;
+  final Future Function(String selectedFilePath, List<int>? selectedFileBytes,
+      /*L*/ Stream<Uint8List>? fileStream /*L*/)? onFileRead;
   final Future Function(int howManySelectedFiles) onFilesDrop;
   final Future Function()? onDropEnter;
   final Future Function()? onDropLeave;
-  //LOCAL_START
-  final Future Function(String selectedFilePath, Stream<Uint8List> fileStream)?
-      onFileReadAsStream;
-  //LOCAL_END
+  final bool? shouldReturnFileBytes;
 
   @override
   State<SuperDragAndDrop> createState() => _SuperDragAndDropState();
@@ -109,29 +104,23 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
                 String filePath = value?.path ?? "N/A";
 
                 reader.getFile(null, (file) async {
-                  // Binary files may be too large to be loaded in memory and thus
-                  // are exposed as stream.
-                  final fileStream = file.getStream();
-                  widget.onFileReadAsStream?.call(filePath, fileStream);
+                  if (widget.shouldReturnFileBytes == true) {
+                    // Alternatively, if you know that that the value is small enough,
+                    // you can read the entire value into memory:
+                    // (note that readAll is mutually exclusive with getStream(), you
+                    // can only use one of them)
+                    Uint8List fileBytes = await file.readAll();
+                    widget.onFileRead?.call(filePath, fileBytes, null);
 
-                  return;
-
-                  // Alternatively, if you know that that the value is small enough,
-                  // you can read the entire value into memory:
-                  // (note that readAll is mutually exclusive with getStream(), you
-                  // can only use one of them)
-                  // Uint8List fileBytes = file.readAll();
-
-                  // TODO: replace with reading stream
-                  Uint8List fileBytes = await file.readAll();
-
-                  // Uint8List fileBytes = Uint8List.fromList([]);
-
-                  // print('onPerformDrop.reader.getFile: ${filePath}');
-                  widget.onFileRead?.call(filePath, fileBytes);
-
-                  // clean up memory leaks
-                  fileBytes = Uint8List.fromList([]);
+                    // clean up memory leaks
+                    fileBytes = Uint8List.fromList([]);
+                  } else {
+                    // Binary files may be too large to be loaded in memory and thus
+                    // are exposed as stream.
+                    // Default behavior
+                    final fileStream = file.getStream();
+                    widget.onFileRead?.call(filePath, null, fileStream);
+                  }
                 }, onError: (error) {
                   // print(
                   //     'onPerformDrop.reader.getFile.Error reading value $error');

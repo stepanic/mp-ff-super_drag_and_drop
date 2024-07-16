@@ -193,12 +193,9 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                               child: custom_widgets.SuperDragAndDrop(
                                 width: 256.0,
                                 height: 256.0,
-                                //LOCAL_START
-                                // onFileRead: (selectedFilePath,
-                                //     selectedFileBytes) async {
-                                onFileReadAsStream: (selectedFilePath,
-                                    selectedFileStream) async {
-                                  //LOCAL_END
+                                onFileRead: (selectedFilePath,
+                                    selectedFileBytes,
+                                    /*L*/ selectedFileStream /*L*/) async {
                                   // append to uploadedFiles
                                   _model.addToUploadedFiles(UploadedFileStruct(
                                     filePath: selectedFilePath,

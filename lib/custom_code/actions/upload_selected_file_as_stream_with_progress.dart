@@ -23,7 +23,7 @@ Future uploadSelectedFileAsStreamWithProgress(
   Future Function(UploadedFileStruct uploadedFile, int uploadedFileIndex)
       onUploadSuccessful,
   //LOCAL_START
-  Stream<Uint8List> selectedFileStream,
+  Stream<Uint8List>? selectedFileStream,
   //LOCAL_END
 ) async {
   // Add your function code here!
