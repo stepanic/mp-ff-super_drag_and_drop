@@ -119,7 +119,7 @@ String? getFileNameFromFilePath(String? filePath) {
     return null;
   }
 
-  Uri.decodeFull(filePath.split('/').last);
+  return Uri.decodeFull(filePath.split('/').last);
 }
 
 String? getFileExtensionFromFilePath(String? filePath) {
