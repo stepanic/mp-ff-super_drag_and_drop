@@ -151,7 +151,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 width: 256.0,
                                 height: 256.0,
                                 onFileRead: (selectedFilePath,
-                                    selectedFileBytes) async {
+                                    selectedFileBytes,
+                                    /*L*/ selectedFileStream /*L*/) async {
                                   // upload local file to Storage and create Document in Firestore
                                   await action_blocks.createLocalFileOnFirebase(
                                     context,

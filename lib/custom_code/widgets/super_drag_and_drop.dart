@@ -29,7 +29,7 @@ class SuperDragAndDrop extends StatefulWidget {
   final double? width;
   final double? height;
   final Future Function(String selectedFilePath, List<int>? selectedFileBytes,
-      /*L*/ Stream<Uint8List>? fileStream /*L*/)? onFileRead;
+      /*L*/ Stream<Uint8List>? selectedFileStream /*L*/)? onFileRead;
   final Future Function(int howManySelectedFiles) onFilesDrop;
   final Future Function()? onDropEnter;
   final Future Function()? onDropLeave;
