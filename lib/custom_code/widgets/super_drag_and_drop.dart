@@ -114,6 +114,8 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
                   final fileStream = file.getStream();
                   widget.onFileReadAsStream?.call(filePath, fileStream);
 
+                  return;
+
                   // Alternatively, if you know that that the value is small enough,
                   // you can read the entire value into memory:
                   // (note that readAll is mutually exclusive with getStream(), you
@@ -121,12 +123,12 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
                   // Uint8List fileBytes = file.readAll();
 
                   // TODO: replace with reading stream
-                  // Uint8List fileBytes = await file.readAll();
+                  Uint8List fileBytes = await file.readAll();
 
-                  Uint8List fileBytes = Uint8List.fromList([]);
+                  // Uint8List fileBytes = Uint8List.fromList([]);
 
                   // print('onPerformDrop.reader.getFile: ${filePath}');
-                  // widget.onFileRead?.call(filePath, fileBytes);
+                  widget.onFileRead?.call(filePath, fileBytes);
 
                   // clean up memory leaks
                   fileBytes = Uint8List.fromList([]);

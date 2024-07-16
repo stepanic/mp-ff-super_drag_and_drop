@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:mime_type/mime_type.dart';
+import 'dart:io';
 
 Future uploadSelectedFileWithProgress(
   SelectedFileStruct selectedFile,
@@ -25,7 +26,12 @@ Future uploadSelectedFileWithProgress(
   // Add your function code here!
 
   String path = selectedFile.storagePath;
-  Uint8List data = Uint8List.fromList(selectedFile.bytes);
+  Uint8List data = Uint8List.fromList([]);
+  bool isUploadAsStream = true;
+  if (selectedFile.hasBytes()) {
+    data = Uint8List.fromList(selectedFile.bytes);
+    isUploadAsStream = false;
+  }
   //Cleanup Memory
   selectedFile.bytes = Uint8List.fromList([]);
 
@@ -35,7 +41,18 @@ Future uploadSelectedFileWithProgress(
 
   final storageRef = FirebaseStorage.instance.ref().child(path);
   final metadata = SettableMetadata(contentType: mime(path));
-  final uploadTask = storageRef.putData(data, metadata);
+
+  UploadTask uploadTask;
+  // Upload the file as stream is much memory efficient
+  if (isUploadAsStream) {
+    String filePath = selectedFile.filePath;
+    filePath = Uri.decodeFull(filePath);
+    final file = File(filePath);
+    uploadTask = storageRef.putFile(file, metadata);
+  } else {
+    // Upload as byte array it makes sense if the file should be preview locally
+    uploadTask = storageRef.putData(data, metadata);
+  }
 
   uploadTask.snapshotEvents.listen((event) {
     // print(event.state);
@@ -52,7 +69,7 @@ Future uploadSelectedFileWithProgress(
         onUploadSuccessful(
           UploadedFileStruct(
             storagePath: selectedFile.storagePath,
-            filePath: selectedFile.filePath,
+            filePath: Uri.decodeFull(selectedFile.filePath),
             uploadProgress: 1.0,
             storageDownloadUrl: downloadUrl,
             sizeInBytes: sizeInBytes,

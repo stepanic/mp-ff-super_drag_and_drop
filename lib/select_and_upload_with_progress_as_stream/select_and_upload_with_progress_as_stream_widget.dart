@@ -193,8 +193,12 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                               child: custom_widgets.SuperDragAndDrop(
                                 width: 256.0,
                                 height: 256.0,
-                                onFileRead: (selectedFilePath,
-                                    selectedFileBytes) async {
+                                //LOCAL_START
+                                // onFileRead: (selectedFilePath,
+                                //     selectedFileBytes) async {
+                                onFileReadAsStream: (selectedFilePath,
+                                    selectedFileStream) async {
+                                  //LOCAL_END
                                   // append to uploadedFiles
                                   _model.addToUploadedFiles(UploadedFileStruct(
                                     filePath: selectedFilePath,
@@ -254,6 +258,9 @@ class _SelectAndUploadWithProgressAsStreamWidgetState
                                         }
                                       }
                                     },
+                                    //LOCAL_START
+                                    selectedFileStream,
+                                    //LOCAL_END
                                   );
                                   // uploadedFileNextIndex+=1;
                                   _model.uploadedFileNextIndex =
