@@ -111,6 +111,21 @@ int howManySecondsFromNow(DateTime? moment) {
 
 List<UploadedFileStruct> sortUploadingFilesDescByUploadStartedAt(
     List<UploadedFileStruct> uploadedFiles) {
+  uploadedFiles.sort((a, b) {
+    if (a.uploadStartedAt == null || b.uploadStartedAt == null) {
+      return 0;
+    }
+
+    if (a.uploadStartedAt!.isBefore(b.uploadStartedAt!)) {
+      return 1;
+    }
+
+    if (a.uploadStartedAt!.isAfter(b.uploadStartedAt!)) {
+      return -1;
+    }
+
+    return 0;
+  });
   return uploadedFiles;
 }
 
