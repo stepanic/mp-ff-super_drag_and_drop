@@ -90,11 +90,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? NavBarPage() : ALoginPageWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/home',
-          builder: (context, params) => HomePageWidget(),
-        ),
-        FFRoute(
           name: 'aLoginPage',
           path: '/aLoginPage',
           builder: (context, params) => ALoginPageWidget(),
@@ -114,7 +109,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               : CAboutWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
-      observers: [routeObserver],
     );
 
 extension NavParamExtensions on Map<String, String?> {
