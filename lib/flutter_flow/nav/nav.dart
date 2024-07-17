@@ -80,16 +80,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => appStateNotifier.loggedIn
-          ? BSelectAndUploadWithProgressWidget()
-          : ALoginPageWidget(),
+      errorBuilder: (context, state) =>
+          appStateNotifier.loggedIn ? NavBarPage() : ALoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
-              ? BSelectAndUploadWithProgressWidget()
-              : ALoginPageWidget(),
+          builder: (context, _) =>
+              appStateNotifier.loggedIn ? NavBarPage() : ALoginPageWidget(),
         ),
         FFRoute(
           name: 'HomePage',
@@ -104,12 +102,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'bSelectAndUploadWithProgress',
           path: '/bSelectAndUploadWithProgress',
-          builder: (context, params) => BSelectAndUploadWithProgressWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'bSelectAndUploadWithProgress')
+              : BSelectAndUploadWithProgressWidget(),
         ),
         FFRoute(
           name: 'cAbout',
           path: '/cAbout',
-          builder: (context, params) => CAboutWidget(),
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'cAbout')
+              : CAboutWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
