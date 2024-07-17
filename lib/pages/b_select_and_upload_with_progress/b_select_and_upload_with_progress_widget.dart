@@ -784,13 +784,8 @@ class _BSelectAndUploadWithProgressWidgetState
                                           onTap: () async {
                                             // launch URL
                                             await actions.launchUrl(
-                                              valueOrDefault<String>(
-                                                _model
-                                                    .uploadedFiles[
-                                                        uploadedFilesRecentListIndex]
-                                                    .storageDownloadUrl,
-                                                'N/A',
-                                              ),
+                                              uploadedFilesRecentListItem
+                                                  .storageDownloadUrl,
                                             );
                                           },
                                           child: Text(
