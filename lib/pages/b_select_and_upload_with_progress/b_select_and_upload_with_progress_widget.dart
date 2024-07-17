@@ -603,6 +603,8 @@ class _BSelectAndUploadWithProgressWidgetState
                                     children: [
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             uploadedFilesRecentListIndex
