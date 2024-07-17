@@ -1,6 +1,6 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/uploaded_files_list_empty_placeholder_widget.dart';
+import '/components/uploaded_files_list_empty_placeholder/uploaded_files_list_empty_placeholder_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,8 +10,8 @@ import 'dart:math';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'select_and_upload_with_progress_widget.dart'
-    show SelectAndUploadWithProgressWidget;
+import 'b_select_and_upload_with_progress_widget.dart'
+    show BSelectAndUploadWithProgressWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -19,8 +19,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
-class SelectAndUploadWithProgressModel
-    extends FlutterFlowModel<SelectAndUploadWithProgressWidget> {
+class BSelectAndUploadWithProgressModel
+    extends FlutterFlowModel<BSelectAndUploadWithProgressWidget> {
   ///  Local state fields for this page.
 
   List<UploadedFileStruct> uploadedFiles = [];

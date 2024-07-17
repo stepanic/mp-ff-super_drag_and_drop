@@ -1,6 +1,6 @@
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/uploaded_files_list_empty_placeholder_widget.dart';
+import '/components/uploaded_files_list_empty_placeholder/uploaded_files_list_empty_placeholder_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -16,21 +16,21 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
-import 'select_and_upload_with_progress_model.dart';
-export 'select_and_upload_with_progress_model.dart';
+import 'b_select_and_upload_with_progress_model.dart';
+export 'b_select_and_upload_with_progress_model.dart';
 
-class SelectAndUploadWithProgressWidget extends StatefulWidget {
-  const SelectAndUploadWithProgressWidget({super.key});
+class BSelectAndUploadWithProgressWidget extends StatefulWidget {
+  const BSelectAndUploadWithProgressWidget({super.key});
 
   @override
-  State<SelectAndUploadWithProgressWidget> createState() =>
-      _SelectAndUploadWithProgressWidgetState();
+  State<BSelectAndUploadWithProgressWidget> createState() =>
+      _BSelectAndUploadWithProgressWidgetState();
 }
 
-class _SelectAndUploadWithProgressWidgetState
-    extends State<SelectAndUploadWithProgressWidget>
+class _BSelectAndUploadWithProgressWidgetState
+    extends State<BSelectAndUploadWithProgressWidget>
     with TickerProviderStateMixin {
-  late SelectAndUploadWithProgressModel _model;
+  late BSelectAndUploadWithProgressModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -39,7 +39,7 @@ class _SelectAndUploadWithProgressWidgetState
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => SelectAndUploadWithProgressModel());
+    _model = createModel(context, () => BSelectAndUploadWithProgressModel());
 
     animationsMap.addAll({
       'iconOnActionTriggerAnimation': AnimationInfo(
@@ -85,25 +85,8 @@ class _SelectAndUploadWithProgressWidgetState
         appBar: AppBar(
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
-          leading: InkWell(
-            splashColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            onTap: () async {
-              if (!_model.isUploadInProgress) {
-                // go back
-                context.safePop();
-              }
-            },
-            child: Icon(
-              Icons.arrow_back_sharp,
-              color: Colors.white,
-              size: 24.0,
-            ),
-          ),
           title: Text(
-            'select.and.upload.with.progress',
+            'super_drag_and_drop.FF.hr',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,

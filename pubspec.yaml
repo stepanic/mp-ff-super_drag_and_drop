@@ -48,6 +48,7 @@ dependencies:
   firebase_storage_web: 3.9.5
   flutter_animate: 4.5.0
   flutter_cache_manager: 3.3.1
+  flutter_markdown: 0.6.23
   flutter_plugin_android_lifecycle: 2.0.20
   font_awesome_flutter: 10.6.0
   from_css_color: 2.0.0

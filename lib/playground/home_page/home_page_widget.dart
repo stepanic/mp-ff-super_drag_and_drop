@@ -1,11 +1,11 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/file_list_item_widget.dart';
 import '/components/select_file_control_widget.dart';
 import '/components/select_files_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/playground/file_list_item/file_list_item_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
@@ -292,7 +292,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     await authManager.signOut();
                     GoRouter.of(context).clearRedirectLocation();
 
-                    context.goNamedAuth('LoginPage', context.mounted);
+                    context.goNamedAuth('aLoginPage', context.mounted);
                   },
                   text: 'Logout',
                   options: FFButtonOptions(
@@ -317,7 +317,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
                 FFButtonWidget(
                   onPressed: () async {
-                    context.pushNamed('SelectAndUploadWithProgress');
+                    context.pushNamed('bSelectAndUploadWithProgress');
                   },
                   text: 'Go to SelectNUploadWProgress',
                   options: FFButtonOptions(

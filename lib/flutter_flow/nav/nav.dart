@@ -80,14 +80,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
+      errorBuilder: (context, state) => appStateNotifier.loggedIn
+          ? BSelectAndUploadWithProgressWidget()
+          : ALoginPageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) =>
-              appStateNotifier.loggedIn ? HomePageWidget() : LoginPageWidget(),
+          builder: (context, _) => appStateNotifier.loggedIn
+              ? BSelectAndUploadWithProgressWidget()
+              : ALoginPageWidget(),
         ),
         FFRoute(
           name: 'HomePage',
@@ -95,19 +97,19 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => HomePageWidget(),
         ),
         FFRoute(
-          name: 'LoginPage',
-          path: '/loginPage',
-          builder: (context, params) => LoginPageWidget(),
+          name: 'aLoginPage',
+          path: '/aLoginPage',
+          builder: (context, params) => ALoginPageWidget(),
         ),
         FFRoute(
-          name: 'SelectAndUploadWithProgress',
-          path: '/selectAndUploadWithProgress',
-          builder: (context, params) => SelectAndUploadWithProgressWidget(),
+          name: 'bSelectAndUploadWithProgress',
+          path: '/bSelectAndUploadWithProgress',
+          builder: (context, params) => BSelectAndUploadWithProgressWidget(),
         ),
         FFRoute(
-          name: 'Playground',
-          path: '/playground',
-          builder: (context, params) => PlaygroundWidget(),
+          name: 'cAbout',
+          path: '/cAbout',
+          builder: (context, params) => CAboutWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
       observers: [routeObserver],
@@ -281,7 +283,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/loginPage';
+            return '/aLoginPage';
           }
           return null;
         },
