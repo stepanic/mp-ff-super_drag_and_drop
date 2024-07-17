@@ -602,24 +602,41 @@ class _BSelectAndUploadWithProgressWidgetState
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        valueOrDefault<String>(
-                                          functions.getFileNameFromFilePath(
-                                              valueOrDefault<String>(
-                                            uploadedFilesRecentListItem
-                                                .filePath,
-                                            'N/A',
-                                          )),
-                                          'N/A',
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Readex Pro',
-                                              fontSize: 14.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            uploadedFilesRecentListIndex
+                                                .toString(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                          Text(
+                                            valueOrDefault<String>(
+                                              functions.getFileNameFromFilePath(
+                                                  valueOrDefault<String>(
+                                                uploadedFilesRecentListItem
+                                                    .filePath,
+                                                'N/A',
+                                              )),
+                                              'N/A',
                                             ),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Readex Pro',
+                                                  fontSize: 14.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ],
                                       ),
                                       if (uploadedFilesRecentListItem
                                               .sizeInBytes >
