@@ -5,25 +5,25 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'login_page_model.dart';
-export 'login_page_model.dart';
+import 'a_login_page_model.dart';
+export 'a_login_page_model.dart';
 
-class LoginPageWidget extends StatefulWidget {
-  const LoginPageWidget({super.key});
+class ALoginPageWidget extends StatefulWidget {
+  const ALoginPageWidget({super.key});
 
   @override
-  State<LoginPageWidget> createState() => _LoginPageWidgetState();
+  State<ALoginPageWidget> createState() => _ALoginPageWidgetState();
 }
 
-class _LoginPageWidgetState extends State<LoginPageWidget> {
-  late LoginPageModel _model;
+class _ALoginPageWidgetState extends State<ALoginPageWidget> {
+  late ALoginPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LoginPageModel());
+    _model = createModel(context, () => ALoginPageModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -77,7 +77,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       return;
                     }
 
-                    context.goNamedAuth('HomePage', context.mounted);
+                    context.goNamedAuth(
+                        'bSelectAndUploadWithProgress', context.mounted);
                   },
                   text: 'Login as Guest',
                   options: FFButtonOptions(
@@ -116,7 +117,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       return;
                     }
 
-                    context.goNamedAuth('HomePage', context.mounted);
+                    context.goNamedAuth(
+                        'bSelectAndUploadWithProgress', context.mounted);
                   },
                   text: 'Login with Google',
                   options: FFButtonOptions(
