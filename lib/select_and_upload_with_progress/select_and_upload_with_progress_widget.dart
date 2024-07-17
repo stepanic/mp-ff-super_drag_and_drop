@@ -794,13 +794,8 @@ class _SelectAndUploadWithProgressWidgetState
                                             );
                                           },
                                           child: Text(
-                                            valueOrDefault<String>(
-                                              _model
-                                                  .uploadedFiles[
-                                                      uploadedFilesRecentListIndex]
-                                                  .storageDownloadUrl,
-                                              'N/A',
-                                            ),
+                                            uploadedFilesRecentListItem
+                                                .storageDownloadUrl,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
