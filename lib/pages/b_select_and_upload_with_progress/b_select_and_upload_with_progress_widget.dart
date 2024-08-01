@@ -204,7 +204,7 @@ class _BSelectAndUploadWithProgressWidgetState
                                       setState(() {});
                                     },
                                     (uploadedFile, uploadedFileIndex) async {
-                                      // uploadedFiles[uploadedFileIndex]=uploadedFile
+                                      // uploadedFiles[uploadedFileIndex]=uploadedFile; howManyUploadedFiles+=1;
                                       _model.updateUploadedFilesAtIndex(
                                         uploadedFileIndex,
                                         (e) => e
@@ -243,7 +243,7 @@ class _BSelectAndUploadWithProgressWidgetState
                                       _model.uploadedFileNextIndex + 1;
                                 },
                                 onFilesDrop: (howManySelectedFiles) async {
-                                  // isUploadInProgress=true
+                                  // isUploadInProgress=true; howManySelectedFiles+=cb.howManySelectedFiles
                                   _model.isUploadInProgress = true;
                                   _model.howManySelectedFiles =
                                       _model.howManySelectedFiles +
@@ -298,7 +298,7 @@ class _BSelectAndUploadWithProgressWidgetState
                                         if (_model.selectedFiles != null &&
                                             (_model.selectedFiles)!
                                                 .isNotEmpty) {
-                                          // ii=0; howManySelectedFiles += selectedFiles.length;
+                                          // ii=0; howManySelectedFiles += selectedFiles.length;isUploadInProgress=true;
                                           _model.howManySelectedFiles =
                                               _model.howManySelectedFiles +
                                                   _model.selectedFiles!.length;
@@ -348,7 +348,7 @@ class _BSelectAndUploadWithProgressWidgetState
                                                   },
                                                   (uploadedFile,
                                                       uploadedFileIndex) async {
-                                                    // uploadedFiles[uploadedFileIndex]=uploadedFile
+                                                    // uploadedFiles[uploadedFileIndex]=uploadedFile; howManyUploadedFiles+=1;
                                                     _model
                                                         .updateUploadedFilesAtIndex(
                                                       uploadedFileIndex,
@@ -511,7 +511,7 @@ class _BSelectAndUploadWithProgressWidgetState
                       onPressed: _model.isUploadInProgress
                           ? null
                           : () async {
-                              // reset uploadedFiles
+                              // reset uploadedFiles, howManyUploadedFiles, howManySelectedFiles, uploadedFileNextIndex;
                               _model.uploadedFiles = [];
                               _model.howManyUploadedFiles = 0;
                               _model.howManySelectedFiles = 0;

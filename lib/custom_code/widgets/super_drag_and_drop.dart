@@ -27,8 +27,11 @@ class SuperDragAndDrop extends StatefulWidget {
 
   final double? width;
   final double? height;
-  final Future Function(String selectedFilePath, List<int>? selectedFileBytes,
-      /*L*/ Stream<Uint8List>? selectedFileStream /*L*/)? onFileRead;
+  final Future Function(
+    String selectedFilePath,
+    List<int>? selectedFileBytes,
+    /*L*/ /*Stream<Uint8List>? selectedFileStream*/ /*L*/
+  )? onFileRead;
   final Future Function(int howManySelectedFiles) onFilesDrop;
   final Future Function()? onDropEnter;
   final Future Function()? onDropLeave;
@@ -109,7 +112,7 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
                     // (note that readAll is mutually exclusive with getStream(), you
                     // can only use one of them)
                     Uint8List fileBytes = await file.readAll();
-                    widget.onFileRead?.call(filePath, fileBytes, null);
+                    widget.onFileRead?.call(filePath, fileBytes /*, null*/);
 
                     // clean up memory leaks
                     fileBytes = Uint8List.fromList([]);
@@ -118,7 +121,7 @@ class _SuperDragAndDropState extends State<SuperDragAndDrop> {
                     // are exposed as stream.
                     // Default behavior
                     final fileStream = file.getStream();
-                    widget.onFileRead?.call(filePath, null, fileStream);
+                    widget.onFileRead?.call(filePath, null /*, fileStream*/);
                   }
                 }, onError: (error) {
                   // print(
